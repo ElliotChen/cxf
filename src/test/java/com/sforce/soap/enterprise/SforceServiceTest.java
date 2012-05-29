@@ -8,11 +8,14 @@ import javax.xml.ws.BindingProvider;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.sforce.soap.enterprise.sobject.EPNProductBodyLinkC;
 import com.sforce.soap.enterprise.sobject.SObject;
 
 public class SforceServiceTest {
+	private static final Logger logger = LoggerFactory.getLogger(SforceServiceTest.class);
 //	public static final Log
 	private static Soap soap;
 	private static SessionHeader sh;
@@ -24,7 +27,7 @@ public class SforceServiceTest {
 		LoginScopeHeader lsh = new LoginScopeHeader();
 		LoginResult login = null;
 		try {
-			System.out.println("Test Begin:"+System.currentTimeMillis());
+			logger.info("Test Begin:"+System.currentTimeMillis());
 			login = soap.login("fiti02@mxic.com.tw.uat", "t27571256", lsh);
 			String surl = login.getServerUrl();
 			sh = new SessionHeader();
@@ -41,7 +44,7 @@ public class SforceServiceTest {
 	public static void after() {
 		try {
 			soap.logout(sh);
-			System.out.println("Test End:"+System.currentTimeMillis());
+			logger.info("Test End:"+System.currentTimeMillis());
 		} catch (UnexpectedErrorFault e) {
 			e.printStackTrace();
 		}
