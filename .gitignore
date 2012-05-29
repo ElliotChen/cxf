@@ -1,0 +1,6 @@
+target
+logs/
+.DS_Store
+*.log
+buildtools
+coverage.ec
