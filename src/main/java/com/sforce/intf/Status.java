@@ -1,5 +1,5 @@
 package com.sforce.intf;
 
 public enum Status {
-	Init, Available, Processing
+	Init, Available, Processing, Reading, Sending
 }
