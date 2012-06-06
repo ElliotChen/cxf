@@ -18,7 +18,7 @@ public class FormatParser {
 	List<Column> columns = new ArrayList<Column>();
 	
 	public void init() {
-		columns.add(new Column(0, "applicationIDC", "Application_ID__c", String.class));
+		columns.add(new StringColumn(0, "applicationIDC", "Application_ID__c"));
 		PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(clazz);
 		
 		for (Column col : columns) {

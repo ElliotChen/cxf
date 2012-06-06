@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sforce.parser.FormatParser;
+import com.sforce.parser.Req09Parser;
 import com.sforce.soap.enterprise.sobject.ApplicationC;
 
 public class FileReaderTest {
@@ -22,10 +22,10 @@ public class FileReaderTest {
 				System.out.println(s);
 				String[] split = s.split("\\t");
 				
-				FormatParser fp = new FormatParser();
+				Req09Parser fp = new Req09Parser();
 				fp.init();
 				ApplicationC target = fp.parse(split);
-				logger.debug("Find Source [{}]",target.getApplicationIDC().getValue());
+				logger.debug("Find Source [{}]",target);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
