@@ -64,4 +64,5 @@ public abstract class Column<T> {
 
 	public abstract Class getType();
 	public abstract T parse(String value);
+	public abstract String format(Object value);
 }

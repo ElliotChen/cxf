@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.sforce.soap.enterprise.sobject.CustomerCategoryC;
 import com.sforce.soap.enterprise.sobject.EPNProductBodyLinkC;
 import com.sforce.soap.enterprise.sobject.SObject;
 
@@ -238,13 +239,14 @@ public class SforceServiceTest {
 	}
 	
 	@Test
-	public void testReq1３() throws Exception {
+	public void testReq13() throws Exception {
 		//WHERE LastModifiedDate >= 2012-05-21T00:00:00Z
 		DescribeSObjectResult dso = soap.describeSObject("Customer_Category__c", sh, null, null);
 		System.out.println("Table Customer_Category__c");
 		for (Field field : dso.getFields()) {
 			System.out.println("	"+field.getName());
 		}
+//		CustomerCategoryC
 		/*
 		QueryResult query = conn.query("SELECT AccountId, Email, LastModifiedDate FROM EPN_Master__c");
 		SObject[] objects = query.getRecords();

@@ -15,4 +15,9 @@ public class StringColumn extends Column<String> {
 		// TODO Auto-generated method stub
 		return String.class;
 	}
+
+	@Override
+	public String format(Object value) {
+		return value == null ? "" : value.toString();
+	}
 }

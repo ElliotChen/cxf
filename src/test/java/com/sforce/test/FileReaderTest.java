@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sforce.parser.Req09Parser;
+import com.sforce.parser.Req09MasterParser;
 import com.sforce.soap.enterprise.sobject.ApplicationC;
 
 public class FileReaderTest {
@@ -22,7 +22,7 @@ public class FileReaderTest {
 				System.out.println(s);
 				String[] split = s.split("\\t");
 				
-				Req09Parser fp = new Req09Parser();
+				Req09MasterParser fp = new Req09MasterParser();
 				fp.init();
 				ApplicationC target = fp.parse(split);
 				logger.debug("Find Source [{}]",target);
@@ -30,5 +30,17 @@ public class FileReaderTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Test
+	public void testFormat() {
+		ApplicationC entity = new ApplicationC();
+		entity.setApplicationIDC("idc");
+		
+		Req09MasterParser fp = new Req09MasterParser();
+		fp.init();
+		String format = fp.format(entity);
+		logger.debug("Format application to [{}]", format);
+		logger.debug("SELECT Columns is [{}]", fp.genSQLColumn());
 	}
 }
