@@ -100,7 +100,7 @@ public class SforceServiceTest {
 		for (Field field : dso.getFields()) {
 			System.out.println("	"+field.getName());
 		}
-		QueryResult query = soap.query("SELECT AccountId, Email, LastModifiedDate FROM EPN_Master__c", sh, null, null, null);
+		QueryResult query = soap.query("SELECT EPN_Product_Type__c, PKG_Name__c, LastModifiedDate FROM EPN_Master__c", sh, null, null, null);
 		List<SObject> objects = query.getRecords();
 		System.out.println("object size["+objects.size()+"]");
 		for (SObject so : objects) {

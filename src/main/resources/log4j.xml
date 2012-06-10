@@ -28,6 +28,9 @@
 	<category name="com.sforce">
 		<level value="DEBUG" />
 	</category>
+	<category name="org.apache.cxf">
+		<level value="DEBUG" />
+	</category>
 
 	<root>
 		<priority value="info" />
