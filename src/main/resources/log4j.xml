@@ -29,7 +29,7 @@
 		<level value="DEBUG" />
 	</category>
 	<category name="org.apache.cxf">
-		<level value="DEBUG" />
+		<level value="INFO" />
 	</category>
 
 	<root>

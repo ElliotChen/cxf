@@ -74,7 +74,7 @@ public class SforceServiceTest {
 	
 	
 	@Test
-	public void testReq1() throws Exception {
+	public void testReq01() throws Exception {
 		DescribeSObjectResult dso = soap.describeSObject("Exchange_Rate__c", sh, null, null);
 		for (Field field : dso.getFields()) {
 			logger.debug("	"+field.getName());
@@ -95,13 +95,13 @@ public class SforceServiceTest {
 	}
 	
 	@Test
-	public void testReq2() throws Exception {
+	public void testReq02() throws Exception {
 		//WHERE LastModifiedDate >= 2012-05-21T00:00:00Z
 		DescribeSObjectResult dso = soap.describeSObject("EPN_Master__c", sh, null, null);
 		for (Field field : dso.getFields()) {
-			System.out.println("	"+field.getName());
+			System.out.println(field.getName());
 		}
-		QueryResult query = soap.query("SELECT EPN_Product_Type__c, PKG_Name__c, LastModifiedDate FROM EPN_Master__c", sh, null, null, null);
+		QueryResult query = soap.query("SELECT Group_Line__c,Key_sync__c,Product_Type__c,Density__c,Voltage__c,Pkg_Type__c,PKG_Name__c,Pin_Count__c,Grade__c,Car_Grade_Flag__c,Body_Size__c,Brand__c,Expired_Date__c,Mark_for_Delete__c,EOL_Flag__c,EOL_Issue_Date__c,LO_Date__c,LS_Date__c FROM EPN_Master__c", sh, null, null, null);
 		List<SObject> objects = query.getRecords();
 		System.out.println("object size["+objects.size()+"]");
 		for (SObject so : objects) {
@@ -110,25 +110,24 @@ public class SforceServiceTest {
 	}
 	
 	@Test
-	public void testReq3() throws Exception {
+	public void testReq03() throws Exception {
 		//WHERE LastModifiedDate >= 2012-05-21T00:00:00Z
 		DescribeSObjectResult dso = soap.describeSObject("EPN_Product_Body_Link__c", sh, null, null);
 		for (Field field : dso.getFields()) {
-			System.out.println("	"+field.getName());
+			System.out.println(field.getName());
 		}
-		/*
-		QueryResult query = soap.query("SELECT AccountId, Email, LastModifiedDate FROM EPN_Product_Body_Link__c", sh, null, null, null);
+		
+		QueryResult query = soap.query("SELECT Name,Product_Body__c,Mask_Opt__c,BE_Opt__c,Release_Status__c,FAB__c,Mark_for_Delete__c FROM EPN_Product_Body_Link__c", sh, null, null, null);
 		List<SObject> objects = query.getRecords();
 		System.out.println("object size["+objects.size()+"]");
 		for (SObject so : objects) {
 			System.out.println(so);
 		}
-		*/
 		
 	}
 	
 	@Test
-	public void testReq4() throws Exception {
+	public void testReq04() throws Exception {
 		//WHERE LastModifiedDate >= 2012-05-21T00:00:00Z
 		DescribeSObjectResult dso = soap.describeSObject("Competitor_price__c", sh, null, null);
 		System.out.println("Table Competitor_price__c");
@@ -151,7 +150,7 @@ public class SforceServiceTest {
 	}
 	
 	@Test
-	public void testReq5() throws Exception {
+	public void testReq05() throws Exception {
 		//WHERE LastModifiedDate >= 2012-05-21T00:00:00Z
 		DescribeSObjectResult dso = soap.describeSObject("DI__c", sh, null, null);
 		for (Field field : dso.getFields()) {
@@ -168,7 +167,7 @@ public class SforceServiceTest {
 	}
 	
 	@Test
-	public void testReq6() throws Exception {
+	public void testReq06() throws Exception {
 		//WHERE LastModifiedDate >= 2012-05-21T00:00:00Z
 		DescribeSObjectResult dso = soap.describeSObject("Opportunity_Data__c", sh, null, null);
 		System.out.println("Table Opportunity_Data__c");
@@ -186,7 +185,7 @@ public class SforceServiceTest {
 	}
 	
 	@Test
-	public void testReq7And8() throws Exception {
+	public void testReq07And08() throws Exception {
 		//WHERE LastModifiedDate >= 2012-05-21T00:00:00Z
 		DescribeSObjectResult dso = soap.describeSObject("Product_Opportunity__c", sh, null, null);
 		for (Field field : dso.getFields()) {
@@ -203,7 +202,7 @@ public class SforceServiceTest {
 	}
 	
 	@Test
-	public void testReq9() throws Exception {
+	public void testReq09() throws Exception {
 		//WHERE LastModifiedDate >= 2012-05-21T00:00:00Z
 		DescribeSObjectResult dso = soap.describeSObject("Application__c", sh, null, null);
 		System.out.println("Table Application__c");

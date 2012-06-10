@@ -6,6 +6,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.sforce.column.Column;
+import com.sforce.column.StringColumn;
 import com.sforce.soap.enterprise.sobject.ApplicationC;
 /**
  * ApplicationC
@@ -60,6 +62,7 @@ public class Req09MasterParser extends BaseParser<ApplicationC>{
 		columns.add(new StringColumn(i++, "applicationGroupIDC", "Application_Group_ID__c"));
 		columns.add(new StringColumn(i++, "applicationGroupDescC", "Application_Group_Desc__c"));
 	}
+	/*
 	public ApplicationC parse(String[] source) {
 		ApplicationC target = new ApplicationC();
 		for (Column col : columns) {
@@ -74,7 +77,7 @@ public class Req09MasterParser extends BaseParser<ApplicationC>{
 		}
 		return target;
 	}
-	
+	*/
 	public boolean accept(String[] source) {
 		if (null != source && 20 == source.length) {
 			return true;

@@ -1,16 +1,23 @@
 package com.sforce.parser;
 
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.springframework.beans.BeanUtils;
 
-import com.sforce.soap.enterprise.sobject.ApplicationC;
+import com.sforce.column.Column;
 
 public abstract class BaseParser<T> implements Parser<T>{
 	List<Column> columns = new ArrayList<Column>();
+	Class domainClass = null;
+	
+	public BaseParser() {
+		this.domainClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+	}
+	
 	public abstract Logger getLogger();
 	
 	public void init() {
@@ -18,7 +25,7 @@ public abstract class BaseParser<T> implements Parser<T>{
 			getLogger().warn("Columns is empty, using default columns configuration");
 			this.initDefaultColumns();
 		}
-		PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(ApplicationC.class);
+		PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(domainClass);
 
 		for (Column col : columns) {
 			for (PropertyDescriptor pd : propertyDescriptors) {
@@ -60,5 +67,25 @@ public abstract class BaseParser<T> implements Parser<T>{
 			}
 		}
 		return sb.toString();
+	}
+	
+	public T parse(String[] source) {
+		Object target = null;
+		try {
+			target = this.domainClass.newInstance();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		} 
+		for (Column col : columns) {
+			String s = source[col.getIndex()];
+			try {
+				if (null != col.getWriteMethod()) {
+					col.getWriteMethod().invoke(target, col.parse(s));
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return (T)target;
 	}
 }

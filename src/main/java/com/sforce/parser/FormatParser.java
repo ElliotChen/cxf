@@ -10,6 +10,8 @@ import javax.xml.namespace.QName;
 
 import org.springframework.beans.BeanUtils;
 
+import com.sforce.column.Column;
+import com.sforce.column.StringColumn;
 import com.sforce.soap.enterprise.sobject.ApplicationC;
 
 
