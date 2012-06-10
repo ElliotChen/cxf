@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.sforce.soap.enterprise.sobject.CustomerCategoryC;
 import com.sforce.soap.enterprise.sobject.EPNProductBodyLinkC;
 import com.sforce.soap.enterprise.sobject.SObject;
 
@@ -28,7 +29,7 @@ public class SforceServiceTest {
 		LoginResult login = null;
 		try {
 			logger.info("Test Begin:"+System.currentTimeMillis());
-			login = soap.login("fiti02@mxic.com.tw.uat", "t27571256", lsh);
+			login = soap.login("fiti02@mxic.com.tw.uat", "t25146875", lsh);
 			String surl = login.getServerUrl();
 			sh = new SessionHeader();
 			sh.setSessionId(login.getSessionId());
@@ -76,13 +77,13 @@ public class SforceServiceTest {
 	public void testReq1() throws Exception {
 		DescribeSObjectResult dso = soap.describeSObject("Exchange_Rate__c", sh, null, null);
 		for (Field field : dso.getFields()) {
-			System.out.println("	"+field.getName());
+			logger.debug("	"+field.getName());
 		}
 		
 		QueryResult query = soap.query("SELECT Date__c, Currency__c, Exchange_Rate__c FROM Exchange_Rate__c ", sh, null, null, null);
 		List<SObject> objects = query.getRecords();
 		for (SObject so : objects) {
-			System.out.println(so);
+			logger.debug("{}",so);
 		}
 		/*
 		query = soap.query("FROM Exchange_Rate__c WHERE CreatedDate > YESTERDAY", sh, null, null, null);
@@ -238,13 +239,14 @@ public class SforceServiceTest {
 	}
 	
 	@Test
-	public void testReq1３() throws Exception {
+	public void testReq13() throws Exception {
 		//WHERE LastModifiedDate >= 2012-05-21T00:00:00Z
 		DescribeSObjectResult dso = soap.describeSObject("Customer_Category__c", sh, null, null);
 		System.out.println("Table Customer_Category__c");
 		for (Field field : dso.getFields()) {
 			System.out.println("	"+field.getName());
 		}
+//		CustomerCategoryC
 		/*
 		QueryResult query = conn.query("SELECT AccountId, Email, LastModifiedDate FROM EPN_Master__c");
 		SObject[] objects = query.getRecords();

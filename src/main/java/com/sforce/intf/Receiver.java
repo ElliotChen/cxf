@@ -3,6 +3,7 @@ package com.sforce.intf;
 import java.io.File;
 import java.util.List;
 
-public interface Receiver extends Component  {
+public interface Receiver  {
+	boolean receive();
 	List<File> getResult();
 }
