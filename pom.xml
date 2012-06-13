@@ -99,6 +99,11 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.resource</groupId>
+			<artifactId>connector-api</artifactId>
+			<version>1.6-alpha-1</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>cxf</finalName>
