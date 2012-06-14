@@ -15,5 +15,6 @@
 	<classpathentry kind="lib" path="lib/com.ibm.mq.jms.Nojndi.jar"/>
 	<classpathentry kind="lib" path="lib/com.ibm.mq.soap.jar"/>
 	<classpathentry kind="lib" path="lib/com.ibm.mqjms.jar"/>
+	<classpathentry kind="lib" path="lib/connector.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

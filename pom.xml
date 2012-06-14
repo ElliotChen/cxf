@@ -12,6 +12,7 @@
 		<cxf.version>2.6.0</cxf.version>
 		<spring.version>3.0.7.RELEASE</spring.version>
 		<slf4j.version>1.6.4</slf4j.version>
+		<mq.version>5.3.07</mq.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -104,6 +105,28 @@
 			<artifactId>connector-api</artifactId>
 			<version>1.6-alpha-1</version>
 		</dependency>
+		<!-- 
+		<dependency>
+			<groupId>com.ibm</groupId>
+			<artifactId>com.ibm.mq</artifactId>
+			<version>${mq.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.ibm</groupId>
+			<artifactId>com.ibm.mqbind</artifactId>
+			<version>${mq.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.ibm</groupId>
+			<artifactId>com.ibm.mqjms</artifactId>
+			<version>${mq.version}</version>
+		</dependency>
+		<dependency>
+            <groupId>javax.resource</groupId>
+            <artifactId>connector</artifactId>
+            <version>1.0</version>
+        </dependency>
+         -->
 	</dependencies>
 	<build>
 		<finalName>cxf</finalName>
