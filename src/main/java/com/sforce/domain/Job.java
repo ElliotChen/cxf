@@ -19,12 +19,12 @@ public class Job extends AbstractStrOidAuditable {
 	
 	@Column(name = "MQ_ID", length = 50)
 	private String mqId;
-	
+	/*
 	@Column(name = "MQ_BASE64_ID", length = 100)
 	private String mqBase64Id;
-	
-	@Column(name="LOCATION", length=400)
-	private String location;
+	*/
+	@Column(name="ABSOLUTE_PATH", length=400)
+	private String absolutePath;
 
 	public String getComponent() {
 		return component;
@@ -49,7 +49,7 @@ public class Job extends AbstractStrOidAuditable {
 	public void setMqId(String mqId) {
 		this.mqId = mqId;
 	}
-
+	/*
 	public String getMqBase64Id() {
 		return mqBase64Id;
 	}
@@ -57,14 +57,23 @@ public class Job extends AbstractStrOidAuditable {
 	public void setMqBase64Id(String mqBase64Id) {
 		this.mqBase64Id = mqBase64Id;
 	}
+	*/
 
-	public String getLocation() {
-		return location;
+	public String getAbsolutePath() {
+		return absolutePath;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
+	public void setAbsolutePath(String absolutePath) {
+		this.absolutePath = absolutePath;
+	}
+
+	@Override
+	public String toString() {
+		return "Job [component=" + component + ", state=" + state + ", mqId="
+				+ mqId + ", absolutePath=" + absolutePath + ", oid=" + oid
+				+ "]";
 	}
 	
 	
+
 }

@@ -17,6 +17,10 @@ public abstract class DateUtils {
 	
 	private static ThreadLocal<SimpleDateFormat> defaultTimeFormat = new ThreadLocal<SimpleDateFormat>();
 	
+	private static ThreadLocal<SimpleDateFormat> defaultMessageIdFormat = new ThreadLocal<SimpleDateFormat>();
+	
+	private static ThreadLocal<SimpleDateFormat> defaultPathFormat = new ThreadLocal<SimpleDateFormat>();
+	
 	public static final SimpleDateFormat getDefaultDateFormat() {
 		if (null == defaultDateFormat.get()) {
 			defaultDateFormat.set(new SimpleDateFormat("yyyyMMdd"));
@@ -39,6 +43,22 @@ public abstract class DateUtils {
 		}
 		
 		return defaultDateTimeFormat.get();
+	}
+	
+	public static final SimpleDateFormat getDefaultMessageIdFormat() {
+		if (null == defaultMessageIdFormat.get()) {
+			defaultMessageIdFormat.set(new SimpleDateFormat("yyyyMMdd_HHmmss"));
+		}
+		
+		return defaultMessageIdFormat.get();
+	}
+	
+	public static final SimpleDateFormat getDefaultPathFormat() {
+		if (null == defaultPathFormat.get()) {
+			defaultPathFormat.set(new SimpleDateFormat("yyyy/MM/dd"));
+		}
+		
+		return defaultPathFormat.get();
 	}
 	
 	public static final Date pareseDate(String date) {
@@ -65,6 +85,18 @@ public abstract class DateUtils {
 	
 	public static final String formatDate(Date date) {
 		return getDefaultDateFormat().format(date);
+	}
+	
+	public static final String formatDateTime(Date date) {
+		return getDefaultDateTimeFormat().format(date);
+	}
+	
+	public static final String formatMessageId(Date date) {
+		return getDefaultMessageIdFormat().format(date);
+	}
+	
+	public static final String formatPath(Date date) {
+		return getDefaultPathFormat().format(date);
 	}
 	
 	public static final Date begin(Date date) {

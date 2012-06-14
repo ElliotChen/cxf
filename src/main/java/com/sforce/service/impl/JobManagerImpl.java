@@ -33,7 +33,7 @@ public class JobManagerImpl extends AbstractDomainService<JobDao, Job, String>
 	public Job occupyFirstJob(String component) {
 		Job example = new Job();
 		example.setComponent(component);
-		
+		example.setState(JobState.Created);
 		List<Job> jobs = this.dao.listByExample(example, null, null, new String[] {"createdDate"}, null);
 		
 		if (jobs.isEmpty()) {
@@ -45,5 +45,17 @@ public class JobManagerImpl extends AbstractDomainService<JobDao, Job, String>
 		this.dao.update(job);
 		
 		return job;
+	}
+	
+	@Transactional(readOnly=false)
+	public void closeJob(String jobOid) {
+		Job job = this.dao.findByOid(jobOid);
+		if (null == job) {
+			logger.error("Can't find Job with oid[{}]", jobOid);
+			return;
+		}
+		job.setState(JobState.Closed);
+		
+		this.dao.update(job);
 	}
 }

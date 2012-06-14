@@ -1,82 +1,142 @@
 package com.sforce.intf.impl;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
+import com.ctc.wstx.util.StringUtil;
+import com.ibm.mq.MQException;
 import com.ibm.mq.MQGetMessageOptions;
 import com.ibm.mq.MQMessage;
 import com.ibm.mq.MQQueue;
 import com.ibm.mq.MQQueueManager;
+import com.sforce.domain.Job;
+import com.sforce.domain.JobState;
 import com.sforce.intf.Receiver;
+import com.sforce.service.JobManager;
+import com.sforce.util.DateUtils;
 
-public class MqReceiver implements Receiver {
+public class MqReceiver extends MqConnector implements Receiver {
+	private static final Logger logger = LoggerFactory.getLogger(MqReceiver.class);
 	@Autowired
 	private MQGetMessageOptions messageOptions;
-	private String queueManager = "QM_ec_a7c8a3d2f30e";
-	private int option = 1;
-	private String queueName = "EC";
+	@Autowired
+	private JobManager jobManager;
+	@Value("${file.parent.path}")
+	private String parentPath;
 	private List<File> files = new ArrayList<File>();
 
 	@Override
 	public boolean receive() {
-
+		logger.info("Executing MqReceiver.receive() of Component[{}]", this.component);
+		MQQueueManager mqQueueManager = null;
+		MQQueue queue = null;
 		try {
-			MQQueueManager mqQueueManager = new MQQueueManager(queueManager);
-			MQQueue queue = mqQueueManager.accessQueue(queueName, option);
-			MQMessage message = new MQMessage();
-			queue.get(message, messageOptions);
-			System.out.println(Base64.encodeBase64URLSafeString(message.messageId));
-			int length = message.getMessageLength();
-			byte[] data = new byte[length];
-			message.readFully(data);
-			System.out.println(new String(data));
-			queue.close();
-			mqQueueManager.disconnect();
+			mqQueueManager = new MQQueueManager(queueManagerName);
+			queue = mqQueueManager.accessQueue(queueName, option);
+
+			boolean empty = false;
+			byte[] lastMessageId = new byte[0];
+			List<Job> jobs = new ArrayList<Job>();
+			while (!empty) {
+				MQMessage message = new MQMessage();
+				try {
+					queue.get(message, messageOptions);
+				} catch (MQException mqe) {
+					logger.warn("MQException Code[{}]", mqe.reasonCode);
+					empty = true;
+					break;
+				}
+				byte[] messageId = message.messageId;
+				logger.debug("Message Info  cid[{}], seq[{}]", message.correlationId,message.messageSequenceNumber);
+				if (!Arrays.equals(messageId, lastMessageId)) {
+					initNewJob(jobs, message);
+					lastMessageId = messageId;
+				} else {
+					appendData(jobs, message);
+				}
+			}
+			
+			for (Job job : jobs) {
+				jobManager.create(job);
+				logger.info("Create {} for Component[{}]", job, this.component);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			closeQueue(queue);
+			closeQueueManager(mqQueueManager);
 		}
 		return true;
 	}
 
+	private void initNewJob(List<Job> jobs, MQMessage message) {
+		String messageId = new String(message.messageId);
+		Job job = new Job();
+		job.setComponent(component);
+		job.setMqId(messageId);
+		job.setState(JobState.Created);
+		String folderPath = this.parentPath + "/"+this.component+"/"+DateUtils.formatPath(new Date())+"/";
+		String fileName = messageId;
+
+//		String filePath = folderPath+messageId+".txt";
+		File file = new File(folderPath, fileName);
+		if (file.exists()) {
+			logger.error("Can't override exist file[{}]", file.getAbsolutePath());
+			//TODO
+			return;
+		}
+		try {
+			job.setAbsolutePath(file.getAbsolutePath());
+			byte[] data = new byte[message.getMessageLength()];
+			message.readFully(data);
+			FileUtils.writeByteArrayToFile(file, data);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		jobs.add(job);
+	}
+	
+	private void appendData(List<Job> jobs, MQMessage message) {
+		String messageId = new String(message.messageId);
+		Job job = null;
+		for (Job iter : jobs) {
+			if (messageId.equals(iter.getMqId())) {
+				job = iter;
+				break;
+			}
+		}
+
+		if (null == job || StringUtils.isEmpty(job.getAbsolutePath())) {
+			logger.error("Can't append data with messageId[{}]", messageId);
+			return;
+		}
+
+		try {
+			File target = new File(job.getAbsolutePath());
+			byte[] data = new byte[message.getMessageLength()];
+			message.readFully(data);
+			FileUtils.writeByteArrayToFile(target, data, true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	@Override
 	public List<File> getResult() {
 		return files;
-	}
-
-	public String getQueueName() {
-		return queueName;
-	}
-
-	public void setQueueName(String queueName) {
-		this.queueName = queueName;
-	}
-
-	public String getQueueManager() {
-		return queueManager;
-	}
-
-	public void setQueueManager(String queueManager) {
-		this.queueManager = queueManager;
-	}
-
-	public int getOption() {
-		return option;
-	}
-
-	public void setOption(int option) {
-		this.option = option;
-	}
-
-	public MQGetMessageOptions getMessageOptions() {
-		return messageOptions;
-	}
-
-	public void setMessageOptions(MQGetMessageOptions messageOptions) {
-		this.messageOptions = messageOptions;
 	}
 
 }

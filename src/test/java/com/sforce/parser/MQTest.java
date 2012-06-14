@@ -22,7 +22,7 @@ public class MQTest {
 		MQEnvironment.port = 1414;
 		MQEnvironment.CCSID = 950;
 		MQGetMessageOptions options = new MQGetMessageOptions();
-		options.options = MQC.MQGMO_WAIT + MQC.MQGMO_CONVERT
+		options.options = MQC.MQGMO_NO_WAIT + MQC.MQGMO_CONVERT
 				+ MQC.MQGMO_FAIL_IF_QUIESCING + MQC.MQGMO_SYNCPOINT;
 		options.waitInterval = 15000;
 		MQQueueManager mqQueueManager = new MQQueueManager("QM_ec_a7c8a3d2f30e");

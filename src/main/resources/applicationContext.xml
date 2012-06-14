@@ -80,11 +80,20 @@
 	<task:scheduled-tasks scheduler="scheduler">
 		<task:scheduled ref="articleService" method="expire" cron="0 */2 * * * *"/>
 	</task:scheduled-tasks> -->
-	
-	<bean id="req01Receiver" class="com.sforce.intf.impl.MqReceiver">
+	<bean id="mqReceiver" abstract="true">
+		<property name="queueManagerName" value="${mq.queueManagerName}"/>
+		<property name="option" value="1"/>
+	</bean>
+	<bean id="mqSender" abstract="true">
+		<property name="queueManagerName" value="${mq.queueManagerName}"/>
+		<property name="option" value="8208"/>
+	</bean>
+	<bean id="req01Receiver" class="com.sforce.intf.impl.MqReceiver" parent="mqReceiver">
+		<property name="component" value="REQ01" />
 		<property name="queueName" value="EC" />
 	</bean>
-	<bean id="req01Sender" class="com.sforce.intf.impl.MqSender">
+	<bean id="req01Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
+		<property name="component" value="REQ01" />
 		<property name="queueName" value="EC" />
 	</bean>
 </beans>
