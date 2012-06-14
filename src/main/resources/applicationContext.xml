@@ -2,13 +2,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jee="http://www.springframework.org/schema/jee"
-	xmlns:cache="http://www.springframework.org/schema/cache"
 	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
-	http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
 	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
 	<context:property-placeholder location="classpath:system.properties" />
@@ -21,7 +19,7 @@
 		<property name="password" value="${jdbc.password}" />
 	</bean> -->
 	<!-- BoneCP -->
-	<!--  -->
+	<!-- -->
 	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
 		<property name="driverClass" value="${jdbc.driverClass}" />
 		<property name="jdbcUrl" value="${jdbc.url}" />
@@ -30,7 +28,7 @@
 		<property name="maxConnectionsPerPartition" value="${jdbc.max.connection}"/>
 		<property name="minConnectionsPerPartition" value="${jdbc.min.connection}"/>
 	</bean>
-	<!-- 
+	
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="hibernateProperties">
@@ -40,42 +38,31 @@
 				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
 				<prop key="hibernate.generate_statistics">${hibernate.generate_statistics}</prop>
 				<prop key="hibernate.cache.provider_class">${hibernate.cache.provider_class}</prop>
-				 -->
-				
-				<!-- 
 				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<!-- 
 				<prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
 				<prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_second_level_cache}</prop>
 				-->
-				<!--
 			</props>
 		</property>
-		<property name="packagesToScan" value="tw.com.dsc.domain" />
+		<property name="packagesToScan" value="com.sforce.domain" />
 	</bean>
+	<!-- 
 	<bean id="articleIdSeq" class="org.springframework.jdbc.support.incrementer.OracleSequenceMaxValueIncrementer">
 		<property name="dataSource" ref="dataSource" />
 		<property name="incrementerName" value="SEQ_ARTICLE_ID" />
 		<property name="paddingLength" value="6"/>
 	</bean>
 	 -->
-
+	 
 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
-		<property name="cacheManager" ref="ehcache" />
-	</bean>
-	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-		<property name="configLocation" value="classpath:ehcache.xml" />
-	</bean>
-	
-	
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
-	
+	 
 	<context:annotation-config />
 	<context:component-scan base-package="com.sforce" />
 	
-	<cache:annotation-driven cache-manager="cacheManager"/>
 	
 	
 	
@@ -89,7 +76,15 @@
 		</property>
 	</bean>
 	<task:scheduler id="scheduler" pool-size="10" />
+	<!-- 
 	<task:scheduled-tasks scheduler="scheduler">
 		<task:scheduled ref="articleService" method="expire" cron="0 */2 * * * *"/>
-	</task:scheduled-tasks>
+	</task:scheduled-tasks> -->
+	
+	<bean id="req01Receiver" class="com.sforce.intf.impl.MqReceiver">
+		<property name="queueName" value="EC" />
+	</bean>
+	<bean id="req01Sender" class="com.sforce.intf.impl.MqSender">
+		<property name="queueName" value="EC" />
+	</bean>
 </beans>

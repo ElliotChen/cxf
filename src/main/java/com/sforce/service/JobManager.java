@@ -1,5 +1,7 @@
 package com.sforce.service;
 
-public interface JobManager {
+import com.sforce.domain.Job;
 
+public interface JobManager extends BaseDomainService<Job, String> {
+	Job occupyFirstJob(String component);
 }
