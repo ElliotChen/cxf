@@ -21,6 +21,9 @@ public class SfConnector {
 	protected Boolean connected = Boolean.FALSE;
 	protected String account;
 	protected String password;
+	
+	protected String component = "REQ01";
+	
 	public void connect() {
 		SforceService sf = new SforceService();
 		soap = sf.getSoap();
@@ -88,4 +91,14 @@ public class SfConnector {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public String getComponent() {
+		return component;
+	}
+
+	public void setComponent(String component) {
+		this.component = component;
+	}
+	
+	
 }

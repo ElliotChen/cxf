@@ -68,12 +68,7 @@ public class MqSender extends MqConnector implements Sender {
 		
 		return false;
 	}
-
-	@Override
-	public boolean initSource(List<File> source) {
-		return false;
-	}
-
+	
 	public MQGetMessageOptions getMessageOptions() {
 		return messageOptions;
 	}

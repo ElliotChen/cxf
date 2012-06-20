@@ -19,7 +19,7 @@ public class BaseComponent implements Component {
 		return null;
 	}
 	@Override
-	public Boolean trigger() {
+	public void run() {
 		this.status = Status.Reading;
 		try {
 			this.receiver.receive();
@@ -33,7 +33,7 @@ public class BaseComponent implements Component {
 			e.printStackTrace();
 		}
 		this.status = Status.Available;
-		return true;
+//		return true;
 	}
 	@Override
 	public Boolean isAvailable() {
@@ -52,4 +52,9 @@ public class BaseComponent implements Component {
 		this.sender = sender;
 	}
 	
+	
+	public String getInfo() {
+		return "SFDC -> MQ";
+	}
+
 }
