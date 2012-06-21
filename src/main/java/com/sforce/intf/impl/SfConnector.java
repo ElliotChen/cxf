@@ -23,7 +23,7 @@ public class SfConnector {
 	protected String password;
 	
 	protected String component = "REQ01";
-	
+	protected Boolean debugMode = Boolean.FALSE;
 	public void connect() {
 		SforceService sf = new SforceService();
 		soap = sf.getSoap();
@@ -39,17 +39,20 @@ public class SfConnector {
 			requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, surl);
 			connected = Boolean.TRUE;
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("[{}] Connect to SalesForce failed", this.component);
+			logger.error("message:", e);
+			connected = Boolean.FALSE;
 		}
 	}
 	
 	public void disconnect() {
 		try {
 			soap.logout(sh);
-			connected = Boolean.FALSE;
 		} catch (UnexpectedErrorFault e) {
-			e.printStackTrace();
+			logger.error("[{}] Disconnect from SalesForce failed", this.component);
+			logger.error("message:", e);
 		}
+		connected = Boolean.FALSE;
 	}
 
 	public Soap getSoap() {
@@ -99,6 +102,13 @@ public class SfConnector {
 	public void setComponent(String component) {
 		this.component = component;
 	}
-	
+
+	public Boolean getDebugMode() {
+		return debugMode;
+	}
+
+	public void setDebugMode(Boolean debugMode) {
+		this.debugMode = debugMode;
+	}
 	
 }

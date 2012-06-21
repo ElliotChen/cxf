@@ -19,7 +19,7 @@ public abstract class BaseParser<T> implements Parser<T>{
 	}
 	
 	public abstract Logger getLogger();
-	
+	public abstract void buildSyncKey(T entity);
 	public void init() {
 		if (columns.isEmpty()) {
 			getLogger().warn("Columns is empty, using default columns configuration");
@@ -86,6 +86,8 @@ public abstract class BaseParser<T> implements Parser<T>{
 				e.printStackTrace();
 			}
 		}
+		
+		this.buildSyncKey((T)target);
 		return (T)target;
 	}
 }

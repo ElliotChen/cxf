@@ -95,11 +95,7 @@ public abstract class AbstractBaseDao<T extends Identifiable<Oid>, Oid extends S
 			MatchMode matchMode = this.getMatchMode(likeMode);
 			criteria.add(createExample(example, matchMode));
 			if (null != example.getOid()) {
-				if (LikeMode.ANYWHERE == likeMode) {
-					criteria.add(Restrictions.like("oid", "%"+example.getOid()+"%"));
-				} else {
-					criteria.add(Restrictions.idEq(example.getOid()));
-				}
+				criteria.add(Restrictions.idEq(example.getOid()));
 			}
 			this.addConditions(criteria, conditions);
 			this.postCreateCriteria(criteria, example, matchMode);

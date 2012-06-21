@@ -1,9 +1,7 @@
 package com.sforce.mock;
 
-import java.io.File;
-import java.util.List;
-
 import com.sforce.intf.Sender;
+import com.sforce.intf.impl.InitConfig;
 
 public class MockSender implements Sender {
 
@@ -12,4 +10,7 @@ public class MockSender implements Sender {
 		return true;
 	}
 
+	public void init(InitConfig config) {
+		
+	}
 }

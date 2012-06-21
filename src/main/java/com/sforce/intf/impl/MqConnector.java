@@ -9,6 +9,8 @@ public abstract class MqConnector {
 	protected String queueManagerName = "QM_ec_a7c8a3d2f30e";
 	protected int option = 8208;
 	protected String queueName = "EC";
+	
+	protected Boolean debugMode = Boolean.FALSE;
 	public String getComponent() {
 		return component;
 	}
@@ -57,4 +59,12 @@ public abstract class MqConnector {
 			e.printStackTrace();
 		}
 	}
+	public Boolean getDebugMode() {
+		return debugMode;
+	}
+	public void setDebugMode(Boolean debugMode) {
+		this.debugMode = debugMode;
+	}
+	
+	
 }

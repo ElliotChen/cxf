@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ public abstract class DateUtils {
 	
 	public static final SimpleDateFormat getDefaultDateFormat() {
 		if (null == defaultDateFormat.get()) {
-			defaultDateFormat.set(new SimpleDateFormat("yyyyMMdd"));
+			defaultDateFormat.set(new SimpleDateFormat("yyyyMMdd", Locale.TAIWAN));
 		}
 		
 		return defaultDateFormat.get();
@@ -31,7 +32,7 @@ public abstract class DateUtils {
 	
 	public static final SimpleDateFormat getDefaultTimeFormat() {
 		if (null == defaultTimeFormat.get()) {
-			defaultTimeFormat.set(new SimpleDateFormat("HHmmss"));
+			defaultTimeFormat.set(new SimpleDateFormat("HHmmss", Locale.TAIWAN));
 		}
 		
 		return defaultTimeFormat.get();
@@ -39,7 +40,7 @@ public abstract class DateUtils {
 	
 	public static final SimpleDateFormat getDefaultDateTimeFormat() {
 		if (null == defaultDateTimeFormat.get()) {
-			defaultDateTimeFormat.set(new SimpleDateFormat("yyyyMMdd HHmmss"));
+			defaultDateTimeFormat.set(new SimpleDateFormat("yyyyMMdd HHmmss", Locale.TAIWAN));
 		}
 		
 		return defaultDateTimeFormat.get();

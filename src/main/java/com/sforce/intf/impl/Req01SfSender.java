@@ -20,11 +20,11 @@ import com.sforce.soap.enterprise.sobject.ExchangeRateC;
 import com.sforce.soap.enterprise.sobject.SObject;
 import com.sforce.util.DateUtils;
 
-public class SfSender extends SfConnector implements Sender {
-	private static final Logger logger = LoggerFactory.getLogger(SfSender.class);
+public class Req01SfSender extends SfConnector implements Sender {
+	private static final Logger logger = LoggerFactory.getLogger(Req01SfSender.class);
 	@Autowired
 	protected JobManager jobManager;
-	private List<Parser<?>> parsers;
+	private List<Parser> parsers;
 	private List<SObject> objs = new ArrayList<SObject>();
 	@Override
 	public boolean send() {
@@ -49,20 +49,22 @@ public class SfSender extends SfConnector implements Sender {
 				for (String s : lines) {
 					String[] split = s.split("\\t");
 					ExchangeRateC target = null;
-					Parser parser = null;
-					for (Parser p : this.parsers) {
-						if (p.accept(split)) {
-							parser = p;
+					for (Parser parser : this.parsers) {
+						if (parser.accept(split)) {
+							target = (ExchangeRateC) parser.parse(split);
 							break;
 						}
 					}
-					target = (ExchangeRateC) parser.parse(split);
 					if (null == target) {
 						logger.error("Unknown source[{}]",s);
 						continue;
 					}
-					
-					objs.add(target);
+					if (null != target.getDateC() && StringUtils.isNotEmpty(target.getCurrencyC())) {
+						target.setKeySyncC(DateUtils.formatDate(target.getDateC())+target.getCurrencyC());
+						objs.add(target);
+					} else {
+						logger.error("Key column date[{}], currency[{}] can't be empty", target.getDateC(), target.getCurrencyC());
+					}
 					logger.debug("Find Source [{}]", target);
 				}
 				if (objs.isEmpty()) {
@@ -102,11 +104,11 @@ public class SfSender extends SfConnector implements Sender {
 		}
 	}
 
-	public List<Parser<?>> getParsers() {
+	public List<Parser> getParsers() {
 		return parsers;
 	}
 
-	public void setParsers(List<Parser<?>> parsers) {
+	public void setParsers(List<Parser> parsers) {
 		this.parsers = parsers;
 	}
 }

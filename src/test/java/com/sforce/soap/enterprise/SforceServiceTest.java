@@ -80,7 +80,7 @@ public class SforceServiceTest {
 			logger.debug("	"+field.getName());
 		}
 		
-		QueryResult query = soap.query("SELECT Date__c, Currency__c, Exchange_Rate__c FROM Exchange_Rate__c ", sh, null, null, null);
+		QueryResult query = soap.query("SELECT Date__c, Currency__c, Exchange_Rate__c, Key_sync__c FROM Exchange_Rate__c ", sh, null, null, null);
 		List<SObject> objects = query.getRecords();
 		for (SObject so : objects) {
 			logger.debug("{}",so);
@@ -246,14 +246,12 @@ public class SforceServiceTest {
 			System.out.println("	"+field.getName());
 		}
 //		CustomerCategoryC
-		/*
-		QueryResult query = conn.query("SELECT AccountId, Email, LastModifiedDate FROM EPN_Master__c");
-		SObject[] objects = query.getRecords();
-		System.out.println("object size["+objects.length+"]");
+		QueryResult query = soap.query("SELECT CUSTOMER__c, GLOBAL_ACCT__c, HIGH_DEN_ACCT__c, BASELINE_ACCT__c, AEB_P1_ACCT__c, AEB_P2_ACCT__c FROM Customer_Category__c ", sh, null, null, null);
+		List<SObject> objects = query.getRecords();
 		for (SObject so : objects) {
-			System.out.println(so);
+			logger.debug("{}",so);
 		}
-		*/
+		
 	}
 	
 	@Test

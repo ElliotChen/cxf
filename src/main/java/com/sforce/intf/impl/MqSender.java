@@ -56,7 +56,12 @@ public class MqSender extends MqConnector implements Sender {
 				logger.info("Component[{}] add [{}] messages with id[{}]", new Object[] {this.component, messages.size(), new String(messageId)});
 				
 				logger.info("Closing {}", job);
-				this.jobManager.closeJob(job.getOid());
+				if (this.debugMode) {
+					this.jobManager.release(job);
+				} else {
+					this.jobManager.finish(job);
+				}
+				
 			}
 
 		} catch (Exception e) {
@@ -115,6 +120,11 @@ public class MqSender extends MqConnector implements Sender {
 		}
 		
 		
+	}
+	
+	public void init(InitConfig config) {
+		this.component = config.getName();
+		this.debugMode = config.getDebugMode();
 	}
 
 }

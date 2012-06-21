@@ -65,7 +65,7 @@
 	
 	
 	
-	
+	<!--  -->
 	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
 		<property name="corePoolSize" value="5" />
 		<property name="maxPoolSize" value="20" />
@@ -78,8 +78,9 @@
 	<task:scheduler id="scheduler" pool-size="10" />
 	<!-- 
 	<task:scheduled-tasks scheduler="scheduler">
-		<task:scheduled ref="articleService" method="expire" cron="0 */2 * * * *"/>
-	</task:scheduled-tasks> -->
+		<task:scheduled ref="mockComponent" cron="*/10 * * * * *" method="run"/>
+	</task:scheduled-tasks>
+	 -->
 	<bean id="mqReceiver" abstract="true">
 		<property name="queueManagerName" value="${mq.queueManagerName}"/>
 		<property name="option" value="1"/>
@@ -88,12 +89,41 @@
 		<property name="queueManagerName" value="${mq.queueManagerName}"/>
 		<property name="option" value="8208"/>
 	</bean>
-	<bean id="req01Receiver" class="com.sforce.intf.impl.MqReceiver" parent="mqReceiver">
-		<property name="component" value="REQ01" />
+	<bean id="req01MockReceiver" class="com.sforce.intf.impl.MqReceiver" parent="mqReceiver">
+		<property name="component" value="req01" />
 		<property name="queueName" value="EC" />
 	</bean>
-	<bean id="req01Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
-		<property name="component" value="REQ01" />
+	<bean id="req01MockSender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
+		<property name="component" value="req01" />
 		<property name="queueName" value="EC" />
+	</bean>
+	<bean id="mockComponent" class="com.sforce.intf.impl.BaseComponent">
+		<property name="name" value="req01" />
+		<property name="debug" value="true" />
+		<property name="receiver">
+			<bean class="com.sforce.mock.MockReceiver" />
+		</property>
+		<property name="sender">
+			<bean class="com.sforce.mock.MockSender" />
+		</property>
+	</bean>
+	
+	
+	<bean id="req01" class="com.sforce.intf.impl.BaseComponent">
+		<property name="name" value="req01" />
+		<property name="debug" value="true" />
+		<property name="receiver">
+			<bean class="com.sforce.mock.MockReceiver" />
+		</property>
+		<property name="sender" ref="req01Sender" />
+	</bean>
+	<bean id="req01Sender" class="com.sforce.intf.impl.SfSender">
+		<property name="parsers">
+			<list>
+				<ref bean="req01MasterParser"/>
+			</list>
+		</property>
+	</bean>
+	<bean id="req01MasterParser" class="com.sforce.parser.Req01MasterParser">
 	</bean>
 </beans>

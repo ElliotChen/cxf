@@ -139,4 +139,7 @@ public class MqReceiver extends MqConnector implements Receiver {
 		return files;
 	}
 
+	public void init(InitConfig config) {
+		
+	}
 }
