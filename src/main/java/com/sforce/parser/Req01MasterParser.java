@@ -47,4 +47,5 @@ public class Req01MasterParser extends BaseParser<ExchangeRateC> {
 		}
 	}
 
+	
 }

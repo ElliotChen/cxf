@@ -89,35 +89,34 @@
 		<property name="queueManagerName" value="${mq.queueManagerName}"/>
 		<property name="option" value="8208"/>
 	</bean>
-	<bean id="req01MockReceiver" class="com.sforce.intf.impl.MqReceiver" parent="mqReceiver">
-		<property name="component" value="req01" />
-		<property name="queueName" value="EC" />
-	</bean>
+	
 	<bean id="req01MockSender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
 		<property name="component" value="req01" />
 		<property name="queueName" value="EC" />
 	</bean>
+	<bean id="mockReceiver" class="com.sforce.mock.MockReceiver" />
+	<bean id="mockSender" class="com.sforce.mock.MockSender" />
+	
 	<bean id="mockComponent" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req01" />
 		<property name="debug" value="true" />
-		<property name="receiver">
-			<bean class="com.sforce.mock.MockReceiver" />
-		</property>
-		<property name="sender">
-			<bean class="com.sforce.mock.MockSender" />
-		</property>
+		<property name="receiver" ref="mockReceiver" />
+		<property name="sender" ref="mockSender" />
 	</bean>
 	
-	
+	<!-- Exchange Rate, SAP -> SFDC, 自動, 每日一次 -->
 	<bean id="req01" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req01" />
 		<property name="debug" value="true" />
-		<property name="receiver">
-			<bean class="com.sforce.mock.MockReceiver" />
-		</property>
+		<property name="receiver" ref="mockReceiver" />
 		<property name="sender" ref="req01Sender" />
+		<property name="info" value="Exchange Rate, SAP -> SFDC, 自動, 每日一次" />
+	</bean>
+	<bean id="req01Receiver" class="com.sforce.intf.impl.MqReceiver" parent="mqReceiver">
+		<property name="queueName" value="EC" />
 	</bean>
 	<bean id="req01Sender" class="com.sforce.intf.impl.SfSender">
+		<property name="syncKey" value="Key_sync__c"/>
 		<property name="parsers">
 			<list>
 				<ref bean="req01MasterParser"/>
@@ -125,5 +124,75 @@
 		</property>
 	</bean>
 	<bean id="req01MasterParser" class="com.sforce.parser.Req01MasterParser">
+		<property name="syncKey" value="Key_sync__c"/>
+	</bean>
+	
+	<!-- EPN Master, SAP -> SFDC, 自動/手動, 每日6次(每4小時一次) -->
+	<bean id="req02" class="com.sforce.intf.impl.BaseComponent">
+		<property name="name" value="req02" />
+		<property name="debug" value="true" />
+		<property name="receiver" ref="mockReceiver" />
+		<property name="sender" ref="req02Sender" />
+		<property name="info" value="EPN Master, SAP -> SFDC, 自動/手動, 每日6次(每4小時一次)" />
+	</bean>
+	<bean id="req02Receiver" class="com.sforce.intf.impl.MqReceiver" parent="mqReceiver">
+		<property name="queueName" value="EC" />
+	</bean>
+	<bean id="req02Sender" class="com.sforce.intf.impl.SfSender">
+		<property name="syncKey" value="Key_sync__c"/>
+		<property name="parsers">
+			<list>
+				<ref bean="req02MasterParser"/>
+			</list>
+		</property>
+	</bean>
+	<bean id="req02MasterParser" class="com.sforce.parser.Req02MasterParser">
+		<property name="syncKey" value="Key_sync__c"/>
+	</bean>
+	
+	<!-- EPN Product Body Link, SAP -> SFDC, 自動/手動, 每日6次(每4小時一次) -->
+	<bean id="req03" class="com.sforce.intf.impl.BaseComponent">
+		<property name="name" value="req03" />
+		<property name="debug" value="true" />
+		<property name="receiver" ref="mockReceiver" />
+		<property name="sender" ref="req03Sender" />
+		<property name="info" value="EPN Product Body Link, SAP -> SFDC, 自動/手動, 每日6次(每4小時一次)" />
+	</bean>
+	<bean id="req03Receiver" class="com.sforce.intf.impl.MqReceiver" parent="mqReceiver">
+		<property name="queueName" value="EC" />
+	</bean>
+	<bean id="req03Sender" class="com.sforce.intf.impl.SfSender">
+		<property name="syncKey" value="Key_sync__c"/>
+		<property name="parsers">
+			<list>
+				<ref bean="req03MasterParser"/>
+			</list>
+		</property>
+	</bean>
+	<bean id="req03MasterParser" class="com.sforce.parser.Req03MasterParser">
+		<property name="syncKey" value="Key_sync__c"/>
+	</bean>
+	
+	<!-- PDI MP Order Ack, SAP -> SFDC, 自動, 即時 -->
+	<bean id="req08" class="com.sforce.intf.impl.BaseComponent">
+		<property name="name" value="req08" />
+		<property name="debug" value="false" />
+		<property name="receiver" ref="mockReceiver" />
+		<property name="sender" ref="req08Sender" />
+		<property name="info" value="PDI MP Order Ack, SAP -> SFDC, 自動, 即時" />
+	</bean>
+	<bean id="req08Receiver" class="com.sforce.intf.impl.MqReceiver" parent="mqReceiver">
+		<property name="queueName" value="EC" />
+	</bean>
+	<bean id="req08Sender" class="com.sforce.intf.impl.SfSender">
+		<property name="syncKey" value="Id"/>
+		<property name="parsers">
+			<list>
+				<ref bean="req08MasterParser"/>
+			</list>
+		</property>
+	</bean>
+	<bean id="req08MasterParser" class="com.sforce.parser.Req08MasterParser">
+		<property name="syncKey" value="Id"/>
 	</bean>
 </beans>

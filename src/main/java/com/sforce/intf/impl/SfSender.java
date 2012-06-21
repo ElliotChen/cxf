@@ -26,6 +26,7 @@ public class SfSender extends SfConnector implements Sender {
 	protected JobManager jobManager;
 	private List<Parser<?>> parsers;
 	private List<SObject> objs = new ArrayList<SObject>();
+	private String syncKey;
 	@Override
 	public boolean send() {
 		this.connect();
@@ -48,7 +49,7 @@ public class SfSender extends SfConnector implements Sender {
 				List<String> lines = FileUtils.readLines(source);
 				for (String s : lines) {
 					String[] split = s.split("\\t");
-					ExchangeRateC target = null;
+					SObject target = null;
 					Parser parser = null;
 					for (Parser p : this.parsers) {
 						if (p.accept(split)) {
@@ -56,7 +57,11 @@ public class SfSender extends SfConnector implements Sender {
 							break;
 						}
 					}
-					target = (ExchangeRateC) parser.parse(split);
+					if (null == parser) {
+						logger.error("Unknown source[{}]",s);
+						continue;
+					}
+					target = parser.parse(split);
 					if (null == target) {
 						logger.error("Unknown source[{}]",s);
 						continue;
@@ -75,7 +80,7 @@ public class SfSender extends SfConnector implements Sender {
 						logger.debug("---- {}",so);
 					}
 				} else {
-					soap.upsert("Key_sync__c", objs , sh, null, null, null, null, null, null, null, null, null, null);
+					soap.upsert(syncKey, objs , sh, null, null, null, null, null, null, null, null, null, null);
 					this.jobManager.finish(job);
 				}
 			} catch (Exception e) {
@@ -108,5 +113,21 @@ public class SfSender extends SfConnector implements Sender {
 
 	public void setParsers(List<Parser<?>> parsers) {
 		this.parsers = parsers;
+	}
+
+	public String getSyncKey() {
+		return syncKey;
+	}
+
+	public void setSyncKey(String syncKey) {
+		this.syncKey = syncKey;
+	}
+
+	public JobManager getJobManager() {
+		return jobManager;
+	}
+
+	public void setJobManager(JobManager jobManager) {
+		this.jobManager = jobManager;
 	}
 }

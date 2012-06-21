@@ -90,4 +90,10 @@ public class Req09MasterParser extends BaseParser<ApplicationC>{
 	public Logger getLogger() {
 		return logger;
 	}
+
+	@Override
+	public void buildSyncKey(ApplicationC entity) {
+		// TODO Auto-generated method stub
+		
+	}
 }

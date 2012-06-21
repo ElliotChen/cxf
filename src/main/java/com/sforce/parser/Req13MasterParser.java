@@ -40,4 +40,10 @@ public class Req13MasterParser extends BaseParser<CustomerCategoryC>{
 		columns.add(new StringColumn(i++, "aebp2ACCTC", "AEB_P2_ACCT__c"));
 	}
 
+	@Override
+	public void buildSyncKey(CustomerCategoryC entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

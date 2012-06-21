@@ -251,9 +251,10 @@
 							<sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
 							<wsdlOptions>
 								<wsdlOption>
-									<wsdl>${basedir}/src/main/wsdl/enterprise.wsdl</wsdl>
+									<wsdl>${basedir}/src/main/resources/wsdl/enterprise.wsdl</wsdl>
+									<wsdlLocation>classpath:wsdl/enterprise.wsdl</wsdlLocation>
 									<extraargs>
-										<extraarg>-xjc-b,${basedir}/src/main/wsdl/binding.xml</extraarg>
+										<extraarg>-xjc-b,${basedir}/src/main/resources/wsdl/binding.xml</extraarg>
 										<extraarg>-xjc-Xts</extraarg>
 										<extraarg>-autoNameResolution</extraarg>
 										<extraarg>-exsh</extraarg>

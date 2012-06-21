@@ -1,11 +1,11 @@
 package com.sforce.parser;
 
-import java.util.List;
+import com.sforce.soap.enterprise.sobject.SObject;
 
-import com.sforce.soap.enterprise.sobject.ApplicationC;
 
-public interface Parser<T> {
+public interface Parser<T extends SObject> {
 	void init();
+//	String getSyncKey();
 	T parse(String[] source);
 	boolean accept(String[] source);
 	String genSQLColumn();

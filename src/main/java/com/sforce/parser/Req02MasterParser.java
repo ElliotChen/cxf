@@ -38,10 +38,7 @@ public class Req02MasterParser extends BaseParser<EPNMasterC> {
 	
 	@Override
 	public boolean accept(String[] source) {
-		if (3 != source.length) {
-			return false;
-		}
-		return true;
+		return 18 == source.length;
 	}
 
 	@Override
@@ -54,23 +51,29 @@ public class Req02MasterParser extends BaseParser<EPNMasterC> {
 		this.columns = new ArrayList<Column>();
 		int i = 0;
 		columns.add(new StringColumn(i++, "groupLineC", "Group_Line__c"));
-		columns.add(new StringColumn(i++, "keySyncC", "Key_sync__c"));
+		columns.add(new StringColumn(i++, "name", "Name"));
+//		columns.add(new StringColumn(i++, "keySyncC", "Key_sync__c"));
 		columns.add(new StringColumn(i++, "productTypeC", "Product_Type__c"));
 		columns.add(new StringColumn(i++, "densityC", "Density__c"));
 		columns.add(new StringColumn(i++, "voltageC", "Voltage__c"));
-		columns.add(new StringColumn(i++, "pkgTypeC", "Pkg_Type__c"));
+		columns.add(new StringColumn(i++, "PKGTypeC", "Pkg_Type__c"));
 		columns.add(new StringColumn(i++, "PKGNameC", "PKG_Name__c"));
 		columns.add(new StringColumn(i++, "pinCountC", "Pin_Count__c"));
 		columns.add(new StringColumn(i++, "gradeC", "Grade__c"));
 		columns.add(new StringColumn(i++, "carGradeFlagC", "Car_Grade_Flag__c"));
-		columns.add(new StringColumn(i++, "bodySizeC", "Body_Size__c"));
 		columns.add(new StringColumn(i++, "brandC", "Brand__c"));
+		columns.add(new StringColumn(i++, "bodySizeC", "Body_Size__c"));
 		columns.add(new DateColumn(i++, "expiredDateC", "Expired_Date__c"));
 		columns.add(new StringColumn(i++, "markForDeleteC", "Mark_for_Delete__c"));
 		columns.add(new StringColumn(i++, "EOLFlagC", "EOL_Flag__c"));
 		columns.add(new DateColumn(i++, "EOLIssueDateC", "EOL_Issue_Date__c"));
 		columns.add(new DateColumn(i++, "LODateC", "LO_Date__c"));
 		columns.add(new DateColumn(i++, "LSDateC", "LS_Date__c"));
+	}
+
+	@Override
+	public void buildSyncKey(EPNMasterC entity) {
+		entity.setKeySyncC(entity.getName());
 	}
 
 }

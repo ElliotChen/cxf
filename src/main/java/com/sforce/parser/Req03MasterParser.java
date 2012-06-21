@@ -27,10 +27,7 @@ public class Req03MasterParser extends BaseParser<EPNProductBodyLinkC> {
 	
 	@Override
 	public boolean accept(String[] source) {
-		if (3 != source.length) {
-			return false;
-		}
-		return true;
+		return 7 == source.length;
 	}
 
 	@Override
@@ -49,6 +46,12 @@ public class Req03MasterParser extends BaseParser<EPNProductBodyLinkC> {
 		columns.add(new StringColumn(i++, "releaseStatusC", "Release_Status__c"));
 		columns.add(new StringColumn(i++, "FABC", "FAB__c"));
 		columns.add(new StringColumn(i++, "markForDeleteC", "Mark_for_Delete__c"));
+	}
+
+	@Override
+	public void buildSyncKey(EPNProductBodyLinkC entity) {
+		
+		
 	}
 
 }

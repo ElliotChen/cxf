@@ -16,6 +16,7 @@ public class BaseComponent implements Component, InitializingBean {
 	private String name;
 	private Status status;
 	private Boolean debug;
+	private String info;
 	@Override
 	public Status getStatus() {
 		return status;
@@ -85,13 +86,16 @@ public class BaseComponent implements Component, InitializingBean {
 		this.name = name;
 	}
 	public String getInfo() {
-		return "SFDC -> MQ";
+		return this.info;
 	}
 	public Boolean getDebug() {
 		return debug;
 	}
 	public void setDebug(Boolean debug) {
 		this.debug = debug;
+	}
+	public void setInfo(String info) {
+		this.info = info;
 	}
 	@Override
 	public void afterPropertiesSet() throws Exception {

@@ -22,11 +22,32 @@ public class JobManagerImplTest {
 	@Rollback(false)
 	public void test() {
 		Job job = new Job();
+		/*
 		job.setOid("testreq01");
 		job.setComponent("req01");
 		job.setAbsolutePath("/Users/elliot/gitrepo/cxf/src/test/resources/req01.txt");
 		job.setState(JobState.Created);
 		job.setMqId("req01.txt");
+		*/
+		/*
+		job.setOid("testreq02");
+		job.setComponent("req02");
+		job.setAbsolutePath("/Users/elliot/gitrepo/cxf/src/test/resources/req02.txt");
+		job.setState(JobState.Created);
+		job.setMqId("req02.txt");
+		*/
+		/*
+		job.setOid("testreq03");
+		job.setComponent("req03");
+		job.setAbsolutePath("/Users/elliot/gitrepo/cxf/src/test/resources/req03.txt");
+		job.setState(JobState.Created);
+		job.setMqId("req03.txt");
+		*/
+		job.setOid("testreq08");
+		job.setComponent("req08");
+		job.setAbsolutePath("/Users/elliot/gitrepo/cxf/src/test/resources/req08.txt");
+		job.setState(JobState.Created);
+		job.setMqId("req08.txt");
 		this.jobManager.create(job);
 		
 	}
