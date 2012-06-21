@@ -59,11 +59,11 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
-	 
+	
 	<context:annotation-config />
 	<context:component-scan base-package="com.sforce" />
 	
-	
+	<bean id="contextHolder" class="com.sforce.util.ContextHolder" />
 	
 	<!--  -->
 	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
@@ -98,7 +98,7 @@
 	<bean id="mockSender" class="com.sforce.mock.MockSender" />
 	
 	<bean id="mockComponent" class="com.sforce.intf.impl.BaseComponent">
-		<property name="name" value="req01" />
+		<property name="name" value="mock" />
 		<property name="debug" value="true" />
 		<property name="receiver" ref="mockReceiver" />
 		<property name="sender" ref="mockSender" />
@@ -107,7 +107,7 @@
 	<!-- Exchange Rate, SAP -> SFDC, 自動, 每日一次 -->
 	<bean id="req01" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req01" />
-		<property name="debug" value="true" />
+		<property name="debug" value="${system.debug}" />
 		<property name="receiver" ref="mockReceiver" />
 		<property name="sender" ref="req01Sender" />
 		<property name="info" value="Exchange Rate, SAP -> SFDC, 自動, 每日一次" />
@@ -130,7 +130,7 @@
 	<!-- EPN Master, SAP -> SFDC, 自動/手動, 每日6次(每4小時一次) -->
 	<bean id="req02" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req02" />
-		<property name="debug" value="true" />
+		<property name="debug" value="${system.debug}" />
 		<property name="receiver" ref="mockReceiver" />
 		<property name="sender" ref="req02Sender" />
 		<property name="info" value="EPN Master, SAP -> SFDC, 自動/手動, 每日6次(每4小時一次)" />
@@ -153,7 +153,7 @@
 	<!-- EPN Product Body Link, SAP -> SFDC, 自動/手動, 每日6次(每4小時一次) -->
 	<bean id="req03" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req03" />
-		<property name="debug" value="true" />
+		<property name="debug" value="${system.debug}" />
 		<property name="receiver" ref="mockReceiver" />
 		<property name="sender" ref="req03Sender" />
 		<property name="info" value="EPN Product Body Link, SAP -> SFDC, 自動/手動, 每日6次(每4小時一次)" />
@@ -176,7 +176,7 @@
 	<!-- PDI MP Order Ack, SAP -> SFDC, 自動, 即時 -->
 	<bean id="req08" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req08" />
-		<property name="debug" value="false" />
+		<property name="debug" value="${system.debug}" />
 		<property name="receiver" ref="mockReceiver" />
 		<property name="sender" ref="req08Sender" />
 		<property name="info" value="PDI MP Order Ack, SAP -> SFDC, 自動, 即時" />

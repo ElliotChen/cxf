@@ -105,7 +105,7 @@ public abstract class AbstractBaseDao<T extends Identifiable<Oid>, Oid extends S
 
 	protected Example createExample(T example, MatchMode matchMode) {
 		Example criteriaExample = Example.create(example);
-		if (null != matchMode) {
+		if (null != matchMode && !MatchMode.EXACT.equals(matchMode)) {
 			criteriaExample.enableLike(matchMode);
 		}
 		return criteriaExample;

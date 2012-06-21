@@ -1,0 +1,21 @@
+div {
+	float:left;
+	height:200px;
+	text-align:left;
+	border:solid #000 3px;
+}
+
+#header {
+	width:100%;
+	border: 5px;
+	height:50px;
+}
+
+#main {
+	background-color:grey;
+	height:600px;
+}
+
+.pics {
+	height:600px;
+}

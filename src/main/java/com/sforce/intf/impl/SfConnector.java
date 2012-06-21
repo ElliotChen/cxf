@@ -7,6 +7,7 @@ import javax.xml.ws.BindingProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.sforce.soap.enterprise.GetServerTimestampResult;
 import com.sforce.soap.enterprise.LoginResult;
 import com.sforce.soap.enterprise.LoginScopeHeader;
 import com.sforce.soap.enterprise.SessionHeader;
@@ -16,6 +17,8 @@ import com.sforce.soap.enterprise.UnexpectedErrorFault;
 
 public class SfConnector {
 	private static final Logger logger = LoggerFactory.getLogger(SfConnector.class);
+	protected static Soap SOAP = null;
+	protected static SessionHeader SH = null;
 	protected Soap soap;
 	protected SessionHeader sh;
 	protected Boolean connected = Boolean.FALSE;
@@ -25,6 +28,26 @@ public class SfConnector {
 	protected String component = "REQ01";
 	protected Boolean debugMode = Boolean.FALSE;
 	public void connect() {
+		if (null == SOAP) {
+			if (createSoap()) {
+				this.soap = SOAP;
+			}
+		} else {
+			if(checkSoap()) {
+				this.soap = SOAP;
+			} else {
+				SOAP = null;
+				if (createSoap()) {
+					this.soap = SOAP;
+				}
+			}
+		}
+		
+		if (null != this.soap) {
+			sh = SH;
+			connected = Boolean.TRUE;
+		}
+		/*
 		SforceService sf = new SforceService();
 		soap = sf.getSoap();
 		
@@ -35,6 +58,7 @@ public class SfConnector {
 			String surl = login.getServerUrl();
 			sh = new SessionHeader();
 			sh.setSessionId(login.getSessionId());
+			logger.info("Soap[{}] login and get sessionId[{}], url[{}]", new Object[] {soap, login.getSessionId(), login.getServerUrl()});
 			Map<String, Object> requestContext = ((BindingProvider)soap).getRequestContext();
 			requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, surl);
 			connected = Boolean.TRUE;
@@ -43,18 +67,54 @@ public class SfConnector {
 			logger.error("message:", e);
 			connected = Boolean.FALSE;
 		}
+		*/
 	}
 	
 	public void disconnect() {
+		/*
 		try {
 			soap.logout(sh);
 		} catch (UnexpectedErrorFault e) {
 			logger.error("[{}] Disconnect from SalesForce failed", this.component);
 			logger.error("message:", e);
 		}
+		*/
+		this.soap = null;
 		connected = Boolean.FALSE;
 	}
+	
+	public synchronized static boolean createSoap() {
+		if (null != SOAP) {
+			return true;
+		}
+		try {
+			SforceService sf = new SforceService();
+			SOAP = sf.getSoap();
+			LoginScopeHeader lsh = new LoginScopeHeader();
+			LoginResult login = SOAP.login("fiti02@mxic.com.tw.uat", "t25146875", lsh);
+			String surl = login.getServerUrl();
+			SH = new SessionHeader();
+			SH.setSessionId(login.getSessionId());
+			logger.info("Soap[{}] login and get sessionId[{}], url[{}]", new Object[] {SOAP, login.getSessionId(), login.getServerUrl()});
+			Map<String, Object> requestContext = ((BindingProvider)SOAP).getRequestContext();
+			requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, surl);
+			return true;
+		} catch (Exception e) {
+			logger.error("[{}] Connect to SalesForce failed");
+			logger.error("message:", e);
+			return false;
+		}
+	}
 
+	public synchronized boolean checkSoap() {
+		try {
+			GetServerTimestampResult st = SOAP.getServerTimestamp(SH);
+			return true;
+		} catch (UnexpectedErrorFault e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 	public Soap getSoap() {
 		return soap;
 	}
