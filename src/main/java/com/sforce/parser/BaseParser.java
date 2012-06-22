@@ -5,21 +5,24 @@ import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.BeanUtils;
 
 import com.sforce.column.Column;
+import com.sforce.soap.enterprise.sobject.SObject;
 
-public abstract class BaseParser<T> implements Parser<T>{
-	List<Column> columns = new ArrayList<Column>();
-	Class domainClass = null;
+public abstract class BaseParser<T extends SObject> implements Parser<T>{
+	protected List<Column> columns = new ArrayList<Column>();
+	protected Class domainClass = null;
+	private String syncKey;
 	
 	public BaseParser() {
 		this.domainClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 	
 	public abstract Logger getLogger();
-	
+	public abstract void buildSyncKey(T entity);
 	public void init() {
 		if (columns.isEmpty()) {
 			getLogger().warn("Columns is empty, using default columns configuration");
@@ -79,13 +82,24 @@ public abstract class BaseParser<T> implements Parser<T>{
 		for (Column col : columns) {
 			String s = source[col.getIndex()];
 			try {
-				if (null != col.getWriteMethod()) {
+				if (StringUtils.isNotEmpty(s) && null != col.getWriteMethod()) {
 					col.getWriteMethod().invoke(target, col.parse(s));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+		
+		this.buildSyncKey((T)target);
 		return (T)target;
 	}
+	
+	//@Override
+		public String getSyncKey() {
+			return this.syncKey;
+		}
+
+		public void setSyncKey(String syncKey) {
+			this.syncKey = syncKey;
+		}
 }

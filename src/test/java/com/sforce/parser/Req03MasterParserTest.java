@@ -29,7 +29,9 @@ public class Req03MasterParserTest {
 			for (String s: lines) {
 				System.out.println(s);
 				String[] split = s.split("\\t");
-				
+				for (int i=0; i < split.length; i++) {
+					logger.debug("{} : [{}]", i+1, split[i]);
+				}
 				Req03MasterParser fp = new Req03MasterParser();
 				fp.init();
 				EPNProductBodyLinkC target = fp.parse(split);

@@ -80,7 +80,7 @@ public class SforceServiceTest {
 			logger.debug("	"+field.getName());
 		}
 		
-		QueryResult query = soap.query("SELECT Date__c, Currency__c, Exchange_Rate__c FROM Exchange_Rate__c ", sh, null, null, null);
+		QueryResult query = soap.query("SELECT Date__c, Currency__c, Exchange_Rate__c, Key_sync__c FROM Exchange_Rate__c ", sh, null, null, null);
 		List<SObject> objects = query.getRecords();
 		for (SObject so : objects) {
 			logger.debug("{}",so);
@@ -101,12 +101,15 @@ public class SforceServiceTest {
 		for (Field field : dso.getFields()) {
 			System.out.println(field.getName());
 		}
-		QueryResult query = soap.query("SELECT Group_Line__c,Key_sync__c,Product_Type__c,Density__c,Voltage__c,Pkg_Type__c,PKG_Name__c,Pin_Count__c,Grade__c,Car_Grade_Flag__c,Body_Size__c,Brand__c,Expired_Date__c,Mark_for_Delete__c,EOL_Flag__c,EOL_Issue_Date__c,LO_Date__c,LS_Date__c FROM EPN_Master__c", sh, null, null, null);
+		/*WHERE LastModifiedDate<2012-06-06T05:00:00Z*/
+		/*
+		QueryResult query = soap.query("SELECT LastModifiedDate,Group_Line__c,Name,Product_Type__c,Density__c,Voltage__c,Pkg_Type__c,PKG_Name__c,Pin_Count__c,Grade__c,Car_Grade_Flag__c,Brand__c,Body_Size__c,Expired_Date__c,Mark_for_Delete__c,EOL_Flag__c,EOL_Issue_Date__c,LO_Date__c,LS_Date__c FROM EPN_Master__c", sh, null, null, null);
 		List<SObject> objects = query.getRecords();
 		System.out.println("object size["+objects.size()+"]");
 		for (SObject so : objects) {
 			System.out.println(so);
 		}
+		*/
 	}
 	
 	@Test
@@ -116,14 +119,14 @@ public class SforceServiceTest {
 		for (Field field : dso.getFields()) {
 			System.out.println(field.getName());
 		}
-		
-		QueryResult query = soap.query("SELECT Name,Product_Body__c,Mask_Opt__c,BE_Opt__c,Release_Status__c,FAB__c,Mark_for_Delete__c FROM EPN_Product_Body_Link__c", sh, null, null, null);
+		/*
+		QueryResult query = soap.query("SELECT LastModifiedDate, Name,Product_Body__c,Mask_Opt__c,BE_Opt__c,Release_Status__c,FAB__c,Mark_for_Delete__c FROM EPN_Product_Body_Link__c WHERE LastModifiedDate = THIS_MONTH", sh, null, null, null);
 		List<SObject> objects = query.getRecords();
 		System.out.println("object size["+objects.size()+"]");
 		for (SObject so : objects) {
 			System.out.println(so);
 		}
-		
+		*/
 	}
 	
 	@Test
@@ -202,6 +205,23 @@ public class SforceServiceTest {
 	}
 	
 	@Test
+	public void testReq08() throws Exception {
+		DescribeSObjectResult dso = soap.describeSObject("Product_Opportunity__c", sh, null, null);
+		logger.debug("Table[{}]");
+		for (Field field : dso.getFields()) {
+			System.out.println("	"+field.getName());
+		}
+		
+		QueryResult query = soap.query("SELECT Id,Check_Result__c,Design_in_Site_ID__c FROM Product_Opportunity__c ", sh, null, null, null);
+		List<SObject> objects = query.getRecords();
+		for (SObject so : objects) {
+			logger.debug("{}",so);
+		}
+		
+		
+	}
+	
+	@Test
 	public void testReq09() throws Exception {
 		//WHERE LastModifiedDate >= 2012-05-21T00:00:00Z
 		DescribeSObjectResult dso = soap.describeSObject("Application__c", sh, null, null);
@@ -246,14 +266,12 @@ public class SforceServiceTest {
 			System.out.println("	"+field.getName());
 		}
 //		CustomerCategoryC
-		/*
-		QueryResult query = conn.query("SELECT AccountId, Email, LastModifiedDate FROM EPN_Master__c");
-		SObject[] objects = query.getRecords();
-		System.out.println("object size["+objects.length+"]");
+		QueryResult query = soap.query("SELECT Account_Number__c, GLOBAL_ACCT__c, HIGH_DEN_ACCT__c, BASELINE_ACCT__c, AEB_P1_ACCT__c, AEB_P2_ACCT__c FROM Customer_Category__c ", sh, null, null, null);
+		List<SObject> objects = query.getRecords();
 		for (SObject so : objects) {
-			System.out.println(so);
+			logger.debug("{}",so);
 		}
-		*/
+		
 	}
 	
 	@Test

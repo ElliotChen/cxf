@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sforce.dao.JobDao;
 import com.sforce.domain.Job;
 import com.sforce.domain.JobState;
+import com.sforce.domain.support.LikeMode;
 import com.sforce.service.JobManager;
 
 @Service("jobManager")
@@ -34,8 +35,8 @@ public class JobManagerImpl extends AbstractDomainService<JobDao, Job, String>
 		Job example = new Job();
 		example.setComponent(component);
 		example.setState(JobState.Created);
-		List<Job> jobs = this.dao.listByExample(example, null, null, new String[] {"createdDate"}, null);
-		
+		List<Job> jobs = this.dao.listByExample(example, null, LikeMode.NONE, new String[] {"createdDate"}, null);
+		logger.debug("Find Jobs size[{}] for component[{}]", jobs.size(), component);
 		if (jobs.isEmpty()) {
 			return null;
 		}
@@ -48,14 +49,30 @@ public class JobManagerImpl extends AbstractDomainService<JobDao, Job, String>
 	}
 	
 	@Transactional(readOnly=false)
-	public void closeJob(String jobOid) {
+	public void finish(Job job) {
+		/*
 		Job job = this.dao.findByOid(jobOid);
 		if (null == job) {
 			logger.error("Can't find Job with oid[{}]", jobOid);
 			return;
 		}
+		*/
+		if (null == job) {
+			logger.warn("Finish Job can't accept empty Job");
+			return;
+		}
 		job.setState(JobState.Closed);
 		
+		this.dao.update(job);
+	}
+	
+	@Transactional(readOnly=false)
+	public void release(Job job) {
+		if (null == job) {
+			logger.warn("Release Job can't accept empty Job");
+			return;
+		}
+		job.setState(JobState.Created);
 		this.dao.update(job);
 	}
 }

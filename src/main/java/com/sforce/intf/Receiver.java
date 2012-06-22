@@ -3,7 +3,10 @@ package com.sforce.intf;
 import java.io.File;
 import java.util.List;
 
-public interface Receiver  {
+import com.sforce.intf.impl.InitConfig;
+
+public interface Receiver {
 	boolean receive();
 	List<File> getResult();
+	void init(InitConfig config);
 }

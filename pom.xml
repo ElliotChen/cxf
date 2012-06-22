@@ -22,6 +22,31 @@
 			<version>4.10</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- J2EE Spec -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.5</version>
+		</dependency>
+		
 		<dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxws</artifactId>
@@ -150,7 +175,7 @@
 		<dependency>
 			<groupId>javax.resource</groupId>
 			<artifactId>connector-api</artifactId>
-			<version>1.6-alpha-1</version>
+			<version>1.5</version>
 		</dependency>
 
 		<!-- Database -->
@@ -196,12 +221,13 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!-- 
+		
 		<dependency>
 			<groupId>com.ibm</groupId>
-			<artifactId>com.ibm.mq</artifactId>
-			<version>${mq.version}</version>
+			<artifactId>mq</artifactId>
+			<version>6.0</version>
 		</dependency>
+		<!-- 
 		<dependency>
 			<groupId>com.ibm</groupId>
 			<artifactId>com.ibm.mqbind</artifactId>
@@ -251,9 +277,10 @@
 							<sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
 							<wsdlOptions>
 								<wsdlOption>
-									<wsdl>${basedir}/src/main/wsdl/enterprise.wsdl</wsdl>
+									<wsdl>${basedir}/src/main/resources/wsdl/enterprise.wsdl</wsdl>
+									<wsdlLocation>classpath:wsdl/enterprise.wsdl</wsdlLocation>
 									<extraargs>
-										<extraarg>-xjc-b,${basedir}/src/main/wsdl/binding.xml</extraarg>
+										<extraarg>-xjc-b,${basedir}/src/main/resources/wsdl/binding.xml</extraarg>
 										<extraarg>-xjc-Xts</extraarg>
 										<extraarg>-autoNameResolution</extraarg>
 										<extraarg>-exsh</extraarg>

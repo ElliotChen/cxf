@@ -1,9 +1,9 @@
 package com.sforce.intf;
 
-public interface Component {
+public interface Component extends Runnable {
 	Status getStatus();
 	Boolean init();
-	Boolean trigger();
+//	Boolean trigger();
 	
 	Boolean isAvailable();
 }
