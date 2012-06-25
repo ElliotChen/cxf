@@ -22,7 +22,7 @@ public class Req08MasterParser extends BaseParser<ProductOpportunityC>{
 	private static final Logger logger = LoggerFactory.getLogger(Req08MasterParser.class);
 
 	protected void initDefaultColumns() {
-		this.columns = new ArrayList<Column>();
+		this.columns = new ArrayList<Column<?>>();
 		int i = 0;
 		columns.add(new StringColumn(i++, "id", "Id"));
 		columns.add(new StringColumn(i++, "checkResultC", "Check_Result__c"));

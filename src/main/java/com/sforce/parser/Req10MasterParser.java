@@ -23,7 +23,7 @@ public class Req10MasterParser extends BaseParser<Account>{
 	private static final Logger logger = LoggerFactory.getLogger(Req10MasterParser.class);
 
 	protected void initDefaultColumns() {
-		this.columns = new ArrayList<Column>();
+		this.columns = new ArrayList<Column<?>>();
 		int i = 0;
 		columns.add(new StringColumn(i++, "", ""));
 		columns.add(new StringColumn(i++, "checkResultC", "Check_Result__c"));

@@ -15,6 +15,7 @@ import com.sforce.domain.support.LikeMode;
 import com.sforce.service.JobManager;
 
 @Service("jobManager")
+@Transactional(readOnly=true)
 public class JobManagerImpl extends AbstractDomainService<JobDao, Job, String>
 		implements JobManager {
 	private static final Logger logger = LoggerFactory.getLogger(JobManagerImpl.class);

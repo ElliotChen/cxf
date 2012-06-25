@@ -48,7 +48,7 @@ public class Req02MasterParser extends BaseParser<EPNMasterC> {
 
 	@Override
 	protected void initDefaultColumns() {
-		this.columns = new ArrayList<Column>();
+		this.columns = new ArrayList<Column<?>>();
 		int i = 0;
 		columns.add(new StringColumn(i++, "groupLineC", "Group_Line__c"));
 		columns.add(new StringColumn(i++, "name", "Name"));

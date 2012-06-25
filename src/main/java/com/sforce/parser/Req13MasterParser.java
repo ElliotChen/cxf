@@ -29,7 +29,7 @@ public class Req13MasterParser extends BaseParser<CustomerCategoryC>{
 
 	@Override
 	protected void initDefaultColumns() {
-		this.columns = new ArrayList<Column>();
+		this.columns = new ArrayList<Column<?>>();
 		int i = 0;
 		columns.add(new StringColumn(i++, "accountNumberC", "Account_Number__c"));
 		columns.add(new BooleanColumn(i++, "GLOBALACCTC", "GLOBAL_ACCT__c"));

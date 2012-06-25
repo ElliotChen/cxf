@@ -14,7 +14,7 @@ import com.sforce.column.Column;
 import com.sforce.soap.enterprise.sobject.SObject;
 
 public abstract class BaseParser<T extends SObject> implements Parser<T>{
-	protected List<Column> columns = new ArrayList<Column>();
+	protected List<Column<?>> columns = new ArrayList<Column<?>>();
 	protected Class domainClass = null;
 	private String syncKey;
 	
@@ -30,7 +30,10 @@ public abstract class BaseParser<T extends SObject> implements Parser<T>{
 			this.initDefaultColumns();
 		}
 		PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(domainClass);
-		for (Column col : columns) {
+		for (Column<?> col : columns) {
+			if (col.getFake()) {
+				continue;
+			}
 			for (PropertyDescriptor pd : propertyDescriptors) {
 				if (pd.getName().equals(col.getName())) {
 					col.setReadMethod(pd.getReadMethod());
@@ -64,7 +67,7 @@ public abstract class BaseParser<T extends SObject> implements Parser<T>{
 	
 	public String genSQLColumn() {
 		StringBuilder sb = new StringBuilder();
-		for (Column col : columns) {
+		for (Column<?> col : columns) {
 			sb.append(col.getSfName()+",");
 		}
 		return sb.toString();
@@ -73,7 +76,7 @@ public abstract class BaseParser<T extends SObject> implements Parser<T>{
 	public String format(T entity) {
 		StringBuilder sb = new StringBuilder();
 		String column = "";
-		for (Column col : columns) {
+		for (Column<?> col : columns) {
 			try {
 				Object result = col.getReadMethod().invoke(entity, null);
 				column = col.format(col.getReadMethod().invoke(entity, null));
@@ -92,7 +95,7 @@ public abstract class BaseParser<T extends SObject> implements Parser<T>{
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		} 
-		for (Column col : columns) {
+		for (Column<?> col : columns) {
 			String s = source[col.getIndex()];
 			try {
 				if (StringUtils.isNotEmpty(s) && null != col.getWriteMethod()) {

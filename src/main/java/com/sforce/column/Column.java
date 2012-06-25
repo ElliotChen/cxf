@@ -14,6 +14,7 @@ public abstract class Column<T> {
 	protected Method readMethod;
 	protected Method writeMethod;
 
+	protected Boolean fake = Boolean.FALSE;
 	public Column(int index, String name, String sfName) {
 		super();
 		this.index = index;
@@ -59,6 +60,14 @@ public abstract class Column<T> {
 
 	public void setWriteMethod(Method writeMethod) {
 		this.writeMethod = writeMethod;
+	}
+
+	public Boolean getFake() {
+		return fake;
+	}
+
+	public void setFake(Boolean fake) {
+		this.fake = fake;
 	}
 
 	public abstract T parse(String value);

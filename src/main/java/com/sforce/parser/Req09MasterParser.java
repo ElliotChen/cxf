@@ -39,7 +39,7 @@ public class Req09MasterParser extends BaseParser<ApplicationC>{
 	private static final Logger logger = LoggerFactory.getLogger(Req09MasterParser.class);
 
 	protected void initDefaultColumns() {
-		this.columns = new ArrayList<Column>();
+		this.columns = new ArrayList<Column<?>>();
 		int i = 0;
 		columns.add(new StringColumn(i++, "applicationIDC", "Application_ID__c"));
 		columns.add(new StringColumn(i++, "name", "Name"));

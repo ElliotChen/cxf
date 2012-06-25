@@ -22,8 +22,8 @@ markForDeleteC	Mark_for_Delete__c
  * @author elliot
  *
  */
-public class Req03MasterParser extends BaseParser<EPNProductBodyLinkC> {
-	private static final Logger logger = LoggerFactory.getLogger(Req03MasterParser.class);
+public class Req05MasterParser extends BaseParser<EPNProductBodyLinkC> {
+	private static final Logger logger = LoggerFactory.getLogger(Req05MasterParser.class);
 	
 	@Override
 	public boolean accept(String[] source) {
@@ -53,4 +53,5 @@ public class Req03MasterParser extends BaseParser<EPNProductBodyLinkC> {
 		entity.setKeySyncC(entity.getName()+entity.getProductBodyC()+entity.getMaskOptC()+entity.getBEOptC());
 	}
 
+	
 }

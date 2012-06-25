@@ -31,7 +31,7 @@ public class Req01MasterParser extends BaseParser<ExchangeRateC> {
 
 	@Override
 	protected void initDefaultColumns() {
-		this.columns = new ArrayList<Column>();
+		this.columns = new ArrayList<Column<?>>();
 		int i = 0;
 		columns.add(new DateColumn(i++, "dateC", "Date__c"));
 		columns.add(new StringColumn(i++, "currencyC", "Currency__c"));
