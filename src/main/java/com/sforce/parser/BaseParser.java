@@ -1,6 +1,7 @@
 package com.sforce.parser;
 
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +30,24 @@ public abstract class BaseParser<T extends SObject> implements Parser<T>{
 			this.initDefaultColumns();
 		}
 		PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(domainClass);
-
 		for (Column col : columns) {
 			for (PropertyDescriptor pd : propertyDescriptors) {
 				if (pd.getName().equals(col.getName())) {
 					col.setReadMethod(pd.getReadMethod());
 					col.setWriteMethod(pd.getWriteMethod());
+					if (null == col.getReadMethod() && Boolean.class.equals(pd.getPropertyType())) {
+						Method method = null;
+						try {
+							method = domainClass.getMethod("is"+pd.getName(), null);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						if (null != method) {
+							col.setReadMethod(method);
+						} else {
+							getLogger().error("class is {}, can't find [{}]",pd.getPropertyType(),"is"+pd.getName());
+						}
+					}
 					break;
 				}
 			}

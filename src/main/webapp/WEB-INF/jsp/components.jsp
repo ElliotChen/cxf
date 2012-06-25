@@ -10,7 +10,7 @@
 	</script>
 <table id="components" class="display">
 	<thead>
-	<tr><td>Name</td><td>Status</td><td>Info</td><td>Function</td></tr>
+	<tr><th>Name</th><th>Status</th><th>Info</th><th>Function</th></tr>
 	</thead>
 	<tbody>
 	<c:forEach items="${components}" var="cp">

@@ -11,7 +11,7 @@
 Jobs
 <table id="jobs" class="display">
 	<thead>
-	<tr><td>Component</td><td>State</td><td>MQ ID</td><td>Path</td><td>Create Date</td></tr>
+	<tr><th>Component</th><th>State</th><th>MQ ID</th><th>Path</th><th>Create Date</th></tr>
 	</thead>
 	<tbody>
 	<c:forEach items="${jobs}" var="job">

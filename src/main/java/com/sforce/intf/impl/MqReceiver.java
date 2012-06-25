@@ -140,6 +140,7 @@ public class MqReceiver extends MqConnector implements Receiver {
 	}
 
 	public void init(InitConfig config) {
-		
+		this.component = config.getName();
+		this.debugMode = config.getDebugMode();
 	}
 }

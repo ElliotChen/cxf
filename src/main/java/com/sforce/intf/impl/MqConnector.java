@@ -5,10 +5,10 @@ import com.ibm.mq.MQQueue;
 import com.ibm.mq.MQQueueManager;
 
 public abstract class MqConnector {
-	protected String component = "REQ01";
-	protected String queueManagerName = "QM_ec_a7c8a3d2f30e";
+	protected String component;
+	protected String queueManagerName;
 	protected int option = 8208;
-	protected String queueName = "EC";
+	protected String queueName;
 	
 	protected Boolean debugMode = Boolean.FALSE;
 	public String getComponent() {

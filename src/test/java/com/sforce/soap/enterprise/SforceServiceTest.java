@@ -155,18 +155,15 @@ public class SforceServiceTest {
 	@Test
 	public void testReq05() throws Exception {
 		//WHERE LastModifiedDate >= 2012-05-21T00:00:00Z
-		DescribeSObjectResult dso = soap.describeSObject("DI__c", sh, null, null);
+		DescribeSObjectResult dso = soap.describeSObject("Opportunity", sh, null, null);
 		for (Field field : dso.getFields()) {
 			System.out.println("	"+field.getName());
 		}
-		/*
-		QueryResult query = conn.query("SELECT AccountId, Email, LastModifiedDate FROM EPN_Master__c");
-		SObject[] objects = query.getRecords();
-		System.out.println("object size["+objects.length+"]");
+		QueryResult query = soap.query("SELECT Name,DI_URL__c FROM Opportunity", sh, null, null, null);
+		List<SObject> objects = query.getRecords();
 		for (SObject so : objects) {
-			System.out.println(so);
+			logger.debug("{}",so);
 		}
-		*/
 	}
 	
 	@Test
@@ -188,7 +185,7 @@ public class SforceServiceTest {
 	}
 	
 	@Test
-	public void testReq07And08() throws Exception {
+	public void testReq07() throws Exception {
 		//WHERE LastModifiedDate >= 2012-05-21T00:00:00Z
 		DescribeSObjectResult dso = soap.describeSObject("Product_Opportunity__c", sh, null, null);
 		for (Field field : dso.getFields()) {

@@ -55,6 +55,22 @@ public class JobManagerImplTest {
 		job.setMqId("req08.txt");
 		this.jobManager.create(job);
 		
+		job = new Job();
+		job.setOid("testreq09");
+		job.setComponent("req09");
+		job.setAbsolutePath("/Users/elliot/gitrepo/cxf/src/test/resources/req09.txt");
+		job.setState(JobState.Created);
+		job.setMqId("req09.txt");
+		this.jobManager.create(job);
+		
+		job = new Job();
+		job.setOid("testreq13");
+		job.setComponent("req13");
+		job.setAbsolutePath("/Users/elliot/gitrepo/cxf/src/test/resources/req13.txt");
+		job.setState(JobState.Created);
+		job.setMqId("req13.txt");
+		this.jobManager.create(job);
+		
 	}
 
 }
