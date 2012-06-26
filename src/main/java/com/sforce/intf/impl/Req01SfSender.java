@@ -111,4 +111,10 @@ public class Req01SfSender extends SfConnector implements Sender {
 	public void setParsers(List<Parser> parsers) {
 		this.parsers = parsers;
 	}
+
+	@Override
+	public void init(com.sforce.to.InitConfig config) {
+		// TODO Auto-generated method stub
+		
+	}
 }

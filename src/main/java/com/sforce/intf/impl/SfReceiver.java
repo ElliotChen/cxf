@@ -45,13 +45,13 @@ public abstract class SfReceiver extends SfConnector implements Receiver {
 		config.setLasySyncDate(lastDate);
 		Date now = new Date();
 		Job job = this.initNewJob();
-		//@TODO
+		//@TODO if file is exist
 		try {
 			this.doReceive(config, job);
 			execution.setLastSuccessDate(now);
 			execution.setStatus(ExecutionStatus.Success);
 			
-			logger.debug("Reading data from salesforce finished. Creating [{}] for MQ.", job);
+			logger.debug("Reading data from salesforce finished. Creating [{}] for component[{}].", job, this.component);
 			jobManager.create(job);
 		} catch (Exception e) {
 			logger.error("Get Data From Salesforce Failed", e);

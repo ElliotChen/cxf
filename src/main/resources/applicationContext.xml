@@ -119,7 +119,8 @@
 		<property name="queueName" value="MXQAS.SFDC_TEST.QL" />
 	</bean>
 	
-	<!-- Exchange Rate, SAP -> SFDC, 自動, 每日一次 -->
+	<!-- MQ To SFDC -->
+	<!--REQ01 Exchange Rate, SAP -> SFDC, 自動, 每日一次 -->
 	<bean id="req01" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req01" />
 		<property name="debug" value="${system.debug}" />
@@ -142,7 +143,7 @@
 		<property name="syncKey" value="Key_sync__c"/>
 	</bean>
 	
-	<!-- EPN Master, SAP -> SFDC, 自動/手動, 每日6次(每4小時一次) -->
+	<!--REQ02 EPN Master, SAP -> SFDC, 自動/手動, 每日6次(每4小時一次) -->
 	<bean id="req02" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req02" />
 		<property name="debug" value="${system.debug}" />
@@ -165,7 +166,7 @@
 		<property name="syncKey" value="Key_sync__c"/>
 	</bean>
 	
-	<!-- EPN Product Body Link, SAP -> SFDC, 自動/手動, 每日6次(每4小時一次) -->
+	<!-- REQ03 EPN Product Body Link, SAP -> SFDC, 自動/手動, 每日6次(每4小時一次) -->
 	<bean id="req03" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req03" />
 		<property name="debug" value="${system.debug}" />
@@ -188,21 +189,7 @@
 		<property name="syncKey" value="Key_sync__c"/>
 	</bean>
 	
-	<!-- CDI & BDI,	SFDC -> Notes,	自動/手動, 每日一次 -->
-	<bean id="req05" class="com.sforce.intf.impl.BaseComponent">
-		<property name="name" value="req05" />
-		<property name="debug" value="${system.debug}" />
-		<property name="receiver" ref="req05Receiver" />
-		<property name="sender" ref="req05Sender" />
-		<property name="info" value="CDI BDI,	SFDC -> Notes,	自動/手動, 每日一次" />
-	</bean>
-	<bean id="req05Receiver" class="com.sforce.intf.impl.Req05SfReceiver">
-	</bean>
-	<bean id="req05Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
-		<property name="queueName" value="EC" />
-	</bean>
-	
-	<!-- PDI MP Order Ack, SAP -> SFDC, 自動, 即時 -->
+	<!-- REQ08 PDI MP Order Ack, SAP -> SFDC, 自動, 即時 -->
 	<bean id="req08" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req08" />
 		<property name="debug" value="${system.debug}" />
@@ -226,7 +213,7 @@
 	</bean>
 	
 	
-	<!-- Application, SAP -> SFDC, 手動, 手動執行 -->
+	<!-- REQ09 Application, SAP -> SFDC, 手動, 手動執行 -->
 	<bean id="req09" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req09" />
 		<property name="debug" value="${system.debug}" />
@@ -249,7 +236,7 @@
 		<property name="syncKey" value="Application_ID__c"/>
 	</bean>
 	
-	<!-- Customer Category, SAP -> SFDC, 手動, 手動執行 -->
+	<!-- REQ13 Customer Category, SAP -> SFDC, 手動, 手動執行 -->
 	<bean id="req13" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req13" />
 		<property name="debug" value="${system.debug}" />
@@ -264,11 +251,56 @@
 		<property name="syncKey" value="Account_Number__c"/>
 		<property name="parsers">
 			<list>
-				<ref bean="req09MasterParser"/>
+				<ref bean="req13MasterParser"/>
 			</list>
 		</property>
 	</bean>
 	<bean id="req13MasterParser" class="com.sforce.parser.Req13MasterParser">
 		<property name="syncKey" value="Account_Number__c"/>
+	</bean>
+	
+	
+	
+	<!-- SFDC To MQ -->
+	<!-- REQ05 CDI & BDI,	SFDC -> Notes,	自動/手動, 每日一次 -->
+	<bean id="req05" class="com.sforce.intf.impl.BaseComponent">
+		<property name="name" value="req05" />
+		<property name="debug" value="${system.debug}" />
+		<property name="receiver" ref="req05Receiver" />
+		<property name="sender" ref="req05Sender" />
+		<property name="info" value="CDI BDI,	SFDC -> Notes,	自動/手動, 每日一次" />
+	</bean>
+	<bean id="req05Receiver" class="com.sforce.intf.impl.Req05SfReceiver">
+	</bean>
+	<bean id="req05Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
+		<property name="queueName" value="EC" />
+	</bean>
+	
+	<!-- REQ07 PDI MP Order Checking, SFDC -> SAP, 自動, 即時 -->
+	<bean id="req07" class="com.sforce.intf.impl.BaseComponent">
+		<property name="name" value="req07" />
+		<property name="debug" value="${system.debug}" />
+		<property name="receiver" ref="req07Receiver" />
+		<property name="sender" ref="req07Sender" />
+		<property name="info" value="PDI MP Order Checking, SFDC -> SAP, 自動, 即時" />
+	</bean>
+	<bean id="req07Receiver" class="com.sforce.intf.impl.Req07SfReceiver">
+	</bean>
+	<bean id="req07Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
+		<property name="queueName" value="EC" />
+	</bean>
+	
+	<!-- REQ12 PDI MP Order Checking, SFDC -> SAP, 自動, 即時 -->
+	<bean id="req12" class="com.sforce.intf.impl.BaseComponent">
+		<property name="name" value="req12" />
+		<property name="debug" value="${system.debug}" />
+		<property name="receiver" ref="req07Receiver" />
+		<property name="sender" ref="req12Sender" />
+		<property name="info" value="PDI MP Order Checking, SFDC -> SAP, 自動, 即時" />
+	</bean>
+	<bean id="req12Receiver" class="com.sforce.intf.impl.Req12SfReceiver">
+	</bean>
+	<bean id="req12Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
+		<property name="queueName" value="EC" />
 	</bean>
 </beans>
