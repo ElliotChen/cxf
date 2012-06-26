@@ -11,6 +11,7 @@ import com.sforce.column.DateColumn;
 import com.sforce.column.DoubleColumn;
 import com.sforce.column.StringColumn;
 import com.sforce.soap.enterprise.sobject.ExchangeRateC;
+import com.sforce.to.SfSqlConfig;
 import com.sforce.util.DateUtils;
 
 public class Req01MasterParser extends BaseParser<ExchangeRateC> {
@@ -47,5 +48,4 @@ public class Req01MasterParser extends BaseParser<ExchangeRateC> {
 		}
 	}
 
-	
 }

@@ -12,18 +12,21 @@ import org.springframework.beans.BeanUtils;
 
 import com.sforce.column.Column;
 import com.sforce.soap.enterprise.sobject.SObject;
+import com.sforce.to.SfSqlConfig;
 
-public abstract class BaseParser<T extends SObject> implements Parser<T>{
+public abstract class BaseParser<T extends SObject> implements Parser<T> {
 	protected List<Column<?>> columns = new ArrayList<Column<?>>();
 	protected Class domainClass = null;
-	private String syncKey;
-	
+	protected String syncKey;
+	protected String tableName;
 	public BaseParser() {
 		this.domainClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 	
 	public abstract Logger getLogger();
+	protected abstract void initDefaultColumns();
 	public abstract void buildSyncKey(T entity);
+	
 	public void init() {
 		if (columns.isEmpty()) {
 			getLogger().warn("Columns is empty, using default columns configuration");
@@ -43,12 +46,12 @@ public abstract class BaseParser<T extends SObject> implements Parser<T>{
 						try {
 							method = domainClass.getMethod("is"+pd.getName(), null);
 						} catch (Exception e) {
-							e.printStackTrace();
+							getLogger().error("Get Method is{} of {} failed", pd.getName(), this.domainClass);
 						}
 						if (null != method) {
 							col.setReadMethod(method);
 						} else {
-							getLogger().error("class is {}, can't find [{}]",pd.getPropertyType(),"is"+pd.getName());
+							getLogger().error("class {}, can't find [{}]",pd.getPropertyType(),"is"+pd.getName());
 						}
 					}
 					break;
@@ -62,29 +65,66 @@ public abstract class BaseParser<T extends SObject> implements Parser<T>{
 			}
 		}
 	}
-	protected abstract void initDefaultColumns();
 	
 	
+	@Override
 	public String genSQLColumn() {
 		StringBuilder sb = new StringBuilder();
-		for (Column<?> col : columns) {
-			sb.append(col.getSfName()+",");
+		if (!columns.isEmpty()) {
+			Column<?> col = columns.get(0);
+			sb.append(col.getSfName());
+			for (int i = 1; i < columns.size(); i++) {
+				sb.append(",");
+				sb.append(columns.get(i).getSfName());
+			}
 		}
+		
 		return sb.toString();
 	}
 	
+	@Override
+	public String genSfSQL(SfSqlConfig config) {
+		if (StringUtils.isEmpty(tableName)) {
+			this.getLogger().error("Table Name can't be empty value for Formatter.");
+			return "";
+		}
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT ");
+		sb.append(genSQLColumn());
+		sb.append(" FROM "+tableName);
+		sb.append(" WHERE Id <> null ");
+		sb.append(this.buildSfCondition(config));
+		return sb.toString();
+	}
+	
+	protected String buildSfCondition(SfSqlConfig config) {
+		return "";
+	}
+	
+	@Override
 	public String format(T entity) {
 		StringBuilder sb = new StringBuilder();
 		String column = "";
+		boolean first = true;
 		for (Column<?> col : columns) {
-			try {
-				Object result = col.getReadMethod().invoke(entity, null);
-				column = col.format(col.getReadMethod().invoke(entity, null));
-				sb.append(column+"\t");
-			} catch (Exception e) {
-				e.printStackTrace();
+			if (first) {
+				first = false;
+			} else {
+				sb.append('\t');
+			}
+			if (col.getFake()) {
+				sb.append(col.getName());
+			} else {
+				try {
+					Object result = col.getReadMethod().invoke(entity, null);
+					column = col.format(col.getReadMethod().invoke(entity, null));
+					sb.append(column);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
+		sb.append('\n');
 		return sb.toString();
 	}
 	
@@ -109,13 +149,21 @@ public abstract class BaseParser<T extends SObject> implements Parser<T>{
 		this.buildSyncKey((T)target);
 		return (T)target;
 	}
-	
-	//@Override
-		public String getSyncKey() {
-			return this.syncKey;
-		}
 
-		public void setSyncKey(String syncKey) {
-			this.syncKey = syncKey;
-		}
+	public String getSyncKey() {
+		return this.syncKey;
+	}
+
+	public void setSyncKey(String syncKey) {
+		this.syncKey = syncKey;
+	}
+
+	public String getTableName() {
+		return tableName;
+	}
+
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
+	}
+	
 }

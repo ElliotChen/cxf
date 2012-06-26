@@ -26,6 +26,7 @@ import com.sforce.domain.Job;
 import com.sforce.domain.JobState;
 import com.sforce.intf.Receiver;
 import com.sforce.service.JobManager;
+import com.sforce.to.InitConfig;
 import com.sforce.util.DateUtils;
 
 public class MqReceiver extends MqConnector implements Receiver {

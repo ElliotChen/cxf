@@ -159,7 +159,7 @@ public class SforceServiceTest {
 		for (Field field : dso.getFields()) {
 			System.out.println("	"+field.getName());
 		}
-		QueryResult query = soap.query("SELECT Name,DI_URL__c,Record_Type__c,CreatedDate,Customer_Project_Status__c FROM Opportunity WHERE Record_Type__c = 'BDI' or Record_Type__c = 'CDI'", sh, null, null, null);
+		QueryResult query = soap.query("SELECT Name,DI_URL__c,Record_Type__c,CreatedDate,Customer_Project_Status__c FROM Opportunity WHERE Id <> null and (Record_Type__c = 'BDI' or Record_Type__c = 'CDI') and CreatedDate <= 2012-06-12T00:00:00+0800", sh, null, null, null);
 		List<SObject> objects = query.getRecords();
 		for (SObject so : objects) {
 			logger.debug("{}",so);

@@ -18,6 +18,7 @@ import com.sforce.parser.Req01MasterParser;
 import com.sforce.service.JobManager;
 import com.sforce.soap.enterprise.sobject.ExchangeRateC;
 import com.sforce.soap.enterprise.sobject.SObject;
+import com.sforce.to.InitConfig;
 import com.sforce.util.DateUtils;
 
 public class SfSender extends SfConnector implements Sender {
@@ -48,7 +49,7 @@ public class SfSender extends SfConnector implements Sender {
 			try {
 				List<String> lines = FileUtils.readLines(source);
 				for (String s : lines) {
-					String[] split = s.split("\\t");
+					String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(s, "\t");
 					SObject target = null;
 					Parser parser = null;
 					for (Parser p : this.parsers) {

@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import com.sforce.intf.Receiver;
 import com.sforce.intf.impl.BaseComponent;
-import com.sforce.intf.impl.InitConfig;
+import com.sforce.to.InitConfig;
 
 public class MockReceiver implements Receiver {
 	private static final Logger logger = LoggerFactory.getLogger(MockReceiver.class);

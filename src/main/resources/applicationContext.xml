@@ -192,11 +192,11 @@
 	<bean id="req05" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req05" />
 		<property name="debug" value="${system.debug}" />
-		<property name="receiver" ref="mockReceiver" />
+		<property name="receiver" ref="req05Receiver" />
 		<property name="sender" ref="req05Sender" />
 		<property name="info" value="CDI BDI,	SFDC -> Notes,	自動/手動, 每日一次" />
 	</bean>
-	<bean id="req05Receiver" class="com.sforce.intf.impl.SfReceiver">
+	<bean id="req05Receiver" class="com.sforce.intf.impl.Req05SfReceiver">
 	</bean>
 	<bean id="req05Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
 		<property name="queueName" value="EC" />

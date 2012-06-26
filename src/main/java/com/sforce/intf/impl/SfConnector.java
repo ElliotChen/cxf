@@ -25,7 +25,7 @@ public class SfConnector {
 	protected String account;
 	protected String password;
 	
-	protected String component = "REQ01";
+	protected String component;
 	protected Boolean debugMode = Boolean.FALSE;
 	public void connect() {
 		if (null == SOAP) {

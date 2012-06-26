@@ -1,7 +1,7 @@
 package com.sforce.mock;
 
 import com.sforce.intf.Sender;
-import com.sforce.intf.impl.InitConfig;
+import com.sforce.to.InitConfig;
 
 public class MockSender implements Sender {
 

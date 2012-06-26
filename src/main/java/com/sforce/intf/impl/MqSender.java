@@ -20,6 +20,7 @@ import com.ibm.mq.MQQueueManager;
 import com.sforce.domain.Job;
 import com.sforce.intf.Sender;
 import com.sforce.service.JobManager;
+import com.sforce.to.InitConfig;
 import com.sforce.util.DateUtils;
 
 public class MqSender extends MqConnector implements Sender {

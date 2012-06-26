@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ public class Req01MasterParserTest {
 			List<String> lines = FileUtils.readLines(new File("/Users/elliot/gitrepo/cxf/src/test/resources/req01_mxic.txt"));
 			for (String s: lines) {
 				System.out.println(s);
-				String[] split = s.split("\\t");
+				String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(s, "\t");
 				System.out.println(split.length);
 				Req01MasterParser fp = new Req01MasterParser();
 				fp.init();

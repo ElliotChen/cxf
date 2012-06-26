@@ -8,6 +8,7 @@ import com.sforce.intf.Component;
 import com.sforce.intf.Receiver;
 import com.sforce.intf.Sender;
 import com.sforce.intf.Status;
+import com.sforce.to.InitConfig;
 
 public class BaseComponent implements Component, InitializingBean {
 	private static final Logger logger = LoggerFactory.getLogger(BaseComponent.class);

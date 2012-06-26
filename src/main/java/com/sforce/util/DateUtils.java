@@ -22,6 +22,7 @@ public abstract class DateUtils {
 	
 	private static ThreadLocal<SimpleDateFormat> defaultPathFormat = new ThreadLocal<SimpleDateFormat>();
 	
+	private static ThreadLocal<SimpleDateFormat> defaultSfDateTimeFormat = new ThreadLocal<SimpleDateFormat>();
 	public static final SimpleDateFormat getDefaultDateFormat() {
 		if (null == defaultDateFormat.get()) {
 			defaultDateFormat.set(new SimpleDateFormat("yyyyMMdd", Locale.TAIWAN));
@@ -46,9 +47,17 @@ public abstract class DateUtils {
 		return defaultDateTimeFormat.get();
 	}
 	
+	public static final SimpleDateFormat getDefaultSfDateTimeFormat() {
+		if (null == defaultSfDateTimeFormat.get()) {
+			defaultSfDateTimeFormat.set(new SimpleDateFormat("yyyy-MM-dd\'T\'HH:mm:ssZ"));
+		}
+		
+		return defaultSfDateTimeFormat.get();
+	}
+	
 	public static final SimpleDateFormat getDefaultMessageIdFormat() {
 		if (null == defaultMessageIdFormat.get()) {
-			defaultMessageIdFormat.set(new SimpleDateFormat("yyyyMMdd_HHmmss"));
+			defaultMessageIdFormat.set(new SimpleDateFormat("yyyyMMddHHmmss"));
 		}
 		
 		return defaultMessageIdFormat.get();
@@ -90,6 +99,10 @@ public abstract class DateUtils {
 	
 	public static final String formatDateTime(Date date) {
 		return getDefaultDateTimeFormat().format(date);
+	}
+	
+	public static final String formatSfDateTime(Date date) {
+		return getDefaultSfDateTimeFormat().format(date);
 	}
 	
 	public static final String formatMessageId(Date date) {
