@@ -142,14 +142,14 @@ public class SforceServiceTest {
 		for (Field field : dso.getFields()) {
 			System.out.println("	"+field.getName());
 		}
-		/*
-		QueryResult query = soap.query("SELECT AccountId, Email, LastModifiedDate FROM EPN_Product_Body_Link__c", sh, null, null, null);
+		
+		QueryResult query = soap.query("SELECT Id, Status__c, Submit_Date__c  FROM Competitor_price__c", sh, null, null, null);
 		List<SObject> objects = query.getRecords();
 		System.out.println("object size["+objects.size()+"]");
 		for (SObject so : objects) {
 			System.out.println(so);
 		}
-		*/
+		
 	}
 	
 	@Test
@@ -250,6 +250,22 @@ public class SforceServiceTest {
 			System.out.println(so);
 		}
 		*/
+	}
+	
+	@Test
+	public void testReq11() throws Exception {
+		//WHERE LastModifiedDate >= 2012-05-21T00:00:00Z
+		DescribeSObjectResult dso = soap.describeSObject("Account", sh, null, null);
+		for (Field field : dso.getFields()) {
+			System.out.println("	"+field.getName());
+		}
+		
+		QueryResult query = soap.query("SELECT AccountNumber, Record_Type__c, Account_Group__c FROM Account WHERE Record_Type__c = 'SAP_Customer'", sh, null, null, null);
+		List<SObject> objects = query.getRecords();
+		for (SObject so : objects) {
+			logger.debug("{}",so);
+		}
+		
 	}
 	
 	@Test

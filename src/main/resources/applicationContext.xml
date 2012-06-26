@@ -124,7 +124,7 @@
 	<bean id="req01" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req01" />
 		<property name="debug" value="${system.debug}" />
-		<property name="receiver" ref="mockReceiver" />
+		<property name="receiver" ref="req01Receiver" />
 		<property name="sender" ref="req01Sender" />
 		<property name="info" value="Exchange Rate, SAP -> SFDC, 自動, 每日一次" />
 	</bean>
@@ -147,7 +147,7 @@
 	<bean id="req02" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req02" />
 		<property name="debug" value="${system.debug}" />
-		<property name="receiver" ref="mockReceiver" />
+		<property name="receiver" ref="req02Receiver" />
 		<property name="sender" ref="req02Sender" />
 		<property name="info" value="EPN Master, SAP -> SFDC, 自動/手動, 每日6次(每4小時一次)" />
 	</bean>
@@ -170,7 +170,7 @@
 	<bean id="req03" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req03" />
 		<property name="debug" value="${system.debug}" />
-		<property name="receiver" ref="mockReceiver" />
+		<property name="receiver" ref="req03Receiver" />
 		<property name="sender" ref="req03Sender" />
 		<property name="info" value="EPN Product Body Link, SAP -> SFDC, 自動/手動, 每日6次(每4小時一次)" />
 	</bean>
@@ -193,7 +193,7 @@
 	<bean id="req08" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req08" />
 		<property name="debug" value="${system.debug}" />
-		<property name="receiver" ref="mockReceiver" />
+		<property name="receiver" ref="req08Receiver" />
 		<property name="sender" ref="req08Sender" />
 		<property name="info" value="PDI MP Order Ack, SAP -> SFDC, 自動, 即時" />
 	</bean>
@@ -217,7 +217,7 @@
 	<bean id="req09" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req09" />
 		<property name="debug" value="${system.debug}" />
-		<property name="receiver" ref="mockReceiver" />
+		<property name="receiver" ref="req09Receiver" />
 		<property name="sender" ref="req09Sender" />
 		<property name="info" value="Application, SAP -> SFDC, 手動, 手動執行" />
 	</bean>
@@ -236,11 +236,34 @@
 		<property name="syncKey" value="Application_ID__c"/>
 	</bean>
 	
+	<!-- REQ10 Application, SAP -> SFDC, 手動, 手動執行 -->
+	<bean id="req10" class="com.sforce.intf.impl.BaseComponent">
+		<property name="name" value="req10" />
+		<property name="debug" value="${system.debug}" />
+		<property name="receiver" ref="req10Receiver" />
+		<property name="sender" ref="req10Sender" />
+		<property name="info" value="Account, Notes -> SFDC, 自動, 即時" />
+	</bean>
+	<bean id="req10Receiver" class="com.sforce.intf.impl.MqReceiver" parent="mqReceiver">
+		<property name="queueName" value="EC" />
+	</bean>
+	<bean id="req10Sender" class="com.sforce.intf.impl.SfSender">
+		<property name="syncKey" value="AccountNumber"/>
+		<property name="parsers">
+			<list>
+				<ref bean="req10MasterParser"/>
+			</list>
+		</property>
+	</bean>
+	<bean id="req10MasterParser" class="com.sforce.parser.Req10MasterParser">
+		<property name="syncKey" value="AccountNumber"/>
+	</bean>
+	
 	<!-- REQ13 Customer Category, SAP -> SFDC, 手動, 手動執行 -->
 	<bean id="req13" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req13" />
 		<property name="debug" value="${system.debug}" />
-		<property name="receiver" ref="mockReceiver" />
+		<property name="receiver" ref="req13Receiver" />
 		<property name="sender" ref="req13Sender" />
 		<property name="info" value="Customer Category,	SAP -> SFDC, 手動, 手動執行" />
 	</bean>
@@ -294,7 +317,7 @@
 	<bean id="req12" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req12" />
 		<property name="debug" value="${system.debug}" />
-		<property name="receiver" ref="req07Receiver" />
+		<property name="receiver" ref="req12Receiver" />
 		<property name="sender" ref="req12Sender" />
 		<property name="info" value="PDI MP Order Checking, SFDC -> SAP, 自動, 即時" />
 	</bean>

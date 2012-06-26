@@ -62,6 +62,22 @@
             <artifactId>cxf-tools-common</artifactId>
             <version>${cxf.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.cxf.xjc-utils</groupId>
+            <artifactId>cxf-xjc-runtime</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <!-- 
+        <dependency>
+        	<groupId>org.apache.cxf.xjcplugins</groupId>
+        	<artifactId>cxf-xjc-boolean</artifactId>
+        	<version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+        <groupId>org.apache.cxf.xjcplugins</groupId>
+        <artifactId>cxf-xjc-ts</artifactId>
+        <version>${cxf.version}</version>
+     </dependency> -->
         <!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -282,6 +298,7 @@
 									<extraargs>
 										<extraarg>-xjc-b,${basedir}/src/main/resources/wsdl/binding.xml</extraarg>
 										<extraarg>-xjc-Xts</extraarg>
+										<extraarg>-xjc-Xbg</extraarg>
 										<extraarg>-autoNameResolution</extraarg>
 										<extraarg>-exsh</extraarg>
 										<extraarg>true</extraarg>
@@ -296,10 +313,15 @@
 				</executions>
 				<dependencies>
     <dependency>
-        <groupId>org.apache.cxf</groupId>
+        <groupId>org.apache.cxf.xjcplugins</groupId>
         <artifactId>cxf-xjc-ts</artifactId>
-        <version>2.2.12</version>
+        <version>${cxf.version}</version>
      </dependency>
+     <dependency>
+        	<groupId>org.apache.cxf.xjcplugins</groupId>
+        	<artifactId>cxf-xjc-boolean</artifactId>
+        	<version>${cxf.version}</version>
+        </dependency>
 </dependencies>
 			</plugin>
 		</plugins>
