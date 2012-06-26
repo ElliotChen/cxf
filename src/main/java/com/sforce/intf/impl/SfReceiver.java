@@ -33,6 +33,12 @@ public abstract class SfReceiver extends SfConnector implements Receiver {
 	private String parentPath;
 	@Override
 	public boolean receive() {
+		this.connect();
+		
+		if (!this.connected) {
+			logger.warn("Doesn't connecto to SalesForce, Please run connect first.");
+			return false;
+		}
 		Execution execution = executionManager.findByComponent(component);
 		Date lastDate = execution.getLastSuccessDate();
 		SfSqlConfig config = new SfSqlConfig();
@@ -53,6 +59,8 @@ public abstract class SfReceiver extends SfConnector implements Receiver {
 		}
 		
 		executionManager.saveOrUpdate(execution);
+		
+		this.disconnect();
 		return false;
 	}
 

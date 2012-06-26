@@ -19,19 +19,19 @@ public class Req05SfReceiver extends SfReceiver {
 	private static final Logger logger = LoggerFactory.getLogger(Req05SfReceiver.class);
 	protected List<Parser<?>> parsers;
 	
-	private Req05MasterFormatter formatter = new Req05MasterFormatter();
+	private Req05MasterFormatter masterFormatter = new Req05MasterFormatter();
 
 	public void doReceive(SfSqlConfig config, Job job) {
 		File target = new File(job.getAbsolutePath());
-		formatter.init();
-		String queryString = formatter.genSfSQL(config);
+		masterFormatter.init();
+		String queryString = masterFormatter.genSfSQL(config);
 		logger.info(queryString);
 		
 		try {
 			QueryResult query = this.soap.query(queryString, this.sh, null, null, null);
 			String source = null;
 			for (SObject so : query.getRecords()) {
-				source = formatter.format((Opportunity)so);
+				source = masterFormatter.format((Opportunity)so);
 				logger.info(source);
 				FileUtils.write(target, source, true);
 			}
