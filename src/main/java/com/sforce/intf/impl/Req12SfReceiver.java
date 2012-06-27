@@ -32,7 +32,7 @@ public class Req12SfReceiver extends SfReceiver {
 			String source = null;
 			for (SObject so : query.getRecords()) {
 				source = masterFormatter.format((Account)so);
-				logger.info(source);
+				//logger.info(source);
 				FileUtils.write(target, source, true);
 			}
 		} catch (Exception e) {

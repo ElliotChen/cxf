@@ -30,6 +30,7 @@ public class MqSender extends MqConnector implements Sender {
 	@Autowired
 	private MQGetMessageOptions messageOptions;
 	
+	private int maxKb = 512;
 	@Override
 	public boolean send() {
 		logger.info("Executing MqSender.send() of Component[{}]", this.component);
@@ -48,7 +49,7 @@ public class MqSender extends MqConnector implements Sender {
 					// TODO
 					continue;
 				}
-				byte[] messageId = this.genMessageId();
+				byte[] messageId = job.getMqId().getBytes();
 				this.split(source, messages, messageId);
 
 				for (MQMessage messge : messages) {
@@ -91,7 +92,7 @@ public class MqSender extends MqConnector implements Sender {
 		try {
 			fis = new FileInputStream(source);
 			int length = 0;
-			byte[] bs = new byte[1024*64];
+			byte[] bs = new byte[maxKb*1024];
 			MQMessage message = null;
 			int seq = 1;
 			while ((length = fis.read(bs)) >= 0) {
@@ -128,4 +129,12 @@ public class MqSender extends MqConnector implements Sender {
 		this.debugMode = config.getDebugMode();
 	}
 
+	public int getMaxKb() {
+		return maxKb;
+	}
+
+	public void setMaxKb(int maxKb) {
+		this.maxKb = maxKb;
+	}
+	
 }

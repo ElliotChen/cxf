@@ -143,7 +143,7 @@ public class SforceServiceTest {
 			System.out.println("	"+field.getName());
 		}
 		
-		QueryResult query = soap.query("SELECT Id, Status__c, Submit_Date__c  FROM Competitor_price__c", sh, null, null, null);
+		QueryResult query = soap.query("SELECT Id, Status__c, Submit_Date__c, (SELECT Name FROM Competitor_price__c.Competitor_Price_Item__r)  FROM Competitor_price__c as cp", sh, null, null, null);
 		List<SObject> objects = query.getRecords();
 		System.out.println("object size["+objects.size()+"]");
 		for (SObject so : objects) {
@@ -260,7 +260,7 @@ public class SforceServiceTest {
 			System.out.println("	"+field.getName());
 		}
 		
-		QueryResult query = soap.query("SELECT AccountNumber, Record_Type__c, Account_Group__c FROM Account WHERE Record_Type__c = 'SAP_Customer'", sh, null, null, null);
+		QueryResult query = soap.query("SELECT AccountNumber, RecordTypeId, Record_Type__c, Account_Group__c FROM Account WHERE Record_Type__c = 'SAP_Customer'", sh, null, null, null);
 		List<SObject> objects = query.getRecords();
 		for (SObject so : objects) {
 			logger.debug("{}",so);
@@ -314,12 +314,13 @@ public class SforceServiceTest {
 		for (Field field : dso.getFields()) {
 			System.out.println("	"+field.getName());
 		}
+		/*
 		dso = soap.describeSObject("Custom_Site_Attendee__c", sh, null, null);
 		System.out.println("Custom_Site_Attendee__c");
 		for (Field field : dso.getFields()) {
 			System.out.println("	"+field.getName());
 		}
-		/*
+		
 		QueryResult query = conn.query("SELECT AccountId, Email, LastModifiedDate FROM EPN_Master__c");
 		SObject[] objects = query.getRecords();
 		System.out.println("object size["+objects.length+"]");

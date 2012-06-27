@@ -10,14 +10,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ctc.wstx.util.StringUtil;
 import com.sforce.domain.Job;
 import com.sforce.intf.Sender;
 import com.sforce.parser.Parser;
-import com.sforce.parser.Req01MasterParser;
 import com.sforce.service.JobManager;
 import com.sforce.soap.enterprise.sobject.ExchangeRateC;
 import com.sforce.soap.enterprise.sobject.SObject;
+import com.sforce.to.InitConfig;
 import com.sforce.util.DateUtils;
 
 public class Req01SfSender extends SfConnector implements Sender {
@@ -94,6 +93,7 @@ public class Req01SfSender extends SfConnector implements Sender {
 		return true;
 	}
 
+	@Override
 	public void init(InitConfig config) {
 		this.component = config.getName();
 		this.debugMode = config.getDebugMode();
@@ -112,9 +112,4 @@ public class Req01SfSender extends SfConnector implements Sender {
 		this.parsers = parsers;
 	}
 
-	@Override
-	public void init(com.sforce.to.InitConfig config) {
-		// TODO Auto-generated method stub
-		
-	}
 }

@@ -9,18 +9,17 @@ import org.slf4j.LoggerFactory;
 
 import com.sforce.domain.Job;
 import com.sforce.parser.Parser;
-import com.sforce.parser.Req07MasterFormatter;
+import com.sforce.parser.Req11MasterFormatter;
 import com.sforce.soap.enterprise.QueryResult;
-import com.sforce.soap.enterprise.sobject.Opportunity;
-import com.sforce.soap.enterprise.sobject.ProductOpportunityC;
+import com.sforce.soap.enterprise.sobject.Account;
 import com.sforce.soap.enterprise.sobject.SObject;
 import com.sforce.to.SfSqlConfig;
 
-public class Req07SfReceiver extends SfReceiver {
-	private static final Logger logger = LoggerFactory.getLogger(Req07SfReceiver.class);
+public class Req11SfReceiver extends SfReceiver {
+	private static final Logger logger = LoggerFactory.getLogger(Req11SfReceiver.class);
 	protected List<Parser<?>> parsers;
 	
-	private Req07MasterFormatter masterFormatter = new Req07MasterFormatter();
+	private Req11MasterFormatter masterFormatter = new Req11MasterFormatter();
 
 	public void doReceive(SfSqlConfig config, Job job) {
 		File target = new File(job.getAbsolutePath());
@@ -32,7 +31,7 @@ public class Req07SfReceiver extends SfReceiver {
 			QueryResult query = this.soap.query(queryString, this.sh, null, null, null);
 			String source = null;
 			for (SObject so : query.getRecords()) {
-				source = masterFormatter.format((ProductOpportunityC)so);
+				source = masterFormatter.format((Account)so);
 				//logger.info(source);
 				FileUtils.write(target, source, true);
 			}
