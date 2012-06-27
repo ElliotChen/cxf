@@ -13,7 +13,7 @@ import com.sforce.soap.enterprise.sobject.Opportunity;
 @ContextConfiguration(locations = {"/applicationContext.xml"})
 public class SfReceiverTest {
 	@Autowired
-	@Qualifier("req05Receiver")
+	@Qualifier("req04Receiver")
 	private SfReceiver receiver;
 	@Test
 	public void test() {

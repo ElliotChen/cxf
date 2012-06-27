@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ctc.wstx.util.StringUtil;
 import com.sforce.domain.Job;
 import com.sforce.intf.Sender;
 import com.sforce.parser.Parser;

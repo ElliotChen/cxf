@@ -70,16 +70,36 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 	@Override
 	public String genSQLColumn() {
 		StringBuilder sb = new StringBuilder();
+//		Column<?> col = null;
 		if (!columns.isEmpty()) {
-			Column<?> col = columns.get(0);
-			sb.append(col.getSfName());
-			for (int i = 1; i < columns.size(); i++) {
+			for (Column<?> col : columns) {
+				if (col.getFake()) {
+					continue;
+				}
+				sb.append(col.getSfName());
 				sb.append(",");
-				sb.append(columns.get(i).getSfName());
 			}
+			/*
+			col = columns.get(0);
+			sb.append(col.getSfName());
+			
+			for (int i = 1; i < columns.size(); i++) {
+				col = columns.get(i);
+				if (col.getFake()) {
+					continue;
+				}
+				
+				sb.append(",");
+				sb.append(col.getSfName());
+			}
+			*/
 		}
 		
-		return sb.toString();
+		String cols = sb.toString();
+		if (cols.endsWith(",")) {
+			cols = cols.substring(0, cols.length()-1);
+		}
+		return cols;
 	}
 	
 	@Override

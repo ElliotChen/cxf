@@ -45,7 +45,9 @@ public class Req04SfReceiver extends SfReceiver {
 				List<SObject> i1As = result.getRecords();
 				if (null != i1As && !i1As.isEmpty()) {
 					for (SObject i1A : i1As) {
-						source = i1AFormatter.format((CompetitorPriceItemC)i1A);
+						CompetitorPriceItemC cpi = (CompetitorPriceItemC)i1A;
+						cpi.setCompetitorPriceC(cp.getName());
+						source = i1AFormatter.format(cpi);
 						FileUtils.write(target, source, true);
 					}
 				}

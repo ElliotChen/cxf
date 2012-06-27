@@ -35,9 +35,8 @@ public class Req04MasterFormatter extends BaseParser<CompetitorPriceC> {
 		int i = 0;
 		columns.add(new FakeColumn(i++, "H", ""));
 		columns.add(new StringColumn(i++, "name", "Name"));
-		columns.add(new StringColumn(i++, "DIURLC", "DI_URL__c"));
 		
-		this.tableName = "Opportunity";
+		this.tableName = "Competitor_price__c";
 	}
 
 	@Override
@@ -46,9 +45,9 @@ public class Req04MasterFormatter extends BaseParser<CompetitorPriceC> {
 
 	protected String buildSfCondition(SfSqlConfig config) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(" and (Record_Type__c = 'BDI' or Record_Type__c = 'CDI') ");
+		sb.append(" and Status__c = 'Submit' ");
 		if (null != config.getLasySyncDate()) {
-			sb.append(" and CreatedDate > "+DateUtils.formatSfDateTime(config.getLasySyncDate()));
+			sb.append(" and LastModifiedDate > "+DateUtils.formatSfDateTime(config.getLasySyncDate()));
 		}
 		
 		//TODO Design-in status = win?

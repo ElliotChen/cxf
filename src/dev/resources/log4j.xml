@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration>
+
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d - %c -%-4r [%t] %-5p %x - %m%n" />
+		</layout>
+
+		<!--限制输出级别 <filter class="org.apache.log4j.varia.LevelRangeFilter"> <param 
+			name="LevelMax" value="ERROR" /> <param name="LevelMin" value="TRACE" /> 
+			</filter> -->
+	</appender>
+
+	<appender name="FILE" class="org.apache.log4j.DailyRollingFileAppender">     
+        <param name="File" value="logs/sforce.log" />     
+        <param name="DatePattern" value="'daily.'yyyy-MM-dd'.log'" />     
+        <layout class="org.apache.log4j.PatternLayout">     
+            <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss\} %-5p] [%t] (%c:%L) - %m%n" />     
+        </layout>     
+    </appender>
+
+	<appender name="ASYNC" class="org.apache.log4j.AsyncAppender">
+		<param name="BufferSize" value="256" />
+	</appender>
+
+	<category name="com.sforce">
+		<level value="DEBUG" />
+	</category>
+	<category name="org.apache.cxf">
+		<level value="INFO" />
+	</category>
+
+	<root>
+		<priority value="info" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+	</root>
+
+
+</log4j:configuration>  

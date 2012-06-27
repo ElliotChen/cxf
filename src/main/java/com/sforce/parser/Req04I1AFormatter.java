@@ -34,8 +34,8 @@ public class Req04I1AFormatter extends BaseParser<CompetitorPriceItemC> {
 		this.columns = new ArrayList<Column<?>>();
 		int i = 0;
 		columns.add(new FakeColumn(i++, "I1A", ""));
+		columns.add(new StringColumn(i++, "competitorPriceC", "Competitor_Price__c"));
 		columns.add(new StringColumn(i++, "name", "Name"));
-		columns.add(new StringColumn(i++, "DIURLC", "DI_URL__c"));
 		
 		this.tableName = "Competitor_price__c.Competitor_Price_Item__r";
 	}
