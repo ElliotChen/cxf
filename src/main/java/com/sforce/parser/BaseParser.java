@@ -91,6 +91,11 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT ");
 		sb.append(genSQLColumn());
+		if (!config.getSubParsers().isEmpty()) {
+			for (Parser<?> p : config.getSubParsers()) {
+				sb.append(", ("+p.genSfSQL(config)+") ");
+			}
+		}
 		sb.append(" FROM "+tableName);
 		sb.append(" WHERE Id <> null ");
 		sb.append(this.buildSfCondition(config));

@@ -14,6 +14,8 @@ public abstract class DateUtils {
 	
 	private static ThreadLocal<SimpleDateFormat> defaultDateFormat = new ThreadLocal<SimpleDateFormat>();
 	
+	private static ThreadLocal<SimpleDateFormat> defaultMonthFormat = new ThreadLocal<SimpleDateFormat>();
+	
 	private static ThreadLocal<SimpleDateFormat> defaultDateTimeFormat = new ThreadLocal<SimpleDateFormat>();
 	
 	private static ThreadLocal<SimpleDateFormat> defaultTimeFormat = new ThreadLocal<SimpleDateFormat>();
