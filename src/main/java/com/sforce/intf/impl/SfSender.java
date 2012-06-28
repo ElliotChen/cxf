@@ -15,6 +15,7 @@ import com.sforce.intf.Sender;
 import com.sforce.parser.Parser;
 import com.sforce.parser.Req01MasterParser;
 import com.sforce.service.JobManager;
+import com.sforce.soap.enterprise.UpsertResult;
 import com.sforce.soap.enterprise.sobject.ExchangeRateC;
 import com.sforce.soap.enterprise.sobject.SObject;
 import com.sforce.to.InitConfig;
@@ -80,7 +81,8 @@ public class SfSender extends SfConnector implements Sender {
 						logger.debug("---- {}",so);
 					}
 				} else {
-					soap.upsert(syncKey, objs , sh, null, null, null, null, null, null, null, null, null, null);
+					List<UpsertResult> result = soap.upsert(syncKey, objs , sh, null, null, null, null, null, null, null, null, null, null);
+
 					this.jobManager.finish(job);
 				}
 			} catch (Exception e) {
