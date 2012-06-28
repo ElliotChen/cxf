@@ -43,7 +43,7 @@ public class Req10MasterParser extends BaseParser<Account> {
 		columns.add(new StringColumn(i++, "postalCodeC", "Postal_Code__c"));
 		columns.add(new StringColumn(i++, "cityC", "City__c"));
 		
-		columns.add(new StringColumn(i++, "stateProvinceC", "State_Province__c"));
+		columns.add(new StringColumn(i++, "stateProvinceIDC", "State_Province_ID__c"));
 		columns.add(new StringColumn(i++, "stateProvinceNameC", "State_Province_Name__c"));
 		columns.add(new StringColumn(i++, "countryIDC", "Country_ID__c"));
 		columns.add(new StringColumn(i++, "countryNameC", "Country_Name__c"));

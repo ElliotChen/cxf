@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,12 @@ public abstract class SfReceiver extends SfConnector implements Receiver {
 			execution.setStatus(ExecutionStatus.Success);
 			
 			logger.debug("Reading data from salesforce finished. Creating [{}] for component[{}].", job, this.component);
-			jobManager.create(job);
+			File f = new File(job.getAbsolutePath());
+			if (f.exists()) {
+				jobManager.create(job);
+			} else {
+				logger.info("Skip empty file Job : {} - {}",job.getComponent(), job.getMqId());
+			}
 		} catch (Exception e) {
 			logger.error("Get Data From Salesforce Failed", e);
 			execution.setStatus(ExecutionStatus.Fail);

@@ -76,4 +76,14 @@ public class JobManagerImpl extends AbstractDomainService<JobDao, Job, String>
 		job.setState(JobState.Created);
 		this.dao.update(job);
 	}
+	
+	@Transactional(readOnly=false)
+	public void abandon(Job job) {
+		if (null == job) {
+			logger.warn("Abandon Job can't accept empty Job");
+			return;
+		}
+		job.setState(JobState.Abandon);
+		this.dao.update(job);
+	}
 }

@@ -75,7 +75,7 @@ public class SfSender extends SfConnector implements Sender {
 					continue;
 				}
 				if (debugMode) {
-					logger.debug("Send to SalesForce :");
+					logger.debug("[DEBUG MODE] Send to SalesForce :");
 					for (SObject so : objs) {
 						logger.debug("---- {}",so);
 					}
@@ -84,7 +84,8 @@ public class SfSender extends SfConnector implements Sender {
 					this.jobManager.finish(job);
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				this.jobManager.abandon(job);
+				logger.error("Send data to SalesForce Failed.", e);
 			}
 		}
 		

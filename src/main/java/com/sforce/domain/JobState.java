@@ -1,5 +1,5 @@
 package com.sforce.domain;
 
 public enum JobState {
-	Created, Processing, Closed
+	Created, Processing, Closed, Abandon
 }

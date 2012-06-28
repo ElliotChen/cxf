@@ -52,7 +52,7 @@ public class Req11MasterFormatter extends BaseParser<Account> {
 		columns.add(new StringColumn(i++, "streetHouseNumberC", "Street_House_Number__c"));
 		columns.add(new StringColumn(i++, "postalCodeC", "Postal_Code__c"));
 		columns.add(new StringColumn(i++, "cityC", "City__c"));
-		columns.add(new StringColumn(i++, "stateProvinceC", "State_Province__c"));
+		columns.add(new StringColumn(i++, "stateProvinceIDC", "State_Province_ID__c"));
 		columns.add(new StringColumn(i++, "stateProvinceNameC", "State_Province_Name__c"));
 		columns.add(new StringColumn(i++, "countryIDC", "Country_ID__c"));
 		columns.add(new StringColumn(i++, "countryNameC", "Country_Name__c"));
@@ -73,6 +73,7 @@ public class Req11MasterFormatter extends BaseParser<Account> {
 		columns.add(new StringColumn(i++, "createdById", "CreatedById"));
 		columns.add(new DateColumn(i++, "createdDate", "CreatedDate"));
 		columns.add(new StringColumn(i++, "ownerId", "OwnerId"));
+		columns.add(new StringColumn(i++, "parentId", "ParentId"));
 		
 		this.tableName = "Account";
 	}

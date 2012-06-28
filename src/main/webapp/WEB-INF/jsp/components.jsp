@@ -5,7 +5,9 @@
 <c:set var="ctx" scope="request" value="${pageContext.request.contextPath}" />
 <script type="text/javascript">
 		$().ready(function() {
-			$("#components").dataTable({"sPaginationType":"full_numbers"});
+			$("#components").dataTable({
+						"sPaginationType":"full_numbers",
+						"iDisplayLength": 25});
 		});
 	</script>
 <table id="components" class="display">

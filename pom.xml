@@ -263,7 +263,7 @@
 		
 	</dependencies>
 	<build>
-		<finalName>cxf</finalName>
+		<finalName>sfdc</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -287,8 +287,8 @@
 					<execution>
 						<id>generate-sources</id>
 						<phase>generate-sources</phase>
-						<!--  -->
-						
+						<!-- -->
+
 						<configuration>
 							<sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
 							<wsdlOptions>
@@ -312,17 +312,17 @@
 					</execution>
 				</executions>
 				<dependencies>
-    <dependency>
-        <groupId>org.apache.cxf.xjcplugins</groupId>
-        <artifactId>cxf-xjc-ts</artifactId>
-        <version>${cxf.version}</version>
-     </dependency>
-     <dependency>
-        	<groupId>org.apache.cxf.xjcplugins</groupId>
-        	<artifactId>cxf-xjc-boolean</artifactId>
-        	<version>${cxf.version}</version>
-        </dependency>
-</dependencies>
+					<dependency>
+						<groupId>org.apache.cxf.xjcplugins</groupId>
+						<artifactId>cxf-xjc-ts</artifactId>
+						<version>${cxf.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.cxf.xjcplugins</groupId>
+						<artifactId>cxf-xjc-boolean</artifactId>
+						<version>${cxf.version}</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>

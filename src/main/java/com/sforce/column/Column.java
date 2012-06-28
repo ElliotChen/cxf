@@ -7,10 +7,11 @@ import javax.xml.namespace.QName;
 
 public abstract class Column<T> {
 	public static final QName qname = new QName("urn:sobject.enterprise.soap.sforce.com");
+	public static final char DEFAULT_SEPARATOR = '\t';
 	protected int index;
 	protected String name;
 	protected String sfName;
-
+	protected char separator;
 	protected Method readMethod;
 	protected Method writeMethod;
 
@@ -68,6 +69,14 @@ public abstract class Column<T> {
 
 	public void setFake(Boolean fake) {
 		this.fake = fake;
+	}
+	
+	public char getSeparator() {
+		return separator;
+	}
+
+	public void setSeparator(char separator) {
+		this.separator = separator;
 	}
 
 	public abstract T parse(String value);

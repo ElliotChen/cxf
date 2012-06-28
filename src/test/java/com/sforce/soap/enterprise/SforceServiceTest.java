@@ -31,6 +31,7 @@ public class SforceServiceTest {
 			logger.info("Test Begin:"+System.currentTimeMillis());
 			login = soap.login("fiti02@mxic.com.tw.uat", "t25146875", lsh);
 			String surl = login.getServerUrl();
+			System.out.println(surl);
 			sh = new SessionHeader();
 			sh.setSessionId(login.getSessionId());
 			Map<String, Object> requestContext = ((BindingProvider)soap).getRequestContext();
@@ -159,7 +160,7 @@ public class SforceServiceTest {
 		for (Field field : dso.getFields()) {
 			System.out.println("	"+field.getName());
 		}
-		QueryResult query = soap.query("SELECT Name,DI_URL__c,Record_Type__c,CreatedDate,Customer_Project_Status__c FROM Opportunity WHERE Id <> null and (Record_Type__c = 'BDI' or Record_Type__c = 'CDI') and CreatedDate <= 2012-06-12T00:00:00+0800", sh, null, null, null);
+		QueryResult query = soap.query("SELECT StageName,Name,DI_URL__c,Record_Type__c,CreatedDate,Customer_Project_Status__c FROM Opportunity WHERE Id <> null and (Record_Type__c = 'BDI' or Record_Type__c = 'CDI') and CreatedDate >= 2012-04-01T00:00:00+0800", sh, null, null, null);
 		List<SObject> objects = query.getRecords();
 		for (SObject so : objects) {
 			logger.debug("{}",so);
