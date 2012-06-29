@@ -56,5 +56,11 @@ public class Req12MasterFormatter extends BaseParser<Account> {
 		
 		return sb.toString();
 	}
+
+	@Override
+	public void preFormat(Account entity) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

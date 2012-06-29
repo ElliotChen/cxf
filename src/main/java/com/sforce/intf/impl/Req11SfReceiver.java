@@ -23,7 +23,7 @@ public class Req11SfReceiver extends SfReceiver {
 
 	public void doReceive(SfSqlConfig config, Job job) {
 		File target = new File(job.getAbsolutePath());
-		masterFormatter.init();
+		
 		String queryString = masterFormatter.genSfSQL(config);
 		logger.info(queryString);
 		
@@ -39,5 +39,10 @@ public class Req11SfReceiver extends SfReceiver {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public void postInit() {
+		masterFormatter.init();
 	}
 }

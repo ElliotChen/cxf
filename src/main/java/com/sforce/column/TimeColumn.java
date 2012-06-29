@@ -4,15 +4,15 @@ import java.util.Date;
 
 import com.sforce.util.DateUtils;
 
-public class MonthColumn extends Column<Date> {
+public class TimeColumn extends Column<Date> {
 
-	public MonthColumn(int index, String name, String sfName) {
+	public TimeColumn(int index, String name, String sfName) {
 		super(index, name, sfName);
 	}
 
 	@Override
 	public Date parse(String value) {
-		return DateUtils.pareseDate(value);
+		return DateUtils.pareseDateTime(value);
 	}
 
 	@Override
@@ -20,7 +20,7 @@ public class MonthColumn extends Column<Date> {
 		if (null == value || !(value instanceof Date)) {
 			return "";
 		}
-		return DateUtils.formatMonth((Date) value);
+		return DateUtils.formatTime((Date) value);
 	}
 
 }

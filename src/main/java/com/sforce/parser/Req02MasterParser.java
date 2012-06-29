@@ -76,4 +76,10 @@ public class Req02MasterParser extends BaseParser<EPNMasterC> {
 		entity.setKeySyncC(entity.getName());
 	}
 
+	@Override
+	public void preFormat(EPNMasterC entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

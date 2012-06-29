@@ -65,5 +65,11 @@ public class Req07MasterFormatter extends BaseParser<ProductOpportunityC> {
 		
 		return sb.toString();
 	}
+
+	@Override
+	public void preFormat(ProductOpportunityC entity) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

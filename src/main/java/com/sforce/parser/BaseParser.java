@@ -19,6 +19,8 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 	protected Class domainClass = null;
 	protected String syncKey;
 	protected String tableName;
+	
+	protected List<Parser<?>> subParsers = new ArrayList<Parser<?>>();
 	public BaseParser() {
 		this.domainClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
@@ -26,10 +28,10 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 	public abstract Logger getLogger();
 	protected abstract void initDefaultColumns();
 	public abstract void buildSyncKey(T entity);
-	
+	public abstract void preFormat(T entity);
 	public void init() {
 		if (columns.isEmpty()) {
-			getLogger().warn("Columns is empty, using default columns configuration");
+			getLogger().info("Columns is empty, using default configuration.");
 			this.initDefaultColumns();
 		}
 		PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(domainClass);
@@ -76,8 +78,10 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 				if (col.getFake()) {
 					continue;
 				}
-				sb.append(col.getSfName());
-				sb.append(",");
+				if(StringUtils.isNotEmpty(col.getSfName())) {
+					sb.append(col.getSfName());
+					sb.append(",");
+				}
 			}
 			/*
 			col = columns.get(0);
@@ -111,8 +115,8 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT ");
 		sb.append(genSQLColumn());
-		if (!config.getSubParsers().isEmpty()) {
-			for (Parser<?> p : config.getSubParsers()) {
+		if (null != this.subParsers) {
+			for (Parser<?> p : subParsers) {
 				sb.append(", ("+p.genSfSQL(config)+") ");
 			}
 		}
@@ -191,4 +195,10 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 		this.tableName = tableName;
 	}
 	
+	public List<Parser<?>> getSubParsers() {
+		return subParsers;
+	}
+	public void setSubParsers(List<Parser<?>> subParsers) {
+		this.subParsers = subParsers;
+	}
 }

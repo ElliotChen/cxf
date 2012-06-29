@@ -16,8 +16,7 @@ public class Req04MasterFormatterTest {
 		i1af.init();
 		
 		SfSqlConfig config = new SfSqlConfig();
-		config.getSubParsers().add(i1af);
-		
+		mf.getSubParsers().add(i1af);
 		logger.info(mf.genSfSQL(config));
 	}
 

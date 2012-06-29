@@ -88,6 +88,7 @@ public abstract class SfReceiver extends SfConnector implements Receiver {
 		return job;
 	}
 	public abstract void doReceive(SfSqlConfig config, Job job);
+	public abstract void postInit();
 	@Override
 	public List<File> getResult() {
 		// TODO Auto-generated method stub
@@ -103,6 +104,7 @@ public abstract class SfReceiver extends SfConnector implements Receiver {
 				parser.init();
 			}
 		}
+		this.postInit();
 	}
 
 	public ExecutionManager getExecutionManager() {

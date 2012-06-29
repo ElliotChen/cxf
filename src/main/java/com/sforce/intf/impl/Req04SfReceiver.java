@@ -1,6 +1,7 @@
 package com.sforce.intf.impl;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -26,9 +27,7 @@ public class Req04SfReceiver extends SfReceiver {
 
 	public void doReceive(SfSqlConfig config, Job job) {
 		File target = new File(job.getAbsolutePath());
-		masterFormatter.init();
-		i1AFormatter.init();
-		config.getSubParsers().add(i1AFormatter);
+		
 		
 		String queryString = masterFormatter.genSfSQL(config);
 		logger.info(queryString);
@@ -58,5 +57,14 @@ public class Req04SfReceiver extends SfReceiver {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void postInit() {
+		masterFormatter.init();
+		i1AFormatter.init();
+		List<Parser<?>> subParsers = new ArrayList<Parser<?>>();
+		subParsers.add(i1AFormatter);
+		masterFormatter.setSubParsers(subParsers);
 	}
 }

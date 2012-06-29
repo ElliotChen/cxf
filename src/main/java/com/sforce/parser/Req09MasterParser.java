@@ -95,4 +95,9 @@ public class Req09MasterParser extends BaseParser<ApplicationC>{
 	public void buildSyncKey(ApplicationC entity) {
 		
 	}
+	@Override
+	public void preFormat(ApplicationC entity) {
+		// TODO Auto-generated method stub
+		
+	}
 }

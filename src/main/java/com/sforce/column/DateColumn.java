@@ -17,8 +17,10 @@ public class DateColumn extends Column<Date> {
 
 	@Override
 	public String format(Object value) {
-		// TODO Auto-generated method stub
-		return null;
+		if (null == value || !(value instanceof Date)) {
+			return "";
+		}
+		return DateUtils.formatDate((Date) value);
 	}
 
 }

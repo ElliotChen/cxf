@@ -59,4 +59,9 @@ public class Req08MasterParser extends BaseParser<ProductOpportunityC>{
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void preFormat(ProductOpportunityC entity) {
+		// TODO Auto-generated method stub
+		
+	}
 }

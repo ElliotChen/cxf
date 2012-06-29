@@ -76,7 +76,7 @@
 		</property>
 	</bean>
 	<task:scheduler id="scheduler" pool-size="20" />
-	<!--  -->
+	<!-- 
 	<task:scheduled-tasks scheduler="scheduler">
 		<task:scheduled ref="req01" cron="0 0 1 * * *" method="run"/>
 		<task:scheduled ref="req02" cron="0 0 0/4 * * *" method="run"/>
@@ -84,15 +84,13 @@
 		<task:scheduled ref="req08" cron="0 0/5 * * * *" method="run"/>
 		<task:scheduled ref="req09" cron="0 1/5 * * * *" method="run"/>
 		<task:scheduled ref="req10" cron="0 2/5 * * * *" method="run"/>
-		<!-- 
 		<task:scheduled ref="req04" cron="0 3/5 * * * *" method="run"/>
-		 -->
 		<task:scheduled ref="req05" cron="0 4/5 * * * *" method="run"/>
 		<task:scheduled ref="req07" cron="0 0/5 * * * *" method="run"/>
 		<task:scheduled ref="req11" cron="0 1/5 * * * *" method="run"/>
 		<task:scheduled ref="req12" cron="0 2/5 * * * *" method="run"/>
 	</task:scheduled-tasks>
-	
+	 -->
 	<bean id="mqReceiver" abstract="true">
 		<property name="queueManagerName" value="${mq.queueManagerName}"/>
 		<property name="option" value="1"/>
@@ -298,7 +296,7 @@
 	
 	<!-- SFDC To MQ -->
 	<!-- REQ05 CDI & BDI,	SFDC -> Notes,	自動/手動, 每日一次 -->
-	<!-- 
+	<!--  -->
 	<bean id="req04" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req04" />
 		<property name="debug" value="${system.debug}" />
@@ -311,7 +309,7 @@
 	<bean id="req04Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
 		<property name="queueName" value="${mq.req04}" />
 	</bean>
-	 -->
+	
 	<!-- REQ05 CDI & BDI,	SFDC -> Notes,	自動/手動, 每日一次 -->
 	<bean id="req05" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req05" />
@@ -366,5 +364,33 @@
 	</bean>
 	<bean id="req12Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
 		<property name="queueName" value="${mq.req12}" />
+	</bean>
+	
+	<!-- REQ14 SAP Customer, SFDC -> SAP, 自動, 即時 -->
+	<bean id="req14" class="com.sforce.intf.impl.BaseComponent">
+		<property name="name" value="req14" />
+		<property name="debug" value="${system.debug}" />
+		<property name="receiver" ref="req14Receiver" />
+		<property name="sender" ref="req14Sender" />
+		<property name="info" value="SAP Customer, SFDC -> SAP, 自動, 即時" />
+	</bean>
+	<bean id="req14Receiver" class="com.sforce.intf.impl.Req14SfReceiver">
+	</bean>
+	<bean id="req14Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
+		<property name="queueName" value="${mq.req14}" />
+	</bean>
+	
+	<!-- REQ15 SAP Customer, SFDC -> SAP, 自動, 即時 -->
+	<bean id="req15" class="com.sforce.intf.impl.BaseComponent">
+		<property name="name" value="req15" />
+		<property name="debug" value="${system.debug}" />
+		<property name="receiver" ref="req15Receiver" />
+		<property name="sender" ref="req15Sender" />
+		<property name="info" value="SAP Customer, SFDC -> SAP, 自動, 即時" />
+	</bean>
+	<bean id="req15Receiver" class="com.sforce.intf.impl.Req15SfReceiver">
+	</bean>
+	<bean id="req15Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
+		<property name="queueName" value="${mq.req15}" />
 	</bean>
 </beans>

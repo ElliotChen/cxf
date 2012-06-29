@@ -144,7 +144,7 @@ public class SforceServiceTest {
 			System.out.println("	"+field.getName());
 		}
 		
-		QueryResult query = soap.query("SELECT Id, Status__c, Submit_Date__c, (SELECT Name FROM Competitor_price__c.Competitor_Price_Item__r)  FROM Competitor_price__c as cp", sh, null, null, null);
+		QueryResult query = soap.query("SELECT Name,Status__c,Submit_Date__c,Product_Type__c,Application__c,Density__c,Compatible_MXIC_EPN__c,Grade__c,Package_Name__c,Pin_Count__c,Remark__c,Customer__c,Customer_English_Short_Name__c,Customer_Region__c,Group_ID__c,Group_English_Short_Name__c,CreatedById,CreatedDate,OwnerId,Visit_Report_Doc_No__c,Visit_Report_URL__c,Related_Person__c, (SELECT Competitor_Price__c,Name,Competitor_Name__c,Currency__c,Exchange_Rate_USD__c,Exchange_Rate_JPY__c,Exchange_Rate_JPY_USD__c,Month1__c,US_ASP1__c,End_Price_1__c,Month2__c,US_ASP2__c,End_Price_2__c,Month3__c,US_ASP3__c,End_Price_3__c,Month4__c,US_ASP4__c,End_Price_4__c,Month5__c,US_ASP5__c,End_Price_5__c,Month6__c,US_ASP6__c,End_Price_6__c FROM Competitor_price__c.Competitor_Price_Item__r)  FROM Competitor_price__c as cp", sh, null, null, null);
 		List<SObject> objects = query.getRecords();
 		System.out.println("object size["+objects.size()+"]");
 		for (SObject so : objects) {
@@ -346,6 +346,19 @@ public class SforceServiceTest {
 		for (Field field : dso.getFields()) {
 			System.out.println("	"+field.getName());
 		}
+		
+		dso = soap.describeSObject("Other_Related_Group__c", sh, null, null);
+		System.out.println("Table Other_Related_Group__c");
+		for (Field field : dso.getFields()) {
+			System.out.println("	"+field.getName());
+		}
+		
+		dso = soap.describeSObject("Related_Application__c", sh, null, null);
+		System.out.println("Table Related_Application__c");
+		for (Field field : dso.getFields()) {
+			System.out.println("	"+field.getName());
+		}
+		
 		/*
 		QueryResult query = conn.query("SELECT AccountId, Email, LastModifiedDate FROM EPN_Master__c");
 		SObject[] objects = query.getRecords();

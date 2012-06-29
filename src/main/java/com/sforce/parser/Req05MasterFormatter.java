@@ -54,5 +54,11 @@ public class Req05MasterFormatter extends BaseParser<Opportunity> {
 		
 		return sb.toString();
 	}
+
+	@Override
+	public void preFormat(Opportunity entity) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

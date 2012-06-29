@@ -53,4 +53,10 @@ public class Req03MasterParser extends BaseParser<EPNProductBodyLinkC> {
 		entity.setKeySyncC(entity.getName()+entity.getProductBodyC()+entity.getMaskOptC()+entity.getBEOptC());
 	}
 
+	@Override
+	public void preFormat(EPNProductBodyLinkC entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

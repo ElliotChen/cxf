@@ -102,4 +102,9 @@ public class Req10MasterParser extends BaseParser<Account> {
 		}
 		entity.setSyncFlagC("N2SF");
 	}
+	@Override
+	public void preFormat(Account entity) {
+		// TODO Auto-generated method stub
+		
+	}
 }

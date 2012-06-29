@@ -20,8 +20,7 @@ public class CstDateColumn extends Column<Date> {
 
 	@Override
 	public String format(Object value) {
-		// TODO Auto-generated method stub
-		return null;
+		return "";
 	}
 
 }

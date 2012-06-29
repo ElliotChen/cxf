@@ -12,10 +12,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/applicationContext.xml"})
-public class Req04Test {
-	private static final Logger logger = LoggerFactory.getLogger(Req04Test.class);
+public class Req14Test {
+	private static final Logger logger = LoggerFactory.getLogger(Req14Test.class);
 	@Autowired
-	@Qualifier("req04")
+	@Qualifier("req14")
 	private BaseComponent baseComponent;
 	
 	@Test

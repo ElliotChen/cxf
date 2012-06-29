@@ -33,6 +33,14 @@ public abstract class DateUtils {
 		return defaultDateFormat.get();
 	}
 	
+	public static final SimpleDateFormat getDefaultMonthFormat() {
+		if (null == defaultMonthFormat.get()) {
+			defaultMonthFormat.set(new SimpleDateFormat("yyyy/MM", Locale.TAIWAN));
+		}
+		
+		return defaultMonthFormat.get();
+	}
+	
 	public static final SimpleDateFormat getDefaultTimeFormat() {
 		if (null == defaultTimeFormat.get()) {
 			defaultTimeFormat.set(new SimpleDateFormat("HHmmss", Locale.TAIWAN));
@@ -84,12 +92,34 @@ public abstract class DateUtils {
 		return result;
 	}
 	
+	public static final Date pareseMonth(String date) {
+		Date result = null;
+		try {
+			result = getDefaultMonthFormat().parse(date);
+		} catch (ParseException e) {
+			logger.error("Can't parse {} to Month", date);
+		}
+		
+		return result;
+	}
+	
 	public static final Date pareseDateTime(String date) {
 		Date result = null;
 		try {
-			result = getDefaultDateFormat().parse(date);
+			result = getDefaultDateTimeFormat().parse(date);
 		} catch (ParseException e) {
-			logger.error("Can't parse {} to Date", date);
+			logger.error("Can't parse {} to Date Time", date);
+		}
+		
+		return result;
+	}
+	
+	public static final Date pareseTime(String date) {
+		Date result = null;
+		try {
+			result = getDefaultTimeFormat().parse(date);
+		} catch (ParseException e) {
+			logger.error("Can't parse {} to Time", date);
 		}
 		
 		return result;
@@ -101,6 +131,14 @@ public abstract class DateUtils {
 	
 	public static final String formatDateTime(Date date) {
 		return getDefaultDateTimeFormat().format(date);
+	}
+	
+	public static final String formatTime(Date date) {
+		return getDefaultTimeFormat().format(date);
+	}
+	
+	public static final String formatMonth(Date date) {
+		return getDefaultMonthFormat().format(date);
 	}
 	
 	public static final String formatSfDateTime(Date date) {

@@ -48,4 +48,9 @@ public class Req01MasterParser extends BaseParser<ExchangeRateC> {
 		}
 	}
 
+	@Override
+	public void preFormat(ExchangeRateC entity) {
+		
+	}
+
 }

@@ -44,4 +44,10 @@ public class Req13MasterParser extends BaseParser<CustomerCategoryC>{
 		
 	}
 
+	@Override
+	public void preFormat(CustomerCategoryC entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

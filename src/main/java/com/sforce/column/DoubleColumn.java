@@ -13,6 +13,9 @@ public class DoubleColumn extends Column<Double> {
 
 	@Override
 	public String format(Object value) {
+		if (null == value) {
+			return "";
+		}
 		return String.valueOf(value);
 	}
 
