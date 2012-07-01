@@ -11,9 +11,13 @@ public class Req04MasterFormatterTest {
 	Req04MasterFormatter mf = new Req04MasterFormatter();
 	Req04I1AFormatter i1af = new Req04I1AFormatter();
 	@Test
-	public void test() {
+	public void testInit() {
 		mf.init();
 		i1af.init();
+		
+		mf.listColumnInfo();
+		i1af.listColumnInfo();
+		
 		
 		SfSqlConfig config = new SfSqlConfig();
 		mf.getSubParsers().add(i1af);

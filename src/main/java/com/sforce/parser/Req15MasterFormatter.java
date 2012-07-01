@@ -10,9 +10,9 @@ import com.sforce.column.ComplexColumn;
 import com.sforce.column.DateColumn;
 import com.sforce.column.FakeColumn;
 import com.sforce.column.StringColumn;
-import com.sforce.column.TimeColumn;
 import com.sforce.soap.enterprise.sobject.VisitReportC;
 import com.sforce.to.SfSqlConfig;
+import com.sforce.util.DateUtils;
 /**
  *
  */
@@ -40,8 +40,8 @@ public class Req15MasterFormatter extends BaseParser<VisitReportC> {
 		columns.add(new StringColumn(i++, "statusC", "Status__c"));
 		columns.add(new DateColumn(i++, "submitDateC", "Submit_Date__c"));
 		columns.add(new DateColumn(i++, "visitDateC", "Visit_Date__c"));
-		columns.add(new TimeColumn(i++, "startTimeC", "Start_Time__c"));
-		columns.add(new TimeColumn(i++, "endTimeC", "End_Time__c"));
+		columns.add(new StringColumn(i++, "startTimeC", "Start_Time__c"));
+		columns.add(new StringColumn(i++, "endTimeC", "End_Time__c"));
 		columns.add(new StringColumn(i++, "topicPurposeC", "Topic_Purpose__c"));
 		columns.add(new ComplexColumn(i++, "complaintsC", "Complaints__c"));
 		columns.add(new StringColumn(i++, "highlightC", "Highlight__c"));
@@ -51,9 +51,9 @@ public class Req15MasterFormatter extends BaseParser<VisitReportC> {
 		columns.add(new StringColumn(i++, "initialSourceRemarkC", "Initial_Source_Remark__c"));
 		columns.add(new StringColumn(i++, "initialSourceByC", "Initial_Source_by__c"));
 		columns.add(new StringColumn(i++, "initialSourceByRemarkC", "Initial_Source_by_Remark__c"));
-		columns.add(new StringColumn(i++, "customerIssueDateC", "Customer_Issue_Date__c"));
+		columns.add(new DateColumn(i++, "customerIssueDateC", "Customer_Issue_Date__c"));
 		columns.add(new StringColumn(i++, "customerIssueTimeC", "Customer_Issue_Time__c"));
-		columns.add(new StringColumn(i++, "customerRequestVisitDateC", "Customer_Request_Visit_Date__c"));
+		columns.add(new DateColumn(i++, "customerRequestVisitDateC", "Customer_Request_Visit_Date__c"));
 		columns.add(new StringColumn(i++, "customerRequestVisitTimeC", "Customer_Request_Visit_Time__c"));
 		columns.add(new StringColumn(i++, "customerC", "Customer__c"));
 		
@@ -69,7 +69,7 @@ public class Req15MasterFormatter extends BaseParser<VisitReportC> {
 		columns.add(new StringColumn(i++, "placeC", "Place__c"));
 		
 		columns.add(new StringColumn(i++, "createdById", "CreatedById"));
-		columns.add(new StringColumn(i++, "createdDate", "CreatedDate"));
+		columns.add(new DateColumn(i++, "createdDate", "CreatedDate"));
 		columns.add(new StringColumn(i++, "ownerId", "OwnerId"));
 		columns.add(new StringColumn(i++, "visitReportURLC", "Visit_Report_URL__c"));
 		columns.add(new StringColumn(i++, "customerApplicationC", "Customer_Application__c"));
@@ -84,19 +84,16 @@ public class Req15MasterFormatter extends BaseParser<VisitReportC> {
 
 	protected String buildSfCondition(SfSqlConfig config) {
 		StringBuilder sb = new StringBuilder();
-		/*
 		sb.append(" and Status__c <> 'Draft' ");
 		if (null != config.getLasySyncDate()) {
 			sb.append(" and LastModifiedDate > "+DateUtils.formatSfDateTime(config.getLasySyncDate()));
 		}
-		*/
 		
 		return sb.toString();
 	}
 
 	@Override
 	public void preFormat(VisitReportC entity) {
-		// TODO Auto-generated method stub
 		
 	}
 	

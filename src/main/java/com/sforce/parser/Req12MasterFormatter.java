@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.sforce.column.Column;
+import com.sforce.column.ComplexColumn;
 import com.sforce.column.StringColumn;
 import com.sforce.soap.enterprise.sobject.Account;
 import com.sforce.to.SfSqlConfig;
@@ -36,7 +37,7 @@ public class Req12MasterFormatter extends BaseParser<Account> {
 		int i = 0;
 		columns.add(new StringColumn(i++, "accountNumber", "AccountNumber"));
 		columns.add(new StringColumn(i++, "parentIDC", "Parent_ID__c"));
-		columns.add(new StringColumn(i++, "attributionC", "Attribution__c"));
+		columns.add(new ComplexColumn(i++, "attributionC", "Attribution__c"));
 		
 		this.tableName = "Account";
 	}

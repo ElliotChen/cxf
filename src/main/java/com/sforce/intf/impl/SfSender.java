@@ -13,13 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.sforce.domain.Job;
 import com.sforce.intf.Sender;
 import com.sforce.parser.Parser;
-import com.sforce.parser.Req01MasterParser;
 import com.sforce.service.JobManager;
+import com.sforce.soap.enterprise.Error;
 import com.sforce.soap.enterprise.UpsertResult;
-import com.sforce.soap.enterprise.sobject.ExchangeRateC;
 import com.sforce.soap.enterprise.sobject.SObject;
 import com.sforce.to.InitConfig;
-import com.sforce.util.DateUtils;
+import com.sforce.util.CollectionUtils;
 
 public class SfSender extends SfConnector implements Sender {
 	private static final Logger logger = LoggerFactory.getLogger(SfSender.class);
@@ -81,8 +80,21 @@ public class SfSender extends SfConnector implements Sender {
 						logger.debug("---- {}",so);
 					}
 				} else {
-					List<UpsertResult> result = soap.upsert(syncKey, objs , sh, null, null, null, null, null, null, null, null, null, null);
-
+					List<List<SObject>> lists = CollectionUtils.splitList(objs, 200);
+					boolean fail = false;
+					for (List<SObject> sos : lists) {
+						List<UpsertResult> result = soap.upsert(syncKey, objs , sh, null, null, null, null, null, null, null, null, null, null);
+						for (UpsertResult ur : result) {
+							if (!ur.getSuccess()) {
+								fail = true;
+								logger.error("Upsert SObject Failed : Key[{}]", ur.getId());
+								for (Error err : ur.getErrors()) {
+									logger.error("Code [{}] - Message: {}",err.getStatusCode(), err.getMessage());
+								}
+							}
+						}
+					}
+					
 					this.jobManager.finish(job);
 				}
 			} catch (Exception e) {
@@ -110,6 +122,9 @@ public class SfSender extends SfConnector implements Sender {
 		}
 	}
 
+	private Logger getInterfaceLogger(String component, String messageId) {
+		return LoggerFactory.getLogger(component);
+	}
 	public List<Parser<?>> getParsers() {
 		return parsers;
 	}

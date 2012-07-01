@@ -33,6 +33,7 @@ public class Req15I1CFormatter extends SubParser<RelatedApplicationC, VisitRepor
 		int i = 0;
 		columns.add(new FakeColumn(i++, "I1C", ""));
 		
+		columns.add(new StringColumn(i++, "visitReportC", "Visit_Report__c")); //cheat
 		columns.add(new StringColumn(i++, "applicationC", "Application__c"));
 		
 		this.tableName = "Visit_Report__c.Related_Applications__r";
@@ -54,7 +55,7 @@ public class Req15I1CFormatter extends SubParser<RelatedApplicationC, VisitRepor
 
 	@Override
 	public void preFormat(VisitReportC master, RelatedApplicationC entity) {
-		// TODO Auto-generated method stub
+		entity.setVisitReportC(master.getName());
 		
 	}
 	

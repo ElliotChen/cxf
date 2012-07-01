@@ -45,7 +45,7 @@ public class Req13MasterParserTest {
 	@Test
 	public void testGenSQL() {
 		Req13MasterParser fp = new Req13MasterParser();
-		fp.init();
+		fp.listColumnInfo();
 		logger.debug(fp.genSQLColumn());
 	}
 }

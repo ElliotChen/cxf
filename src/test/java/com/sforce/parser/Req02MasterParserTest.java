@@ -18,7 +18,7 @@ public class Req02MasterParserTest {
 	@Test
 	public void testInit() {
 		Req02MasterParser fp = new Req02MasterParser();
-		fp.init();
+		fp.listColumnInfo();
 		logger.debug(fp.genSQLColumn());
 	}
 

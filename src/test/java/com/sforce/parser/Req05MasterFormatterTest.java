@@ -9,7 +9,7 @@ public class Req05MasterFormatterTest {
 	@Test
 	public void testInit() {
 		Req05MasterFormatter rf = new Req05MasterFormatter();
-		rf.init();
+		rf.listColumnInfo();
 	}
 
 }

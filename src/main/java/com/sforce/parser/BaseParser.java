@@ -45,6 +45,7 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 				if (pd.getName().equals(col.getName())) {
 					col.setReadMethod(pd.getReadMethod());
 					col.setWriteMethod(pd.getWriteMethod());
+					/*
 					if (null == col.getReadMethod() && Boolean.class.equals(pd.getPropertyType())) {
 						Method method = null;
 						try {
@@ -58,6 +59,7 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 							getLogger().error("class {}, can't find [{}]",pd.getPropertyType(),"is"+pd.getName());
 						}
 					}
+					*/
 					break;
 				}
 			}
@@ -134,6 +136,8 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 	
 	@Override
 	public String format(T entity) {
+		this.preFormat(entity);
+		
 		StringBuilder sb = new StringBuilder();
 		String column = "";
 		boolean first = true;
@@ -219,5 +223,32 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 	}
 	public void setSubParsers(List<SubParser<?,?>> subParsers) {
 		this.subParsers = subParsers;
+	}
+	
+	public void listColumnInfo() {
+		this.init();
+		
+		for (Column<?> col : this.columns) {
+			this.getLogger().info("Index[{}] - SfName[{}] - Type[{}]", new Object[]{col.getIndex(), col.getSfName(), col.getClass().getSimpleName() });
+			if (!col.getFake()) {
+				if (null == col.getReadMethod()) {
+					this.getLogger().error("Please check column[{}], there is no read method for this column.", col.getName());
+				} else {
+					String wsdl = col.getReadMethod().getReturnType().getSimpleName();
+					String type = col.getClass().getSimpleName();
+					if (!type.startsWith(wsdl)) {
+						if (wsdl.equals("Date") && (type.startsWith("Month") || type.startsWith("Time"))) {
+							//this.getLogger().warn("Please Check Column Type, WSDL is a [{}], but we define type[{}]", wsdl, type);
+						} else {
+							this.getLogger().warn("Please Check Column Type, WSDL is a [{}], but we define type[{}]", wsdl, type);
+						}
+					}
+				}
+			}
+		}
+		
+		for (SubParser<?, ?> sp : this.subParsers) {
+			sp.listColumnInfo();
+		}
 	}
 }

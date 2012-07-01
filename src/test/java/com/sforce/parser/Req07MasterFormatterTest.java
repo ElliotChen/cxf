@@ -9,9 +9,7 @@ public class Req07MasterFormatterTest {
 	@Test
 	public void test() {
 		Req07MasterFormatter rf = new Req07MasterFormatter();
-		rf.init();
-		
-		System.out.println(rf.genSQLColumn());
+		rf.listColumnInfo();
 	}
 
 }

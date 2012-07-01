@@ -56,7 +56,7 @@ public class Req15I1AFormatter extends SubParser<MacronixSiteAttendeeC, VisitRep
 
 	@Override
 	public void preFormat(VisitReportC master, MacronixSiteAttendeeC entity) {
-		entity.setVisitReportC(master.getId());
+		entity.setVisitReportC(master.getName());
 	}
 	
 }

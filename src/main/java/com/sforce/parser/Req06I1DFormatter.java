@@ -5,16 +5,13 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.sforce.column.BooleanColumn;
 import com.sforce.column.Column;
 import com.sforce.column.DateColumn;
-import com.sforce.column.DoubleColumn;
 import com.sforce.column.FakeColumn;
-import com.sforce.column.MonthColumn;
 import com.sforce.column.StringColumn;
 import com.sforce.soap.enterprise.sobject.DIMilestoneHistoryC;
-import com.sforce.soap.enterprise.sobject.DIRelatedAccountC;
 import com.sforce.soap.enterprise.sobject.Opportunity;
-import com.sforce.soap.enterprise.sobject.OpportunityHistory;
 import com.sforce.to.SfSqlConfig;
 /**
  * 
@@ -27,8 +24,8 @@ import com.sforce.to.SfSqlConfig;
  * @author elliot
  *
  */
-public class Req06I4AFormatter extends SubParser<DIMilestoneHistoryC, Opportunity> {
-	private static final Logger logger = LoggerFactory.getLogger(Req06I4AFormatter.class);
+public class Req06I1DFormatter extends SubParser<DIMilestoneHistoryC, Opportunity> {
+	private static final Logger logger = LoggerFactory.getLogger(Req06I1DFormatter.class);
 	
 	@Override
 	public boolean accept(String[] source) {
@@ -44,15 +41,15 @@ public class Req06I4AFormatter extends SubParser<DIMilestoneHistoryC, Opportunit
 	protected void initDefaultColumns() {
 		this.columns = new ArrayList<Column<?>>();
 		int i = 0;
-		columns.add(new FakeColumn(i++, "I4A", ""));
+		columns.add(new FakeColumn(i++, "I1D", ""));
 		
 		columns.add(new StringColumn(i++, "id", ""));
 		columns.add(new StringColumn(i++, "keyMilestoneC", "Key_Milestone__c"));
 		columns.add(new DateColumn(i++, "keyMilestoneDateC", "Key_Milestone_Date__c"));
 		columns.add(new StringColumn(i++, "bingoDocNoC", "Bingo_Doc_No__c"));
-		columns.add(new StringColumn(i++, "isCurrentMilestoneC", "Is_Current_Milestone__c"));
+		columns.add(new BooleanColumn(i++, "isCurrentMilestoneC", "Is_Current_Milestone__c", "Y", "N"));
 		
-		this.tableName = "Opportunity.Key_Milestones__r";
+		this.tableName = "Opportunity.DI_Milestone_History__r";
 	}
 
 	@Override

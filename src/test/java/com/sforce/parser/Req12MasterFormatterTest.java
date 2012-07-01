@@ -9,7 +9,7 @@ public class Req12MasterFormatterTest {
 	@Test
 	public void test() {
 		Req12MasterFormatter rf = new Req12MasterFormatter();
-		rf.init();
+		rf.listColumnInfo();
 		
 		System.out.println(rf.genSQLColumn());
 	}
