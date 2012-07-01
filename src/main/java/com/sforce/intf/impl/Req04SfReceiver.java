@@ -12,6 +12,7 @@ import com.sforce.domain.Job;
 import com.sforce.parser.Parser;
 import com.sforce.parser.Req04I1AFormatter;
 import com.sforce.parser.Req04MasterFormatter;
+import com.sforce.parser.SubParser;
 import com.sforce.soap.enterprise.QueryResult;
 import com.sforce.soap.enterprise.sobject.CompetitorPriceC;
 import com.sforce.soap.enterprise.sobject.CompetitorPriceItemC;
@@ -45,7 +46,7 @@ public class Req04SfReceiver extends SfReceiver {
 				if (null != i1As && !i1As.isEmpty()) {
 					for (SObject i1A : i1As) {
 						CompetitorPriceItemC cpi = (CompetitorPriceItemC)i1A;
-						cpi.setCompetitorPriceC(cp.getName());
+						this.i1AFormatter.preFormat(cp, cpi);
 						source = i1AFormatter.format(cpi);
 						FileUtils.write(target, source, true);
 					}
@@ -63,7 +64,7 @@ public class Req04SfReceiver extends SfReceiver {
 	public void postInit() {
 		masterFormatter.init();
 		i1AFormatter.init();
-		List<Parser<?>> subParsers = new ArrayList<Parser<?>>();
+		List<SubParser<?,?>> subParsers = new ArrayList<SubParser<?,?>>();
 		subParsers.add(i1AFormatter);
 		masterFormatter.setSubParsers(subParsers);
 	}

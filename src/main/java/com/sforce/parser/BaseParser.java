@@ -11,7 +11,9 @@ import org.slf4j.Logger;
 import org.springframework.beans.BeanUtils;
 
 import com.sforce.column.Column;
+import com.sforce.soap.enterprise.sobject.Account;
 import com.sforce.soap.enterprise.sobject.SObject;
+import com.sforce.soap.enterprise.sobject.User;
 import com.sforce.to.SfSqlConfig;
 
 public abstract class BaseParser<T extends SObject> implements Parser<T> {
@@ -20,7 +22,7 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 	protected String syncKey;
 	protected String tableName;
 	
-	protected List<Parser<?>> subParsers = new ArrayList<Parser<?>>();
+	protected List<SubParser<?,?>> subParsers = new ArrayList<SubParser<?,?>>();
 	public BaseParser() {
 		this.domainClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
@@ -179,6 +181,23 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 		return (T)target;
 	}
 
+	protected String formateAsName(User user) {
+		if (null == user) {
+			return "";
+		}
+		
+		return user.getFirstName()+" "+user.getLastName();
+	}
+	
+	protected String formateAsName(Account account) {
+		if (null == account) {
+			return "";
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		
+		return sb.toString();
+	}
 	public String getSyncKey() {
 		return this.syncKey;
 	}
@@ -195,10 +214,10 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 		this.tableName = tableName;
 	}
 	
-	public List<Parser<?>> getSubParsers() {
+	public List<SubParser<?,?>> getSubParsers() {
 		return subParsers;
 	}
-	public void setSubParsers(List<Parser<?>> subParsers) {
+	public void setSubParsers(List<SubParser<?,?>> subParsers) {
 		this.subParsers = subParsers;
 	}
 }

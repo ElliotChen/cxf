@@ -170,7 +170,37 @@ public class SforceServiceTest {
 	@Test
 	public void testReq06() throws Exception {
 		//WHERE LastModifiedDate >= 2012-05-21T00:00:00Z
-		DescribeSObjectResult dso = soap.describeSObject("Opportunity_Data__c", sh, null, null);
+		DescribeSObjectResult dso = soap.describeSObject("Opportunity", sh, null, null);
+		System.out.println("Table Opportunity");
+		for (Field field : dso.getFields()) {
+			System.out.println("	"+field.getName());
+		}
+		
+		dso = soap.describeSObject("OpportunityHistory", sh, null, null);
+		System.out.println("Table OpportunityHistory");
+		for (Field field : dso.getFields()) {
+			System.out.println("	"+field.getName());
+		}
+		
+		dso = soap.describeSObject("DI_Related_Account__c", sh, null, null);
+		System.out.println("Table DI_Related_Account__c");
+		for (Field field : dso.getFields()) {
+			System.out.println("	"+field.getName());
+		}
+		
+		dso = soap.describeSObject("DI_Milestone_History__c", sh, null, null);
+		System.out.println("Table DI_Milestone_History__c");
+		for (Field field : dso.getFields()) {
+			System.out.println("	"+field.getName());
+		}
+		
+		dso = soap.describeSObject("Product_Opportunity__c", sh, null, null);
+		System.out.println("Table Product_Opportunity__c");
+		for (Field field : dso.getFields()) {
+			System.out.println("	"+field.getName());
+		}
+		
+		dso = soap.describeSObject("Opportunity_Data__c", sh, null, null);
 		System.out.println("Table Opportunity_Data__c");
 		for (Field field : dso.getFields()) {
 			System.out.println("	"+field.getName());

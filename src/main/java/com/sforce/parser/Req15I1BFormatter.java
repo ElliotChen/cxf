@@ -9,11 +9,12 @@ import com.sforce.column.Column;
 import com.sforce.column.FakeColumn;
 import com.sforce.column.StringColumn;
 import com.sforce.soap.enterprise.sobject.OtherRelatedGroupC;
+import com.sforce.soap.enterprise.sobject.VisitReportC;
 import com.sforce.to.SfSqlConfig;
 /**
  *
  */
-public class Req15I1BFormatter extends BaseParser<OtherRelatedGroupC> {
+public class Req15I1BFormatter extends SubParser<OtherRelatedGroupC, VisitReportC> {
 	private static final Logger logger = LoggerFactory.getLogger(Req15I1BFormatter.class);
 	
 	@Override
@@ -47,6 +48,12 @@ public class Req15I1BFormatter extends BaseParser<OtherRelatedGroupC> {
 
 	@Override
 	public void preFormat(OtherRelatedGroupC entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void preFormat(VisitReportC master, OtherRelatedGroupC entity) {
 		// TODO Auto-generated method stub
 		
 	}

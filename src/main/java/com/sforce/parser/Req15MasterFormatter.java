@@ -6,13 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.sforce.column.Column;
+import com.sforce.column.ComplexColumn;
 import com.sforce.column.DateColumn;
 import com.sforce.column.FakeColumn;
 import com.sforce.column.StringColumn;
 import com.sforce.column.TimeColumn;
 import com.sforce.soap.enterprise.sobject.VisitReportC;
 import com.sforce.to.SfSqlConfig;
-import com.sforce.util.DateUtils;
 /**
  *
  */
@@ -43,7 +43,7 @@ public class Req15MasterFormatter extends BaseParser<VisitReportC> {
 		columns.add(new TimeColumn(i++, "startTimeC", "Start_Time__c"));
 		columns.add(new TimeColumn(i++, "endTimeC", "End_Time__c"));
 		columns.add(new StringColumn(i++, "topicPurposeC", "Topic_Purpose__c"));
-		columns.add(new StringColumn(i++, "complaintsC", "Complaints__c"));
+		columns.add(new ComplexColumn(i++, "complaintsC", "Complaints__c"));
 		columns.add(new StringColumn(i++, "highlightC", "Highlight__c"));
 		
 		columns.add(new StringColumn(i++, "issueTypeC", "Issue_Type__c"));

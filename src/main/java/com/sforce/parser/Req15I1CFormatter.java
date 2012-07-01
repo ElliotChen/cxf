@@ -8,13 +8,13 @@ import org.slf4j.LoggerFactory;
 import com.sforce.column.Column;
 import com.sforce.column.FakeColumn;
 import com.sforce.column.StringColumn;
-import com.sforce.soap.enterprise.sobject.OtherRelatedGroupC;
 import com.sforce.soap.enterprise.sobject.RelatedApplicationC;
+import com.sforce.soap.enterprise.sobject.VisitReportC;
 import com.sforce.to.SfSqlConfig;
 /**
  *
  */
-public class Req15I1CFormatter extends BaseParser<RelatedApplicationC> {
+public class Req15I1CFormatter extends SubParser<RelatedApplicationC, VisitReportC> {
 	private static final Logger logger = LoggerFactory.getLogger(Req15I1CFormatter.class);
 	
 	@Override
@@ -48,6 +48,12 @@ public class Req15I1CFormatter extends BaseParser<RelatedApplicationC> {
 
 	@Override
 	public void preFormat(RelatedApplicationC entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void preFormat(VisitReportC master, RelatedApplicationC entity) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -14,33 +14,6 @@ import com.sforce.soap.enterprise.sobject.CompetitorPriceC;
 import com.sforce.to.SfSqlConfig;
 import com.sforce.util.DateUtils;
 /**
- * @author elliot
- * name	Name
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
  *
  */
 public class Req04MasterFormatter extends BaseParser<CompetitorPriceC> {
