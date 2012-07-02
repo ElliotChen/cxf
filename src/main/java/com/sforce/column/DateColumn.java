@@ -2,6 +2,8 @@ package com.sforce.column;
 
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.sforce.util.DateUtils;
 
 public class DateColumn extends Column<Date> {
@@ -12,6 +14,9 @@ public class DateColumn extends Column<Date> {
 
 	@Override
 	public Date parse(String value) {
+		if (StringUtils.isEmpty(value)) {// || "00000000".equals(value)) {
+			return null;
+		}
 		return DateUtils.pareseDate(value);
 	}
 

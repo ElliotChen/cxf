@@ -27,6 +27,7 @@ public class SfSender extends SfConnector implements Sender {
 	private List<Parser<?>> parsers;
 	private List<SObject> objs = new ArrayList<SObject>();
 	private String syncKey;
+	private String[] receivers;
 	@Override
 	public boolean send() {
 		this.connect();
@@ -68,7 +69,7 @@ public class SfSender extends SfConnector implements Sender {
 					}
 					
 					objs.add(target);
-					logger.debug("Find Source [{}]", target);
+					//logger.debug("Find Source [{}]", target);
 				}
 				if (objs.isEmpty()) {
 					logger.error("Parsing file[{}] but can't find any SObject", job.getAbsolutePath());
@@ -81,21 +82,26 @@ public class SfSender extends SfConnector implements Sender {
 					}
 				} else {
 					List<List<SObject>> lists = CollectionUtils.splitList(objs, 200);
-					boolean fail = false;
+					List<String> errors = new ArrayList<String>();
+//					boolean fail = false;
+					int loop = 0;
 					for (List<SObject> sos : lists) {
-						List<UpsertResult> result = soap.upsert(syncKey, objs , sh, null, null, null, null, null, null, null, null, null, null);
+						logger.debug("Loop[{}] and Current Size[{}]", loop++, sos.size());
+						List<UpsertResult> result = soap.upsert(syncKey, sos , sh, null, null, null, null, null, null, null, null, null, null);
 						for (UpsertResult ur : result) {
 							if (!ur.getSuccess()) {
-								fail = true;
-								logger.error("Upsert SObject Failed : Key[{}]", ur.getId());
+//								fail = true;
+								errors.add("Upsert SObject Failed : Key["+ur.getId()+"]");
+								logger.error("[{}]-[{}] Upsert SObject Failed : Key[{}]", new Object[] {job.getComponent(), job.getMqId(), ur.getId()});
 								for (Error err : ur.getErrors()) {
-									logger.error("Code [{}] - Message: {}",err.getStatusCode(), err.getMessage());
+									errors.add("Code["+err.getStatusCode()+"] - Message:"+err.getMessage());
+									logger.error("[{}]-[{}] Code [{}] - Message: {}",new Object[] {job.getComponent(), job.getMqId(),err.getStatusCode(), err.getMessage()});
 								}
 							}
 						}
 					}
 					
-					this.jobManager.finish(job);
+					this.jobManager.finish(job, errors, receivers);
 				}
 			} catch (Exception e) {
 				this.jobManager.abandon(job);
@@ -148,4 +154,14 @@ public class SfSender extends SfConnector implements Sender {
 	public void setJobManager(JobManager jobManager) {
 		this.jobManager = jobManager;
 	}
+
+	public String[] getReceivers() {
+		return receivers;
+	}
+
+	public void setReceivers(String[] receivers) {
+		this.receivers = receivers;
+	}
+	
+	
 }

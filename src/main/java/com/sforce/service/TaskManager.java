@@ -1,5 +1,11 @@
 package com.sforce.service;
 
-public interface TaskManager {
+import com.ibm.mq.MQException;
+import com.sforce.domain.Job;
+import com.sforce.intf.impl.MqConnector;
 
+public interface TaskManager {
+	void arrange(Runnable task);
+	void mailMqProblem(MQException me, MqConnector connector, String[] receivers);
+	void mailSfProblems(Job job, String[] receiver);
 }

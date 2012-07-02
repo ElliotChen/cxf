@@ -26,6 +26,8 @@ public class Job extends AbstractStrOidAuditable {
 	@Column(name="ABSOLUTE_PATH", length=400)
 	private String absolutePath;
 
+	@Column(name="ERROR_PATH", length=400)
+	private String errorPath;
 	public String getComponent() {
 		return component;
 	}
@@ -65,6 +67,14 @@ public class Job extends AbstractStrOidAuditable {
 
 	public void setAbsolutePath(String absolutePath) {
 		this.absolutePath = absolutePath;
+	}
+
+	public String getErrorPath() {
+		return errorPath;
+	}
+
+	public void setErrorPath(String errorPath) {
+		this.errorPath = errorPath;
 	}
 
 	@Override

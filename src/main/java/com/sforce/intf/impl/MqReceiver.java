@@ -22,6 +22,7 @@ import com.sforce.domain.Job;
 import com.sforce.domain.JobState;
 import com.sforce.intf.Receiver;
 import com.sforce.service.JobManager;
+import com.sforce.service.TaskManager;
 import com.sforce.to.InitConfig;
 import com.sforce.util.DateUtils;
 
@@ -31,6 +32,10 @@ public class MqReceiver extends MqConnector implements Receiver {
 	private MQGetMessageOptions messageOptions;
 	@Autowired
 	private JobManager jobManager;
+	@Autowired
+	private TaskManager taskManager;
+	
+	private String[] receivers;
 	@Value("${file.parent.path}")
 	private String parentPath;
 	private List<File> files = new ArrayList<File>();
@@ -70,7 +75,9 @@ public class MqReceiver extends MqConnector implements Receiver {
 				jobManager.create(job);
 				logger.info("Create {} for Component[{}]", job, this.component);
 			}
-
+			
+		} catch(MQException me) {
+			this.taskManager.mailMqProblem(me, this, receivers);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -140,4 +147,39 @@ public class MqReceiver extends MqConnector implements Receiver {
 		this.component = config.getName();
 		this.debugMode = config.getDebugMode();
 	}
+
+	public String[] getReceivers() {
+		return receivers;
+	}
+
+	public void setReceivers(String[] receivers) {
+		this.receivers = receivers;
+	}
+
+	public JobManager getJobManager() {
+		return jobManager;
+	}
+
+	public void setJobManager(JobManager jobManager) {
+		this.jobManager = jobManager;
+	}
+
+	public TaskManager getTaskManager() {
+		return taskManager;
+	}
+
+	public void setTaskManager(TaskManager taskManager) {
+		this.taskManager = taskManager;
+	}
+
+	public String getParentPath() {
+		return parentPath;
+	}
+
+	public void setParentPath(String parentPath) {
+		this.parentPath = parentPath;
+	}
+	
+	
+	
 }

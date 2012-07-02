@@ -11,6 +11,7 @@ public abstract class MqConnector {
 	protected String queueName;
 	
 	protected Boolean debugMode = Boolean.FALSE;
+	
 	public String getComponent() {
 		return component;
 	}
@@ -65,6 +66,5 @@ public abstract class MqConnector {
 	public void setDebugMode(Boolean debugMode) {
 		this.debugMode = debugMode;
 	}
-	
 	
 }

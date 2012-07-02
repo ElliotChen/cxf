@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ibm.mq.MQC;
+import com.ibm.mq.MQException;
 import com.ibm.mq.MQGetMessageOptions;
 import com.ibm.mq.MQMessage;
 import com.ibm.mq.MQQueue;
@@ -20,6 +21,7 @@ import com.ibm.mq.MQQueueManager;
 import com.sforce.domain.Job;
 import com.sforce.intf.Sender;
 import com.sforce.service.JobManager;
+import com.sforce.service.TaskManager;
 import com.sforce.to.InitConfig;
 import com.sforce.util.DateUtils;
 
@@ -29,6 +31,10 @@ public class MqSender extends MqConnector implements Sender {
 	private JobManager jobManager;
 	@Autowired
 	private MQGetMessageOptions messageOptions;
+	@Autowired
+	private TaskManager taskManager;
+	
+	private String[] receivers;
 	
 	private int maxKb = 512;
 	@Override
@@ -61,11 +67,13 @@ public class MqSender extends MqConnector implements Sender {
 				if (this.debugMode) {
 					this.jobManager.release(job);
 				} else {
-					this.jobManager.finish(job);
+					this.jobManager.finish(job, new ArrayList<String>(), new String[] {});
 				}
 				
 			}
 
+		} catch(MQException me) {
+			this.taskManager.mailMqProblem(me, this, receivers);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -135,6 +143,30 @@ public class MqSender extends MqConnector implements Sender {
 
 	public void setMaxKb(int maxKb) {
 		this.maxKb = maxKb;
+	}
+
+	public String[] getReceivers() {
+		return receivers;
+	}
+
+	public void setReceivers(String[] receivers) {
+		this.receivers = receivers;
+	}
+
+	public JobManager getJobManager() {
+		return jobManager;
+	}
+
+	public void setJobManager(JobManager jobManager) {
+		this.jobManager = jobManager;
+	}
+
+	public TaskManager getTaskManager() {
+		return taskManager;
+	}
+
+	public void setTaskManager(TaskManager taskManager) {
+		this.taskManager = taskManager;
 	}
 	
 }

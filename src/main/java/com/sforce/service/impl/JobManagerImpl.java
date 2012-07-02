@@ -1,7 +1,10 @@
 package com.sforce.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import com.sforce.domain.Job;
 import com.sforce.domain.JobState;
 import com.sforce.domain.support.LikeMode;
 import com.sforce.service.JobManager;
+import com.sforce.service.TaskManager;
 
 @Service("jobManager")
 @Transactional(readOnly=true)
@@ -21,6 +25,9 @@ public class JobManagerImpl extends AbstractDomainService<JobDao, Job, String>
 	private static final Logger logger = LoggerFactory.getLogger(JobManagerImpl.class);
 	@Autowired
 	private JobDao dao;
+	
+	@Autowired
+	private TaskManager taskManager;
 	@Override
 	public JobDao getDao() {
 		return dao;
@@ -50,7 +57,7 @@ public class JobManagerImpl extends AbstractDomainService<JobDao, Job, String>
 	}
 	
 	@Transactional(readOnly=false)
-	public void finish(Job job) {
+	public void finish(Job job, List<String> errors, String[] receivers) {
 		/*
 		Job job = this.dao.findByOid(jobOid);
 		if (null == job) {
@@ -61,6 +68,16 @@ public class JobManagerImpl extends AbstractDomainService<JobDao, Job, String>
 		if (null == job) {
 			logger.warn("Finish Job can't accept empty Job");
 			return;
+		}
+		if (!errors.isEmpty()) {
+			File efile = new File(job.getAbsolutePath()+".error");
+			try {
+				FileUtils.writeLines(efile, errors, false);
+			} catch (IOException e) {
+				logger.error("");
+			}
+			job.setErrorPath(efile.getAbsolutePath());
+			taskManager.mailSfProblems(job, receivers);
 		}
 		job.setState(JobState.Closed);
 		
