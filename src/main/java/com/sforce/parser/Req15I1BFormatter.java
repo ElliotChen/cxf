@@ -32,10 +32,21 @@ public class Req15I1BFormatter extends SubParser<OtherRelatedGroupC, VisitReport
 		this.columns = new ArrayList<Column<?>>();
 		int i = 0;
 		columns.add(new FakeColumn(i++, "I1B", ""));
+		for (int fi = 0; fi<=41; fi++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
+		for (int fi = 0; fi<=3; fi++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
+		
 		
 		columns.add(new StringColumn(i++, "visitReportC", "Visit_Report__c"));
 		columns.add(new StringColumn(i++, "groupNameC", "Group_Name__c"));
 		
+		
+		for (int fi = 0; fi<=2; fi++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
 		this.tableName = "Visit_Report__c.Other_Related_Group__r";
 	}
 

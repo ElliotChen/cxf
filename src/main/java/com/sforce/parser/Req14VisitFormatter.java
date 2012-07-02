@@ -50,18 +50,15 @@ public class Req14VisitFormatter extends BaseParser<VisitReportC> {
 		columns.add(new StringColumn(i++, "name", "Name"));
 		columns.add(new StringColumn(i++, "visitReportURLC", "Visit_Report_URL__c"));
 		columns.add(new DateColumn(i++, "submitDateC", "Submit_Date__c"));
-		columns.add(new StringColumn(i++, "createdById", "CreatedById"));
+		columns.add(new StringColumn(i++, "createdById", "CreatedBy.FirstName,CreatedBy.LastName"));//cheat
 		columns.add(new DateColumn(i++, "visitDateC", "Visit_Date__c"));
-		columns.add(new StringColumn(i++, "customerC", "Customer__c"));
-		columns.add(new StringColumn(i++, "productEPN2C", "Customer__r.Id")); //cheat...
+		columns.add(new StringColumn(i++, "customerC", "Customer__r.Name"));//cheat
+		columns.add(new StringColumn(i++, "productEPN2C", "Customer__r.AccountNumber")); //cheat...
 		columns.add(new StringColumn(i++, "placeC", "Place__c"));
 		columns.add(new StringColumn(i++, "recordTypeId", "RecordType.Name"));
 		
-		columns.add(new StringColumn(i++, "productEPN1C", "Product_EPN1__c"));
-		columns.add(new FakeColumn(i++, "", "Product_EPN2__c"));
-		columns.add(new FakeColumn(i++, "", "Product_EPN3__c"));
-		columns.add(new FakeColumn(i++, "", "Product_EPN4__c"));
-		columns.add(new FakeColumn(i++, "", "Product_EPN5__c"));
+		//cheat
+		columns.add(new StringColumn(i++, "productEPN1C", "Product_EPN1__r.Name,Product_EPN2__r.Name,Product_EPN3__r.Name,Product_EPN4__r.Name,Product_EPN5__r.Name"));
 		//@TODO Product Body?
 		
 		columns.add(new DateColumn(i++, "customerIssueDateC", "Customer_Issue_Date__c"));
@@ -84,8 +81,31 @@ public class Req14VisitFormatter extends BaseParser<VisitReportC> {
 
 	@Override
 	public void preFormat(VisitReportC entity) {
-		// TODO Auto-generated method stub
+		if (null != entity.getCreatedBy()) {
+			entity.setCreatedById(this.formateAsName(entity.getCreatedBy()));
+		}
+		if (null != entity.getCustomerR()) {
+			entity.setCustomerC(entity.getCustomerR().getName());
+			entity.setProductEPN2C(entity.getCustomerR().getAccountNumber());
+		}
+		StringBuilder sb = new StringBuilder();
+		if (null != entity.getProductEPN1R()) {
+			sb.append(entity.getProductEPN1R().getName()+";");
+		}
+		if (null != entity.getProductEPN2R()) {
+			sb.append(entity.getProductEPN2R().getName()+";");
+		}
+		if (null != entity.getProductEPN3R()) {
+			sb.append(entity.getProductEPN3R().getName()+";");
+		}
+		if (null != entity.getProductEPN4R()) {
+			sb.append(entity.getProductEPN4R().getName()+";");
+		}
+		if (null != entity.getProductEPN5R()) {
+			sb.append(entity.getProductEPN5R().getName()+";");
+		}
 		
+		entity.setProductEPN1C(sb.toString());
 	}
 	
 }

@@ -12,7 +12,7 @@ public class TimeColumn extends Column<Date> {
 
 	@Override
 	public Date parse(String value) {
-		return DateUtils.pareseDateTime(value);
+		return DateUtils.pareseTime(value);
 	}
 
 	@Override

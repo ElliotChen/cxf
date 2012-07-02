@@ -14,7 +14,7 @@ public class DateColumn extends Column<Date> {
 
 	@Override
 	public Date parse(String value) {
-		if (StringUtils.isEmpty(value)) {// || "00000000".equals(value)) {
+		if (StringUtils.isEmpty(value) || "00000000".equals(value)) {
 			return null;
 		}
 		return DateUtils.pareseDate(value);

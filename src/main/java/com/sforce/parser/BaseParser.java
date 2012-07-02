@@ -152,8 +152,12 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 			} else {
 				try {
 					Object result = col.getReadMethod().invoke(entity, null);
-					column = col.format(col.getReadMethod().invoke(entity, null));
-					sb.append(column);
+					if (null == result) {
+						sb.append("");
+					} else {
+						column = col.format(result);
+						sb.append(column);
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -189,7 +193,9 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 		if (null == user) {
 			return "";
 		}
-		
+		if (StringUtils.isEmpty(user.getFirstName())) {
+			return " "+user.getLastName();
+		}
 		return user.getFirstName()+" "+user.getLastName();
 	}
 	

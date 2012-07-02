@@ -32,11 +32,22 @@ public class Req15I1AFormatter extends SubParser<MacronixSiteAttendeeC, VisitRep
 		this.columns = new ArrayList<Column<?>>();
 		int i = 0;
 		columns.add(new FakeColumn(i++, "I1A", ""));
+		for (int fi = 0; fi<=41; fi++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
 		
 		columns.add(new StringColumn(i++, "visitReportC", "Visit_Report__c"));
 		columns.add(new StringColumn(i++, "attendeeNameC", "Attendee_Name__c"));
 		columns.add(new StringColumn(i++, "departmentC", "Department__c"));
 		
+		
+		for (int fi = 0; fi<=2; fi++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
+		
+		for (int fi = 0; fi<=2; fi++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
 		this.tableName = "Visit_Report__c.Macronix_Site_Attendee__r";
 	}
 
