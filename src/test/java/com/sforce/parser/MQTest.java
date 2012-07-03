@@ -60,9 +60,9 @@ public class MQTest {
 		MQMessage message = new MQMessage();
 		message.format = MQC.MQFMT_STRING;
 //		message.messageId = getMessageId();
-		message.messageId = new byte[] {0x64,0x67,0x00,0x00};
+		message.messageId = new byte[] {0x64,0x64,0x00,0x00};
 		
-		message.write("abc".getBytes());
+		message.write("abc\tdef\t".getBytes());
 		queue.put(message);
 		/*
 		System.out.println(message.messageId);
