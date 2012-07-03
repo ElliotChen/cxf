@@ -94,7 +94,7 @@ public class SfSender extends SfConnector implements Sender {
 							UpsertResult ur = result.get(rindex);
 							if (!ur.getSuccess()) {
 								String line = lines.get(loop*pageSize+rindex);
-								errors.add("Upsert SObject Failed : ["+line+"]");
+								errors.add("Upsert SObject Failed : Source should be ["+line+"]");
 								logger.error("[{}]-[{}] Upsert SObject Failed : Key[{}]", new Object[] {job.getComponent(), job.getMqId(), line});
 								for (Error err : ur.getErrors()) {
 									errors.add("Code["+err.getStatusCode()+"] - Message:"+err.getMessage());

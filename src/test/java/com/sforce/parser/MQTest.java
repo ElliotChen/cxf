@@ -43,7 +43,7 @@ public class MQTest {
 	
 	@Test
 	public void testWrite() throws Exception {
-		MQEnvironment.hostname = "192.168.38.132";
+		MQEnvironment.hostname = "192.168.50.134";
 		MQEnvironment.channel = "S_ec_a7c8a3d2f30e";
 		MQEnvironment.port = 1414;
 		MQEnvironment.CCSID = 950;
@@ -55,11 +55,12 @@ public class MQTest {
 
 		int receiveOptions = MQC.MQOO_OUTPUT | MQC.MQOO_FAIL_IF_QUIESCING;
 		System.out.println("RO:"+receiveOptions);
-		MQQueue queue = mqQueueManager.accessQueue("EC", receiveOptions);
+		MQQueue queue = mqQueueManager.accessQueue("MXQAS.SAP2SFDC_EXCHANGE_RATE.QL", receiveOptions);
 
 		MQMessage message = new MQMessage();
 		message.format = MQC.MQFMT_STRING;
-		message.messageId = getMessageId();
+//		message.messageId = getMessageId();
+		message.messageId = "ac-20120703145253    ".getBytes();
 		
 		message.write("abc".getBytes());
 		queue.put(message);

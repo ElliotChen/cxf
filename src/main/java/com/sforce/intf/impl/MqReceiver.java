@@ -88,7 +88,7 @@ public class MqReceiver extends MqConnector implements Receiver {
 	}
 
 	private void initNewJob(List<Job> jobs, MQMessage message) {
-		String messageId = new String(message.messageId);
+		String messageId = new String(message.messageId).trim();
 		Job job = new Job();
 		job.setComponent(component);
 		job.setMqId(messageId);

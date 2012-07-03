@@ -310,14 +310,14 @@
 	
 	
 	<!-- SFDC To MQ -->
-	<!-- REQ05 CDI & BDI,	SFDC -> Notes,	自動/手動, 每日一次 -->
+	<!-- REQ04 Competitor Price, SFDC -> Notes, 自動, 即時 -->
 	<!--  -->
 	<bean id="req04" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req04" />
 		<property name="debug" value="${system.debug}" />
 		<property name="receiver" ref="req04Receiver" />
 		<property name="sender" ref="req04Sender" />
-		<property name="info" value="CDI BDI,	SFDC -> Notes,	自動/手動, 每日一次" />
+		<property name="info" value="Competitor Price, SFDC -> Notes, 自動, 即時" />
 	</bean>
 	<bean id="req04Receiver" class="com.sforce.intf.impl.Req04SfReceiver">
 	</bean>
@@ -341,13 +341,13 @@
 		<property name="receivers" value="${mq.req05.mail}"/>
 	</bean>
 	
-	<!-- REQ06 CDI & BDI,	SFDC -> Notes,	自動/手動, 每日一次 -->
+	<!-- REQ06 DI, SFDC -> BO, 自動, 每日6次(每4小時一次) -->
 	<bean id="req06" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req06" />
 		<property name="debug" value="${system.debug}" />
 		<property name="receiver" ref="req06Receiver" />
 		<property name="sender" ref="req06Sender" />
-		<property name="info" value="CDI BDI,	SFDC -> Notes,	自動/手動, 每日一次" />
+		<property name="info" value="DI, SFDC -> BO, 自動, 每日6次(每4小時一次)" />
 	</bean>
 	<bean id="req06Receiver" class="com.sforce.intf.impl.Req06SfReceiver">
 	</bean>

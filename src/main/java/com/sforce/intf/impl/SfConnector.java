@@ -100,6 +100,7 @@ public class SfConnector {
 			requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, surl);
 			return true;
 		} catch (Exception e) {
+			SOAP = null;
 			logger.error("[{}] Connect to SalesForce failed");
 			logger.error("message:", e);
 			return false;
