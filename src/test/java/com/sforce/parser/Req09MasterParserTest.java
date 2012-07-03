@@ -1,20 +1,16 @@
 package com.sforce.parser;
 
-import static org.junit.Assert.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.StringTokenizer;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sforce.soap.enterprise.sobject.EPNProductBodyLinkC;
-import com.sforce.soap.enterprise.sobject.ExchangeRateC;
+import com.sforce.intf.impl.SfSender;
 import com.sforce.soap.enterprise.sobject.SObject;
 
 /**
@@ -28,11 +24,22 @@ public class Req09MasterParserTest {
 	@Test
 	public void testParse() {
 		try {
-//			List<String> lines = FileUtils.readLines(new File("/Users/elliot/gitrepo/cxf/src/test/resources/req09.txt"));
-			List<String> lines = FileUtils.readLines(new File("/Users/elliot/gitrepo/cxf/src/test/resources/req09_mxic.txt"));
+			List<String> lines = FileUtils.readLines(new File("/Users/elliot/gitrepo/cxf/src/test/resources/req09.txt"));
+//			List<String> lines = FileUtils.readLines(new File("/Users/elliot/gitrepo/cxf/src/test/resources/req09_mxic.txt"));
 			for (String s: lines) {
-				System.out.println(s);
-				String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(s, "\t");
+				SfSender ss = new SfSender();
+				String[] split = ss.split(s, '\t');
+//				System.out.println(s);
+//				String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(s, "\t");
+				
+//				String[] split = s.split("\t");
+				System.out.println(split.length);
+				System.out.println(split[split.length-1]);
+				StringTokenizer st = new StringTokenizer(s, "\t");
+				System.out.println(st.countTokens());
+				while (st.hasMoreTokens()) {
+					System.out.println(st.nextToken());
+				}
 				for (int i=0; i < split.length; i++) {
 					logger.debug("{} : [{}]", i+1, split[i]);
 				}

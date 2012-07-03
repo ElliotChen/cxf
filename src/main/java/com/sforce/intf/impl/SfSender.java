@@ -52,17 +52,22 @@ public class SfSender extends SfConnector implements Sender {
 				logger.debug("Load File as source");
 				File source = new File(job.getAbsolutePath());
 				logger.debug("Read File Lines by FileUtils.readLines");
+				List<String> lines = FileUtils.readLines(source);
+				/*
 				BufferedReader br
 				   = new BufferedReader(new FileReader(source));
-//				List<String> lines = FileUtils.readLines(source);
+				
 				List<String> lines = new ArrayList<String>();
 				String sline = null;
 				while ((sline = br.readLine()) != null) {
 					lines.add(sline);
 				}
-				logger.debug("Split file to String[]");
+				*/
+				logger.debug("Split line to String[]");
 				for (String s : lines) {
-					String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(s, "\t");
+//					String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(s, "\t");
+					String[] split = this.split(s, '\t');
+					logger.debug("Split line sucess");
 					SObject target = null;
 					Parser parser = null;
 					for (Parser p : this.parsers) {
@@ -99,12 +104,17 @@ public class SfSender extends SfConnector implements Sender {
 					
 					int loop = 0;
 					for (List<SObject> sos : lists) {
-						logger.debug("Loop[{}] and Current Size[{}]", loop++, sos.size());
+						logger.debug("Begin Loop[{}] and Current Size[{}]", loop, sos.size());
 						List<UpsertResult> result = soap.upsert(syncKey, sos , sh, null, null, null, null, null, null, null, null, null, null);
 						
 						for (int rindex = 0; rindex < result.size(); rindex++) {
 							UpsertResult ur = result.get(rindex);
 							if (!ur.getSuccess()) {
+								int lineNumber = loop*pageSize+rindex;
+								if (lineNumber >= lines.size()) {
+									logger.error("Please check your loop count! max size [{}] - try to get [{}]", lines.size(), lineNumber);
+									continue;
+								}
 								String line = lines.get(loop*pageSize+rindex);
 								errors.add("Upsert SObject Failed : Source should be ["+line+"]");
 								logger.error("[{}]-[{}] Upsert SObject Failed : Key[{}]", new Object[] {job.getComponent(), job.getMqId(), line});
@@ -114,6 +124,7 @@ public class SfSender extends SfConnector implements Sender {
 								}
 							}
 						}
+						logger.debug("End Loop[{}] and Current Size[{}]", loop++, sos.size());
 					}
 					
 					this.jobManager.finish(job, errors, receivers);
@@ -146,6 +157,32 @@ public class SfSender extends SfConnector implements Sender {
 		}
 	}
 
+	public String[] split(String source, char separator) {
+		int len = source.length();
+		List<String> list = new ArrayList<String>();
+		// int sizePlus1 = 1;
+		int i = 0;
+		int start = 0;
+		boolean match = false;
+		boolean lastMatch = false;
+
+		while (i < len) {
+			if (source.charAt(i) == separator) {
+				lastMatch = true;
+				list.add(source.substring(start, i));
+				match = false;
+				start = ++i;
+				continue;
+			}
+			lastMatch = false;
+			match = true;
+			i++;
+		}
+		if (match || lastMatch) {
+			list.add(source.substring(start, i));
+		}
+		return list.toArray(new String[list.size()]);
+	}
 	private Logger getInterfaceLogger(String component, String messageId) {
 		return LoggerFactory.getLogger(component);
 	}
