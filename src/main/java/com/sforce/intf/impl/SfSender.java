@@ -1,6 +1,8 @@
 package com.sforce.intf.impl;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,10 +47,20 @@ public class SfSender extends SfConnector implements Sender {
 		while ((job = jobManager.occupyFirstJob(component)) != null) {
 			List<String> errors = new ArrayList<String>();
 			jobs.add(job);
-			logger.info("Find Sending : {}", job);
+			logger.info("Find Job for Sending : {}", job);
 			try {
+				logger.debug("Load File as source");
 				File source = new File(job.getAbsolutePath());
-				List<String> lines = FileUtils.readLines(source);
+				logger.debug("Read File Lines by FileUtils.readLines");
+				BufferedReader br
+				   = new BufferedReader(new FileReader(source));
+//				List<String> lines = FileUtils.readLines(source);
+				List<String> lines = new ArrayList<String>();
+				String sline = null;
+				while ((sline = br.readLine()) != null) {
+					lines.add(sline);
+				}
+				logger.debug("Split file to String[]");
 				for (String s : lines) {
 					String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(s, "\t");
 					SObject target = null;

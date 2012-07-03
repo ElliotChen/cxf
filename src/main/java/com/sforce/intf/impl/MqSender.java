@@ -49,7 +49,7 @@ public class MqSender extends MqConnector implements Sender {
 			Job job = null;
 			List<MQMessage> messages = new ArrayList<MQMessage>();
 			while ((job = jobManager.occupyFirstJob(component)) != null) {
-				logger.info("Find Sending : {}", job);
+				logger.info("Find Job for Sending : {}", job);
 				File source = new File(job.getAbsolutePath());
 				if (!source.exists()) {
 					// TODO
