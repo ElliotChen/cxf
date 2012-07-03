@@ -66,7 +66,7 @@ public class Req06I1EFormatter extends SubParser<ProductOpportunityC, Opportunit
 		columns.add(new DateColumn(i++, "lifeCycleToC", "Life_Cycle_to__c"));
 		columns.add(new DoubleColumn(i++, "SAMAvgQtyC", "SAM_Avg_Qty__c"));
 		columns.add(new DoubleColumn(i++, "SOMAvgQtyC", "SOM_Avg_Qty__c"));
-		columns.add(new StringColumn(i++, "createdById", "CreatedById"));
+		columns.add(new StringColumn(i++, "createdById", "CreatedBy.FirstName,CreatedBy.LastName"));
 		columns.add(new DateColumn(i++, "createdDate", "CreatedDate"));
 		columns.add(new StringColumn(i++, "lastModifiedById", "LastModifiedById"));
 		
@@ -90,7 +90,9 @@ public class Req06I1EFormatter extends SubParser<ProductOpportunityC, Opportunit
 
 	@Override
 	public void preFormat(ProductOpportunityC entity) {
-		// TODO Auto-generated method stub
+		if (null != entity.getCreatedBy()) {
+			entity.setCreatedById(this.formateAsName(entity.getCreatedBy()));
+		}
 		
 	}
 

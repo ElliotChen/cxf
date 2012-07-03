@@ -43,10 +43,11 @@ public class SfSender extends SfConnector implements Sender {
 		List<Job> jobs = new ArrayList<Job>();
 		Job job = null;
 		while ((job = jobManager.occupyFirstJob(component)) != null) {
+			List<String> errors = new ArrayList<String>();
 			jobs.add(job);
 			logger.info("Find Sending : {}", job);
-			File source = new File(job.getAbsolutePath());
 			try {
+				File source = new File(job.getAbsolutePath());
 				List<String> lines = FileUtils.readLines(source);
 				for (String s : lines) {
 					String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(s, "\t");
@@ -81,18 +82,20 @@ public class SfSender extends SfConnector implements Sender {
 						logger.debug("---- {}",so);
 					}
 				} else {
-					List<List<SObject>> lists = CollectionUtils.splitList(objs, 200);
-					List<String> errors = new ArrayList<String>();
-//					boolean fail = false;
+					int pageSize = 200;
+					List<List<SObject>> lists = CollectionUtils.splitList(objs, pageSize);
+					
 					int loop = 0;
 					for (List<SObject> sos : lists) {
 						logger.debug("Loop[{}] and Current Size[{}]", loop++, sos.size());
 						List<UpsertResult> result = soap.upsert(syncKey, sos , sh, null, null, null, null, null, null, null, null, null, null);
-						for (UpsertResult ur : result) {
+						
+						for (int rindex = 0; rindex < result.size(); rindex++) {
+							UpsertResult ur = result.get(rindex);
 							if (!ur.getSuccess()) {
-//								fail = true;
-								errors.add("Upsert SObject Failed : Key["+ur.getId()+"]");
-								logger.error("[{}]-[{}] Upsert SObject Failed : Key[{}]", new Object[] {job.getComponent(), job.getMqId(), ur.getId()});
+								String line = lines.get(loop*pageSize+rindex);
+								errors.add("Upsert SObject Failed : ["+line+"]");
+								logger.error("[{}]-[{}] Upsert SObject Failed : Key[{}]", new Object[] {job.getComponent(), job.getMqId(), line});
 								for (Error err : ur.getErrors()) {
 									errors.add("Code["+err.getStatusCode()+"] - Message:"+err.getMessage());
 									logger.error("[{}]-[{}] Code [{}] - Message: {}",new Object[] {job.getComponent(), job.getMqId(),err.getStatusCode(), err.getMessage()});
@@ -104,8 +107,11 @@ public class SfSender extends SfConnector implements Sender {
 					this.jobManager.finish(job, errors, receivers);
 				}
 			} catch (Exception e) {
-				this.jobManager.abandon(job);
 				logger.error("Send data to SalesForce Failed.", e);
+				
+				errors.add("Encounter a exception:"+e.getMessage());
+				errors.add("Please check error log for more details.");
+				this.jobManager.abandon(job, errors, receivers);
 			}
 		}
 		

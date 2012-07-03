@@ -67,12 +67,12 @@ public class Req06MasterFormatter extends BaseParser<Opportunity> {
 		columns.add(new DateColumn(i++, "milestoneDateC", "Milestone_Date__c"));
 		columns.add(new StringColumn(i++, "orderInFromC", "Order_in_from__c"));
 		
-		columns.add(new StringColumn(i++, "ownerId", "OwnerId"));
+		columns.add(new StringColumn(i++, "ownerId", "Owner.FirstName,Owner.LastName"));
 		columns.add(new FakeColumn(i++, "", ""));
 		columns.add(new FakeColumn(i++, "", ""));
 		columns.add(new FakeColumn(i++, "", ""));
 		columns.add(new DateColumn(i++, "createdDate", "CreatedDate"));
-		columns.add(new StringColumn(i++, "createdById", "CreatedById"));
+		columns.add(new StringColumn(i++, "createdById", "CreatedBy.FirstName,CreatedBy.LastName"));
 		columns.add(new StringColumn(i++, "creatorDeptC", "Creator_Dept__c"));
 		columns.add(new StringColumn(i++, "recordTypeC", "Record_Type__c"));
 		columns.add(new StringColumn(i++, "DIURLC", "DI_URL__c"));
@@ -106,8 +106,13 @@ public class Req06MasterFormatter extends BaseParser<Opportunity> {
 
 	@Override
 	public void preFormat(Opportunity entity) {
-		// TODO Auto-generated method stub
+		if (null != entity.getCreatedBy()) {
+			entity.setCreatedById(this.formateAsName(entity.getCreatedBy()));
+		}
 		
+		if (null != entity.getOwner()) {
+			entity.setOwnerId(this.formateAsName(entity.getOwner()));
+		}
 	}
 	
 }

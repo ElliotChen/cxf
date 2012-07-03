@@ -5,6 +5,9 @@ import java.io.File;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -12,14 +15,14 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 
 import com.sforce.domain.Job;
 
-public class SfUpsertMail implements Runnable{
-	private static final Logger logger = LoggerFactory.getLogger(SfUpsertMail.class);
+public class SfProblemMail implements Runnable{
+	private static final Logger logger = LoggerFactory.getLogger(SfProblemMail.class);
 	private String sender;
 	private String[] receivers;
 	private Job job;
 	private JavaMailSender javaMailSender;
 	
-	public SfUpsertMail(String sender, String[] receivers, Job job,
+	public SfProblemMail(String sender, String[] receivers, Job job,
 			JavaMailSender javaMailSender) {
 		super();
 		this.sender = sender;
@@ -37,9 +40,20 @@ public class SfUpsertMail implements Runnable{
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 			helper.setFrom(sender);
 			helper.setTo(this.receivers);
-			helper.setSubject("SFDC Error Log For ["+job.getComponent()+"]");
-			helper.addAttachment("source", new File(job.getAbsolutePath()));
-			helper.addAttachment("error", new File(job.getErrorPath()));
+			helper.setSubject("SFDC Problem of ["+job.getComponent()+"]");
+			File source = new File(job.getAbsolutePath());
+			
+			if (source.exists()) {
+				helper.addAttachment("source", source);
+			}
+			
+			if (StringUtils.isNotEmpty(job.getErrorPath())) {
+				File err = new File(job.getErrorPath());
+				if (err.exists()) {
+					helper.addAttachment("error", err);
+				}
+			}
+			
 			this.javaMailSender.send(mimeMessage);
 		} catch (MessagingException e) {
 			logger.error("Mail Sending Exception!", e);

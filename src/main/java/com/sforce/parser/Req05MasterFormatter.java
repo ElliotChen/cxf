@@ -49,9 +49,6 @@ public class Req05MasterFormatter extends BaseParser<Opportunity> {
 		if (null != config.getLasySyncDate()) {
 			sb.append(" and CreatedDate > "+DateUtils.formatSfDateTime(config.getLasySyncDate()));
 		}
-		
-		//TODO Design-in status = win?
-		
 		return sb.toString();
 	}
 

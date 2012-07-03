@@ -107,7 +107,7 @@
 	-->
 	<bean id="mockReceiver" class="com.sforce.mock.MockReceiver" />
 	<bean id="mockSender" class="com.sforce.mock.MockSender" />
-	
+	<!-- 
 	<bean id="mockComponent" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="mock" />
 		<property name="debug" value="true" />
@@ -122,6 +122,7 @@
 		<property name="sender" ref="mqtestSender" />
 		<property name="info" value="MQ TEST" />
 	</bean>
+	 -->
 	<bean id="mqtestReceiver" class="com.sforce.intf.impl.MqReceiver" parent="mqReceiver">
 		<property name="queueName" value="MXQAS.SFDC_TEST.QL" />
 	</bean>
@@ -149,6 +150,7 @@
 				<ref bean="req01MasterParser"/>
 			</list>
 		</property>
+		<property name="receivers" value="${sf.req01.mail}"/>
 	</bean>
 	<bean id="req01MasterParser" class="com.sforce.parser.Req01MasterParser">
 		<property name="syncKey" value="Key_sync__c"/>
@@ -198,6 +200,7 @@
 				<ref bean="req03MasterParser"/>
 			</list>
 		</property>
+		<property name="receivers" value="${sf.req03.mail}"/>
 	</bean>
 	<bean id="req03MasterParser" class="com.sforce.parser.Req03MasterParser">
 		<property name="syncKey" value="Key_sync__c"/>
@@ -222,6 +225,7 @@
 				<ref bean="req08MasterParser"/>
 			</list>
 		</property>
+		<property name="receivers" value="${sf.req08.mail}"/>
 	</bean>
 	<bean id="req08MasterParser" class="com.sforce.parser.Req08MasterParser">
 		<property name="syncKey" value="Id"/>
@@ -247,6 +251,7 @@
 				<ref bean="req09MasterParser"/>
 			</list>
 		</property>
+		<property name="receivers" value="${sf.req09.mail}"/>
 	</bean>
 	<bean id="req09MasterParser" class="com.sforce.parser.Req09MasterParser">
 		<property name="syncKey" value="Application_ID__c"/>
@@ -271,6 +276,7 @@
 				<ref bean="req10MasterParser"/>
 			</list>
 		</property>
+		<property name="receivers" value="${sf.req10.mail}"/>
 	</bean>
 	<bean id="req10MasterParser" class="com.sforce.parser.Req10MasterParser">
 		<property name="syncKey" value="AccountNumber"/>
@@ -295,6 +301,7 @@
 				<ref bean="req13MasterParser"/>
 			</list>
 		</property>
+		<property name="receivers" value="${sf.req13.mail}"/>
 	</bean>
 	<bean id="req13MasterParser" class="com.sforce.parser.Req13MasterParser">
 		<property name="syncKey" value="Account_Number__c"/>
@@ -394,13 +401,13 @@
 		<property name="receivers" value="${mq.req12.mail}"/>
 	</bean>
 	
-	<!-- REQ14 SAP Customer, SFDC -> SAP, 自動, 即時 -->
+	<!-- REQ14 Trip Report and Visit Report, SFDC -> Notes, 自動, 即時 -->
 	<bean id="req14" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req14" />
 		<property name="debug" value="${system.debug}" />
 		<property name="receiver" ref="req14Receiver" />
 		<property name="sender" ref="req14Sender" />
-		<property name="info" value="SAP Customer, SFDC -> SAP, 自動, 即時" />
+		<property name="info" value="Trip Report and Visit Report, SFDC -> Notes, 自動, 即時" />
 	</bean>
 	<bean id="req14Receiver" class="com.sforce.intf.impl.Req14SfReceiver">
 	</bean>
@@ -409,13 +416,13 @@
 		<property name="receivers" value="${mq.req14.mail}"/>
 	</bean>
 	
-	<!-- REQ15 SAP Customer, SFDC -> SAP, 自動, 即時 -->
+	<!-- REQ15 Visit Report, SFDC -> BO, 自動, 每日6次(每4小時一次) -->
 	<bean id="req15" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="req15" />
 		<property name="debug" value="${system.debug}" />
 		<property name="receiver" ref="req15Receiver" />
 		<property name="sender" ref="req15Sender" />
-		<property name="info" value="SAP Customer, SFDC -> SAP, 自動, 即時" />
+		<property name="info" value="Visit Report, SFDC -> BO, 自動, 每日6次(每4小時一次)" />
 	</bean>
 	<bean id="req15Receiver" class="com.sforce.intf.impl.Req15SfReceiver">
 	</bean>

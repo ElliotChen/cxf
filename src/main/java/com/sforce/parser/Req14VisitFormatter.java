@@ -2,6 +2,7 @@ package com.sforce.parser;
 
 import java.util.ArrayList;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,9 +59,8 @@ public class Req14VisitFormatter extends BaseParser<VisitReportC> {
 		columns.add(new StringColumn(i++, "recordTypeId", "RecordType.Name"));
 		
 		//cheat
-		columns.add(new StringColumn(i++, "productEPN1C", "Product_EPN1__r.Name,Product_EPN2__r.Name,Product_EPN3__r.Name,Product_EPN4__r.Name,Product_EPN5__r.Name"));
-		//@TODO Product Body?
-		
+		columns.add(new StringColumn(i++, "productEPNName1C", "Product_EPN_Name1__c,Product_EPN_Name2__c,Product_EPN_Name3__c,Product_EPN_Name4__c,Product_EPN_Name5__c"));
+		columns.add(new StringColumn(i++, "productBody1C", "Product_Body1__c,Product_Body2__c,Product_Body3__c,Product_Body4__c,Product_Body5__c"));
 		columns.add(new DateColumn(i++, "customerIssueDateC", "Customer_Issue_Date__c"));
 		
 		this.tableName = "Visit_Report__c";
@@ -89,23 +89,40 @@ public class Req14VisitFormatter extends BaseParser<VisitReportC> {
 			entity.setProductEPN2C(entity.getCustomerR().getAccountNumber());
 		}
 		StringBuilder sb = new StringBuilder();
-		if (null != entity.getProductEPN1R()) {
-			sb.append(entity.getProductEPN1R().getName()+";");
+		if (StringUtils.isNotEmpty(entity.getProductEPNName1C())) {
+			sb.append(entity.getProductEPNName1C());
 		}
-		if (null != entity.getProductEPN2R()) {
-			sb.append(entity.getProductEPN2R().getName()+";");
+		if (StringUtils.isNotEmpty(entity.getProductEPNName2C())) {
+			sb.append(entity.getProductEPNName2C());
 		}
-		if (null != entity.getProductEPN3R()) {
-			sb.append(entity.getProductEPN3R().getName()+";");
+		if (StringUtils.isNotEmpty(entity.getProductEPNName3C())) {
+			sb.append(entity.getProductEPNName3C());
 		}
-		if (null != entity.getProductEPN4R()) {
-			sb.append(entity.getProductEPN4R().getName()+";");
+		if (StringUtils.isNotEmpty(entity.getProductEPNName4C())) {
+			sb.append(entity.getProductEPNName4C());
 		}
-		if (null != entity.getProductEPN5R()) {
-			sb.append(entity.getProductEPN5R().getName()+";");
+		if (StringUtils.isNotEmpty(entity.getProductEPNName5C())) {
+			sb.append(entity.getProductEPNName5C());
 		}
+		entity.setProductEPNName1C(sb.toString());
 		
-		entity.setProductEPN1C(sb.toString());
+		sb = new StringBuilder();
+		if (StringUtils.isNotEmpty(entity.getProductBody1C())) {
+			sb.append(entity.getProductBody1C());
+		}
+		if (StringUtils.isNotEmpty(entity.getProductBody2C())) {
+			sb.append(entity.getProductBody2C());
+		}
+		if (StringUtils.isNotEmpty(entity.getProductBody3C())) {
+			sb.append(entity.getProductBody3C());
+		}
+		if (StringUtils.isNotEmpty(entity.getProductBody4C())) {
+			sb.append(entity.getProductBody4C());
+		}
+		if (StringUtils.isNotEmpty(entity.getProductBody5C())) {
+			sb.append(entity.getProductBody5C());
+		}
+		entity.setProductBody1C(sb.toString());
 	}
 	
 }

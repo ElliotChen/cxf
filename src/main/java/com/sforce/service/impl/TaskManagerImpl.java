@@ -13,7 +13,7 @@ import com.sforce.core.MQInitBean;
 import com.sforce.domain.Job;
 import com.sforce.intf.impl.MqConnector;
 import com.sforce.mail.MqConnectMail;
-import com.sforce.mail.SfUpsertMail;
+import com.sforce.mail.SfProblemMail;
 import com.sforce.service.TaskManager;
 
 @Component("taskManager")
@@ -27,7 +27,8 @@ public class TaskManagerImpl implements TaskManager {
 	private MQInitBean mqInitBean;
 	@Value("${mail.sender}")
 	private String sender;
-	
+	@Value("${mail.enable}")
+	private Boolean enable;
 	@Override
 	public void arrange(Runnable task) {
 		this.taskExecutor.execute(task);
@@ -36,14 +37,20 @@ public class TaskManagerImpl implements TaskManager {
 	@Override
 	public void mailMqProblem(MQException me, MqConnector connector, String[] receivers) {
 		logger.info("Send Mail for MQ Conntion Problem.");
+		if (enable) {
+			return;
+		}
 		MqConnectMail mail = new MqConnectMail(javaMailSender, connector, mqInitBean, sender, receivers);
 		this.taskExecutor.execute(mail);
 	}
 	
 	@Override
 	public void mailSfProblems(Job job, String[] receivers) {
-		logger.info("Send Mail for Salesforce Upsert Problem.");
-		SfUpsertMail mail = new SfUpsertMail(sender, receivers, job, javaMailSender);
+		logger.info("Send Mail for Salesforce Problem.");
+		if (enable) {
+			return;
+		}
+		SfProblemMail mail = new SfProblemMail(sender, receivers, job, javaMailSender);
 		this.taskExecutor.execute(mail);
 	}
 }

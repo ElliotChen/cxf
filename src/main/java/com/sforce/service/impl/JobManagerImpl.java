@@ -95,10 +95,20 @@ public class JobManagerImpl extends AbstractDomainService<JobDao, Job, String>
 	}
 	
 	@Transactional(readOnly=false)
-	public void abandon(Job job) {
+	public void abandon(Job job, List<String> errors, String[] receivers) {
 		if (null == job) {
 			logger.warn("Abandon Job can't accept empty Job");
 			return;
+		}
+		if (!errors.isEmpty()) {
+			File efile = new File(job.getAbsolutePath()+".error");
+			try {
+				FileUtils.writeLines(efile, errors, false);
+			} catch (IOException e) {
+				logger.error("");
+			}
+			job.setErrorPath(efile.getAbsolutePath());
+			taskManager.mailSfProblems(job, receivers);
 		}
 		job.setState(JobState.Abandon);
 		this.dao.update(job);

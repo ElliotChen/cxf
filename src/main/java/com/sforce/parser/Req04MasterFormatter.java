@@ -40,26 +40,26 @@ public class Req04MasterFormatter extends BaseParser<CompetitorPriceC> {
 		columns.add(new DateColumn(i++, "submitDateC", "Submit_Date__c"));
 		columns.add(new TimeColumn(i++, "submitDateC", ""));
 		columns.add(new StringColumn(i++, "productTypeC", "Product_Type__c"));
-		columns.add(new StringColumn(i++, "applicationC", "Application__c"));
+		columns.add(new StringColumn(i++, "applicationNameC", "Application_Name__c"));
 		columns.add(new StringColumn(i++, "densityC", "Density__c"));
-		columns.add(new StringColumn(i++, "compatibleMXICEPNC", "Compatible_MXIC_EPN__c"));
+		columns.add(new StringColumn(i++, "compatibleMXICEPNNameC", "Compatible_MXIC_EPN_Name__c"));
 		columns.add(new StringColumn(i++, "gradeC", "Grade__c"));
 		columns.add(new StringColumn(i++, "packageNameC", "Package_Name__c"));
 		
 		columns.add(new StringColumn(i++, "pinCountC", "Pin_Count__c"));
 		columns.add(new StringColumn(i++, "remarkC", "Remark__c"));
-		columns.add(new StringColumn(i++, "customerC", "Customer__c"));
+		columns.add(new StringColumn(i++, "customerIDC", "Customer_ID__c"));
 		columns.add(new StringColumn(i++, "customerEnglishShortNameC", "Customer_English_Short_Name__c"));
 		columns.add(new StringColumn(i++, "customerRegionC", "Customer_Region__c"));
 		columns.add(new StringColumn(i++, "groupIDC", "Group_ID__c"));
 		columns.add(new StringColumn(i++, "groupEnglishShortNameC", "Group_English_Short_Name__c"));
-		columns.add(new StringColumn(i++, "createdById", "CreatedById"));
+		columns.add(new StringColumn(i++, "createdById", "CreatedBy.FirstName,CreatedBy.LastName"));
 		columns.add(new DateColumn(i++, "createdDate", "CreatedDate"));
-		columns.add(new StringColumn(i++, "ownerId", "OwnerId"));
+		columns.add(new StringColumn(i++, "ownerId", "Owner.FirstName,Owner.LastName"));
 		
 		columns.add(new StringColumn(i++, "visitReportDocNoC", "Visit_Report_Doc_No__c"));
 		columns.add(new StringColumn(i++, "visitReportURLC", "Visit_Report_URL__c"));
-		columns.add(new StringColumn(i++, "relatedPersonC", "Related_Person__c"));
+		columns.add(new StringColumn(i++, "otherRelatedPersonC", "Other_Related_Person__c"));
 		
 		
 		this.tableName = "Competitor_price__c";
@@ -75,16 +75,18 @@ public class Req04MasterFormatter extends BaseParser<CompetitorPriceC> {
 		if (null != config.getLasySyncDate()) {
 			sb.append(" and LastModifiedDate > "+DateUtils.formatSfDateTime(config.getLasySyncDate()));
 		}
-		
-		//TODO Design-in status = win?
-		
 		return sb.toString();
 	}
 
 	@Override
 	public void preFormat(CompetitorPriceC entity) {
-		// TODO Auto-generated method stub
+		if (null != entity.getCreatedBy()) {
+			entity.setCreatedById(this.formateAsName(entity.getCreatedBy()));
+		}
 		
+		if (null != entity.getOwner()) {
+			entity.setOwnerId(this.formateAsName(entity.getOwner()));
+		}
 	}
 	
 }

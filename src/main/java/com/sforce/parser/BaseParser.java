@@ -1,7 +1,6 @@
 package com.sforce.parser;
 
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +11,7 @@ import org.springframework.beans.BeanUtils;
 
 import com.sforce.column.Column;
 import com.sforce.soap.enterprise.sobject.Account;
+import com.sforce.soap.enterprise.sobject.Name;
 import com.sforce.soap.enterprise.sobject.SObject;
 import com.sforce.soap.enterprise.sobject.User;
 import com.sforce.to.SfSqlConfig;
@@ -190,6 +190,16 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 	}
 
 	protected String formateAsName(User user) {
+		if (null == user) {
+			return "";
+		}
+		if (StringUtils.isEmpty(user.getFirstName())) {
+			return " "+user.getLastName();
+		}
+		return user.getFirstName()+" "+user.getLastName();
+	}
+	
+	protected String formateAsName(Name user) {
 		if (null == user) {
 			return "";
 		}

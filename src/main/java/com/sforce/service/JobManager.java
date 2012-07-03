@@ -8,5 +8,5 @@ public interface JobManager extends BaseDomainService<Job, String> {
 	Job occupyFirstJob(String component);
 	void finish(Job job, List<String> errors, String[] receivers);
 	void release(Job job);
-	void abandon(Job job);
+	void abandon(Job job, List<String> errors, String[] receivers);
 }
