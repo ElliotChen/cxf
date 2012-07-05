@@ -103,7 +103,19 @@ public class Req06SfReceiver extends SfReceiver {
 						
 						source = i1eFormatter.format(detail);
 						FileUtils.write(target, source, true);
+						
 					}
+				}
+				//Catch Opportunity_Data__r
+				config.setMasterId(master.getId());
+				queryString = i1fFormatter.genSfSQL(config);
+				logger.info(queryString);
+				QueryResult odsos = this.soap.query(queryString, this.sh, null, null, null);
+				for (SObject odso : odsos.getRecords()) {
+					OpportunityDataC od = (OpportunityDataC) odso;
+					i1fFormatter.preFormat(master, od);
+					source = i1fFormatter.format(od);
+					FileUtils.write(target, source, true);
 				}
 				/*
 				//Opportunity_Data__r
@@ -140,6 +152,6 @@ public class Req06SfReceiver extends SfReceiver {
 		masterFormatter.getSubParsers().add(i1cFormatter);
 		masterFormatter.getSubParsers().add(i1dFormatter);
 		masterFormatter.getSubParsers().add(i1eFormatter);
-		masterFormatter.getSubParsers().add(i1fFormatter);
+//		masterFormatter.getSubParsers().add(i1fFormatter);
 	}
 }

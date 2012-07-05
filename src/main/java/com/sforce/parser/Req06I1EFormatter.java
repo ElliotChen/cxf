@@ -37,7 +37,7 @@ public class Req06I1EFormatter extends SubParser<ProductOpportunityC, Opportunit
 		int i = 0;
 		columns.add(new FakeColumn(i++, "I1E", ""));
 		
-		columns.add(new StringColumn(i++, "id", ""));
+		columns.add(new StringColumn(i++, "id", "DI__c"));//cheat, for detail - OpportunityDataC
 		columns.add(new StringColumn(i++, "productTypeC", "Product_Type__c"));
 		columns.add(new StringColumn(i++, "densityC", "Density__c"));
 		columns.add(new StringColumn(i++, "EPNNameC", "EPN_Name__c"));

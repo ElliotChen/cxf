@@ -12,6 +12,7 @@ import com.sforce.column.FakeColumn;
 import com.sforce.column.StringColumn;
 import com.sforce.soap.enterprise.sobject.Opportunity;
 import com.sforce.soap.enterprise.sobject.OpportunityDataC;
+import com.sforce.soap.enterprise.sobject.ProductOpportunityC;
 import com.sforce.to.SfSqlConfig;
 /**
  * 
@@ -37,18 +38,19 @@ public class Req06I1FFormatter extends SubParser<OpportunityDataC, Opportunity> 
 		int i = 0;
 		columns.add(new FakeColumn(i++, "I1F", ""));
 		
-		columns.add(new StringColumn(i++, "id", ""));
+		columns.add(new StringColumn(i++, "id", "")); //cheat
 		columns.add(new StringColumn(i++, "EPNNameC", "EPN_Name__c"));
 		columns.add(new DateColumn(i++, "startDateC", "Start_Date__c"));
 		columns.add(new StringColumn(i++, "periodTypeC", "Period_Type__c"));
 		columns.add(new DoubleColumn(i++, "monthQtyC", "Month_Qty__c"));
 		columns.add(new StringColumn(i++, "currencyC", "Currency__c"));
 		columns.add(new DoubleColumn(i++, "quotePriceC", "Quote_Price__c"));
-		columns.add(new FakeColumn(i++, "", ""));
+		columns.add(new DoubleColumn(i++, "quotePriceUSDC", "Quote_Price_USD__c"));
 		columns.add(new DoubleColumn(i++, "SAMQtyKeaC", "SAM_Qty_Kea__c"));
 		columns.add(new DoubleColumn(i++, "SOMQtyKeaC", "SOM_Qty_Kea__c"));
 		
-		this.tableName = "Opportunity.Opportunity_Data__r";
+//		this.tableName = "Product_Opportunity__c.Opportunity_Data__r";
+		this.tableName = "Opportunity_Data__c";
 	}
 
 	@Override
@@ -60,14 +62,25 @@ public class Req06I1FFormatter extends SubParser<OpportunityDataC, Opportunity> 
 	}
 
 	@Override
+	public String genSfSQL(SfSqlConfig config) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT ");
+		sb.append(genSQLColumn());
+		sb.append(" FROM "+tableName);
+		sb.append(" WHERE Opportunity_Data__c.Product_Opportunity__r.DI__c ='"+config.getMasterId()+"'");
+		return sb.toString();
+	}
+	
+	@Override
 	public void preFormat(OpportunityDataC entity) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void preFormat(Opportunity master, OpportunityDataC entity) {
 		entity.setId(master.getName());
+//		entity.setEPNNameC(master.getEPNNameC());
 	}
 	
 	

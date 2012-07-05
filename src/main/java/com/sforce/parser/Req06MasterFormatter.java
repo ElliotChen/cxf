@@ -34,7 +34,7 @@ public class Req06MasterFormatter extends BaseParser<Opportunity> {
 		int i = 0;
 		columns.add(new FakeColumn(i++, "H", ""));
 		
-		columns.add(new StringColumn(i++, "name", "Name"));
+		columns.add(new StringColumn(i++, "name", "Name, Id"));
 		columns.add(new StringColumn(i++, "documentStatusC", "Document_Status__c"));
 		columns.add(new StringColumn(i++, "stageName", "StageName"));
 		columns.add(new StringColumn(i++, "stopTrackingTypeC", "Stop_Tracking_Type__c"));
@@ -42,8 +42,8 @@ public class Req06MasterFormatter extends BaseParser<Opportunity> {
 		columns.add(new StringColumn(i++, "projectFailedReasonC", "Project_Failed_Reason__c"));
 		columns.add(new StringColumn(i++, "projectFailedReasonRemarkC", "Project_Failed_Reason_Remark__c"));
 		columns.add(new StringColumn(i++, "proposerCompanyNoC", "Proposer_Company_No__c"));
-		columns.add(new FakeColumn(i++, "proposerNameC", "Proposer_Name__c"));
-		columns.add(new FakeColumn(i++, "", ""));
+		columns.add(new StringColumn(i++, "proposerNameC", "Proposer_Name__c"));
+		columns.add(new StringColumn(i++, "groupNameC", "Group_Name__c"));
 		
 		columns.add(new StringColumn(i++, "majorApplicationC", "Major_Application__r.Name"));//cheat 1
 		columns.add(new StringColumn(i++, "realApplicationC", "Real_Application__c"));
