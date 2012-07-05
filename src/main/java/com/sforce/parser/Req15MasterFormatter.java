@@ -21,7 +21,7 @@ public class Req15MasterFormatter extends BaseParser<VisitReportC> {
 	
 	@Override
 	public boolean accept(String[] source) {
-		return 7 == source.length;
+		return 52 == source.length && "H".equals(source[0]);
 	}
 
 	@Override

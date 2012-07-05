@@ -30,6 +30,9 @@ public class SfConnector {
 	
 	protected String component;
 	protected Boolean debugMode = Boolean.FALSE;
+	
+	protected String[] receivers;
+	
 	public void connect(String account, String password) {
 		if (null == SOAP) {
 			if (createSoap(account, password)) {
@@ -115,7 +118,7 @@ public class SfConnector {
 			GetServerTimestampResult st = SOAP.getServerTimestamp(SH);
 			return true;
 		} catch (UnexpectedErrorFault e) {
-			e.printStackTrace();
+			logger.error("Check session available failed. Can't get ServerTimestamp.", e);
 			return false;
 		}
 	}
@@ -174,5 +177,12 @@ public class SfConnector {
 	public void setDebugMode(Boolean debugMode) {
 		this.debugMode = debugMode;
 	}
-	
+
+	public String[] getReceivers() {
+		return receivers;
+	}
+
+	public void setReceivers(String[] receivers) {
+		this.receivers = receivers;
+	}
 }

@@ -267,4 +267,19 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 			sp.listColumnInfo();
 		}
 	}
+	
+	public void analysis(String[] sources) {
+		if (!this.accept(sources)) {
+			this.getLogger().warn("Unknow source");
+			return;
+		}
+		
+		if (this.columns.isEmpty()) {
+			this.initDefaultColumns();
+		}
+		
+		for (Column<?> col : this.columns) {
+			this.getLogger().debug("Index[{}] Column[{}] -- Value[{}]", new Object[] {col.getIndex(), col.getSfName(), sources[col.getIndex()]});
+		}
+	}
 }

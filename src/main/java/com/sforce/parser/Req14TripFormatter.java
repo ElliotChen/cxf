@@ -26,7 +26,7 @@ public class Req14TripFormatter extends BaseParser<TripReportC> {
 	
 	@Override
 	public boolean accept(String[] source) {
-		return 7 == source.length;
+		return 12 == source.length && source[0].startsWith("T");
 	}
 
 	@Override

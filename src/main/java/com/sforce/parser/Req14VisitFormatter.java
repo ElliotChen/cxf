@@ -36,7 +36,7 @@ public class Req14VisitFormatter extends BaseParser<VisitReportC> {
 	
 	@Override
 	public boolean accept(String[] source) {
-		return 7 == source.length;
+		return 12 == source.length && source[0].startsWith("V");
 	}
 
 	@Override

@@ -1,8 +1,6 @@
 package com.sforce.intf.impl;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,10 +27,9 @@ public class SfSender extends SfConnector implements Sender {
 	private List<Parser<?>> parsers;
 	private List<SObject> objs = new ArrayList<SObject>();
 	private String syncKey;
-	private String[] receivers;
+	
 	@Override
 	public boolean send() {
-		logger.debug("A {}/P {}", this.account, this.password);
 		this.connect(this.account, this.password);
 		
 		if (!this.connected) {
@@ -68,7 +65,6 @@ public class SfSender extends SfConnector implements Sender {
 				for (String s : lines) {
 					String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(s, "\t");
 //					String[] split = this.split(s, '\t');
-					logger.debug("Split line sucess");
 					SObject target = null;
 					Parser parser = null;
 					for (Parser p : this.parsers) {
@@ -210,14 +206,5 @@ public class SfSender extends SfConnector implements Sender {
 	public void setJobManager(JobManager jobManager) {
 		this.jobManager = jobManager;
 	}
-
-	public String[] getReceivers() {
-		return receivers;
-	}
-
-	public void setReceivers(String[] receivers) {
-		this.receivers = receivers;
-	}
-	
 	
 }
