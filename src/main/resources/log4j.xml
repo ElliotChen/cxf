@@ -5,7 +5,7 @@
 
 	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d - %c -%-4r [%t] %-5p %x - %m%n" />
+			<param name="ConversionPattern" value="%d - %c [%t] %-5p %x - %m%n" />
 		</layout>
 
 		<!--限制输出级别 <filter class="org.apache.log4j.varia.LevelRangeFilter"> <param 

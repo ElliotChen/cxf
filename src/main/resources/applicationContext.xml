@@ -141,7 +141,7 @@
 	</bean>
 	<bean id="req01Receiver" class="com.sforce.intf.impl.MqReceiver" parent="mqReceiver">
 		<property name="queueName" value="${mq.req01}" />
-		<property name="receivers" value="${mq.req01.mail}"/>
+		<property name="receivers" value="${mail.req01}"/>
 	</bean>
 	<bean id="req01Sender" class="com.sforce.intf.impl.SfSender">
 		<property name="syncKey" value="Key_sync__c"/>
@@ -150,7 +150,7 @@
 				<ref bean="req01MasterParser"/>
 			</list>
 		</property>
-		<property name="receivers" value="${sf.req01.mail}"/>
+		<property name="receivers" value="${mail.req01}"/>
 	</bean>
 	<bean id="req01MasterParser" class="com.sforce.parser.Req01MasterParser">
 		<property name="syncKey" value="Key_sync__c"/>
@@ -166,7 +166,7 @@
 	</bean>
 	<bean id="req02Receiver" class="com.sforce.intf.impl.MqReceiver" parent="mqReceiver">
 		<property name="queueName" value="${mq.req02}" />
-		<property name="receivers" value="${mq.req02.mail}"/>
+		<property name="receivers" value="${mail.req02}"/>
 	</bean>
 	<bean id="req02Sender" class="com.sforce.intf.impl.SfSender">
 		<property name="syncKey" value="Key_sync__c"/>
@@ -175,7 +175,7 @@
 				<ref bean="req02MasterParser"/>
 			</list>
 		</property>
-		<property name="receivers" value="${sf.req02.mail}"/>
+		<property name="receivers" value="${mail.req02}"/>
 	</bean>
 	<bean id="req02MasterParser" class="com.sforce.parser.Req02MasterParser">
 		<property name="syncKey" value="Key_sync__c"/>
@@ -191,7 +191,7 @@
 	</bean>
 	<bean id="req03Receiver" class="com.sforce.intf.impl.MqReceiver" parent="mqReceiver">
 		<property name="queueName" value="${mq.req03}" />
-		<property name="receivers" value="${mq.req03.mail}"/>
+		<property name="receivers" value="${mail.req03}"/>
 	</bean>
 	<bean id="req03Sender" class="com.sforce.intf.impl.SfSender">
 		<property name="syncKey" value="Key_sync__c"/>
@@ -200,7 +200,7 @@
 				<ref bean="req03MasterParser"/>
 			</list>
 		</property>
-		<property name="receivers" value="${sf.req03.mail}"/>
+		<property name="receivers" value="${mail.req03}"/>
 	</bean>
 	<bean id="req03MasterParser" class="com.sforce.parser.Req03MasterParser">
 		<property name="syncKey" value="Key_sync__c"/>
@@ -216,7 +216,7 @@
 	</bean>
 	<bean id="req08Receiver" class="com.sforce.intf.impl.MqReceiver" parent="mqReceiver">
 		<property name="queueName" value="${mq.req08}" />
-		<property name="receivers" value="${mq.req08.mail}"/>
+		<property name="receivers" value="${mail.req08}"/>
 	</bean>
 	<bean id="req08Sender" class="com.sforce.intf.impl.SfSender">
 		<property name="syncKey" value="Id"/>
@@ -225,7 +225,7 @@
 				<ref bean="req08MasterParser"/>
 			</list>
 		</property>
-		<property name="receivers" value="${sf.req08.mail}"/>
+		<property name="receivers" value="${mail.req08}"/>
 	</bean>
 	<bean id="req08MasterParser" class="com.sforce.parser.Req08MasterParser">
 		<property name="syncKey" value="Id"/>
@@ -242,7 +242,7 @@
 	</bean>
 	<bean id="req09Receiver" class="com.sforce.intf.impl.MqReceiver" parent="mqReceiver">
 		<property name="queueName" value="${mq.req09}" />
-		<property name="receivers" value="${mq.req09.mail}"/>
+		<property name="receivers" value="${mail.req09}"/>
 	</bean>
 	<bean id="req09Sender" class="com.sforce.intf.impl.SfSender">
 		<property name="syncKey" value="Application_ID__c"/>
@@ -251,7 +251,7 @@
 				<ref bean="req09MasterParser"/>
 			</list>
 		</property>
-		<property name="receivers" value="${sf.req09.mail}"/>
+		<property name="receivers" value="${mail.req09}"/>
 	</bean>
 	<bean id="req09MasterParser" class="com.sforce.parser.Req09MasterParser">
 		<property name="syncKey" value="Application_ID__c"/>
@@ -267,7 +267,7 @@
 	</bean>
 	<bean id="req10Receiver" class="com.sforce.intf.impl.MqReceiver" parent="mqReceiver">
 		<property name="queueName" value="${mq.req10}" />
-		<property name="receivers" value="${mq.req10.mail}"/>
+		<property name="receivers" value="${mail.req10}"/>
 	</bean>
 	<bean id="req10Sender" class="com.sforce.intf.impl.SfSender">
 		<property name="syncKey" value="AccountNumber"/>
@@ -276,7 +276,7 @@
 				<ref bean="req10MasterParser"/>
 			</list>
 		</property>
-		<property name="receivers" value="${sf.req10.mail}"/>
+		<property name="receivers" value="${mail.req10}"/>
 	</bean>
 	<bean id="req10MasterParser" class="com.sforce.parser.Req10MasterParser">
 		<property name="syncKey" value="AccountNumber"/>
@@ -292,7 +292,7 @@
 	</bean>
 	<bean id="req13Receiver" class="com.sforce.intf.impl.MqReceiver" parent="mqReceiver">
 		<property name="queueName" value="${mq.req13}" />
-		<property name="receivers" value="${mq.req13.mail}"/>
+		<property name="receivers" value="${mail.req13}"/>
 	</bean>
 	<bean id="req13Sender" class="com.sforce.intf.impl.SfSender">
 		<property name="syncKey" value="Account_Number__c"/>
@@ -301,7 +301,7 @@
 				<ref bean="req13MasterParser"/>
 			</list>
 		</property>
-		<property name="receivers" value="${sf.req13.mail}"/>
+		<property name="receivers" value="${mail.req13}"/>
 	</bean>
 	<bean id="req13MasterParser" class="com.sforce.parser.Req13MasterParser">
 		<property name="syncKey" value="Account_Number__c"/>
@@ -323,7 +323,7 @@
 	</bean>
 	<bean id="req04Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
 		<property name="queueName" value="${mq.req04}" />
-		<property name="receivers" value="${mq.req04.mail}"/>
+		<property name="receivers" value="${mail.req04}"/>
 	</bean>
 	
 	<!-- REQ05 CDI & BDI,	SFDC -> Notes,	自動/手動, 每日一次 -->
@@ -338,7 +338,7 @@
 	</bean>
 	<bean id="req05Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
 		<property name="queueName" value="${mq.req05}" />
-		<property name="receivers" value="${mq.req05.mail}"/>
+		<property name="receivers" value="${mail.req05}"/>
 	</bean>
 	
 	<!-- REQ06 DI, SFDC -> BO, 自動, 每日6次(每4小時一次) -->
@@ -353,7 +353,7 @@
 	</bean>
 	<bean id="req06Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
 		<property name="queueName" value="${mq.req06}" />
-		<property name="receivers" value="${mq.req06.mail}"/>
+		<property name="receivers" value="${mail.req06}"/>
 	</bean>
 	
 	<!-- REQ07 PDI MP Order Checking, SFDC -> SAP, 自動, 即時 -->
@@ -368,7 +368,7 @@
 	</bean>
 	<bean id="req07Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
 		<property name="queueName" value="${mq.req07}" />
-		<property name="receivers" value="${mq.req07.mail}"/>
+		<property name="receivers" value="${mail.req07}"/>
 	</bean>
 	
 	<!-- REQ11 Account, SFDC -> Notes, 自動, 即時 -->
@@ -383,7 +383,7 @@
 	</bean>
 	<bean id="req11Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
 		<property name="queueName" value="${mq.req11}" />
-		<property name="receivers" value="${mq.req11.mail}"/>
+		<property name="receivers" value="${mail.req11}"/>
 	</bean>
 	
 	<!-- REQ12 SAP Customer, SFDC -> SAP, 自動, 即時 -->
@@ -398,7 +398,7 @@
 	</bean>
 	<bean id="req12Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
 		<property name="queueName" value="${mq.req12}" />
-		<property name="receivers" value="${mq.req12.mail}"/>
+		<property name="receivers" value="${mail.req12}"/>
 	</bean>
 	
 	<!-- REQ14 Trip Report and Visit Report, SFDC -> Notes, 自動, 即時 -->
@@ -413,7 +413,7 @@
 	</bean>
 	<bean id="req14Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
 		<property name="queueName" value="${mq.req14}" />
-		<property name="receivers" value="${mq.req14.mail}"/>
+		<property name="receivers" value="${mail.req14}"/>
 	</bean>
 	
 	<!-- REQ15 Visit Report, SFDC -> BO, 自動, 每日6次(每4小時一次) -->
@@ -428,7 +428,7 @@
 	</bean>
 	<bean id="req15Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
 		<property name="queueName" value="${mq.req15}" />
-		<property name="receivers" value="${mq.req15.mail}"/>
+		<property name="receivers" value="${mail.req15}"/>
 	</bean>
 	
 	<import resource="applicationContext_Mail.xml"/>

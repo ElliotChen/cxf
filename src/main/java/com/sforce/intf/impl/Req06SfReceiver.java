@@ -105,7 +105,7 @@ public class Req06SfReceiver extends SfReceiver {
 						FileUtils.write(target, source, true);
 					}
 				}
-				
+				/*
 				//Opportunity_Data__r
 				if (null != master.getOpportunityDataR()) {
 					for (SObject dso : master.getOpportunityDataR().getRecords()) {
@@ -116,6 +116,7 @@ public class Req06SfReceiver extends SfReceiver {
 						FileUtils.write(target, source, true);
 					}
 				}
+				*/
 				
 			}
 			

@@ -45,7 +45,7 @@ public class Req05MasterFormatter extends BaseParser<Opportunity> {
 	protected String buildSfCondition(SfSqlConfig config) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(" and (Record_Type__c = 'BDI' or Record_Type__c = 'CDI') ");
-		sb.append(" and StageName = 'Designing-win' ");
+		sb.append(" and StageName = 'Design-win' ");
 		if (null != config.getLasySyncDate()) {
 			sb.append(" and CreatedDate > "+DateUtils.formatSfDateTime(config.getLasySyncDate()));
 		}

@@ -45,7 +45,7 @@ public class Req14SfReceiver extends SfReceiver {
 			query = this.soap.query(queryString, this.sh, null, null, null);
 			for (SObject so : query.getRecords()) {
 				VisitReportC vr = (VisitReportC) so;
-				this.preFormat(vr);
+				//this.preFormat(vr);
 				source = visitFormatter.format(vr);
 				FileUtils.write(target, source, true);
 			}
@@ -61,7 +61,7 @@ public class Req14SfReceiver extends SfReceiver {
 		
 //		visitFormatter.getSubParsers().add(cusFormatter);
 	}
-	
+	/*
 	protected void preFormat(VisitReportC vr) {
 		if (null == vr) {
 			return;
@@ -93,4 +93,5 @@ public class Req14SfReceiver extends SfReceiver {
 			vr.setRecordTypeId(vr.getRecordType().getName());
 		}
 	}
+	*/
 }

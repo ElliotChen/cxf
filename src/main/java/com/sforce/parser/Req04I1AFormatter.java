@@ -37,7 +37,7 @@ public class Req04I1AFormatter extends SubParser<CompetitorPriceItemC, Competito
 		columns.add(new FakeColumn(i++, "I1A", ""));
 		columns.add(new StringColumn(i++, "competitorPriceC", "Competitor_Price__c"));
 		columns.add(new StringColumn(i++, "name", "Name"));
-		columns.add(new StringColumn(i++, "competitorGroupNameC", "Competitor_Group_Name"));
+		columns.add(new StringColumn(i++, "competitorGroupNameC", "Competitor_Group_Name__c"));
 		columns.add(new StringColumn(i++, "currencyC", "Currency__c"));
 		columns.add(new DoubleColumn(i++, "exchangeRateUSDC", "Exchange_Rate_USD__c"));
 		columns.add(new DoubleColumn(i++, "exchangeRateJPYC", "Exchange_Rate_JPY__c"));
