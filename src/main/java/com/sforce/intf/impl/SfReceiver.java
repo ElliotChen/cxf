@@ -34,7 +34,8 @@ public abstract class SfReceiver extends SfConnector implements Receiver {
 	private String parentPath;
 	@Override
 	public boolean receive() {
-		this.connect();
+		logger.debug("A {}/P {}", this.account, this.password);
+		this.connect(this.account, this.password);
 		
 		if (!this.connected) {
 			logger.warn("Doesn't connecto to SalesForce, Please run connect first.");

@@ -32,7 +32,8 @@ public class SfSender extends SfConnector implements Sender {
 	private String[] receivers;
 	@Override
 	public boolean send() {
-		this.connect();
+		logger.debug("A {}/P {}", this.account, this.password);
+		this.connect(this.account, this.password);
 		
 		if (!this.connected) {
 			logger.warn("Doesn't connecto to SalesForce, Please run connect first.");

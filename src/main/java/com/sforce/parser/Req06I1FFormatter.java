@@ -9,13 +9,9 @@ import com.sforce.column.Column;
 import com.sforce.column.DateColumn;
 import com.sforce.column.DoubleColumn;
 import com.sforce.column.FakeColumn;
-import com.sforce.column.MonthColumn;
 import com.sforce.column.StringColumn;
-import com.sforce.soap.enterprise.sobject.DIMilestoneHistoryC;
-import com.sforce.soap.enterprise.sobject.DIRelatedAccountC;
 import com.sforce.soap.enterprise.sobject.Opportunity;
 import com.sforce.soap.enterprise.sobject.OpportunityDataC;
-import com.sforce.soap.enterprise.sobject.OpportunityHistory;
 import com.sforce.to.SfSqlConfig;
 /**
  * 
@@ -42,7 +38,7 @@ public class Req06I1FFormatter extends SubParser<OpportunityDataC, Opportunity> 
 		columns.add(new FakeColumn(i++, "I1F", ""));
 		
 		columns.add(new StringColumn(i++, "id", ""));
-		columns.add(new StringColumn(i++, "EPNC", "EPN__c"));
+		columns.add(new StringColumn(i++, "EPNNameC", "EPN_Name__c"));
 		columns.add(new DateColumn(i++, "startDateC", "Start_Date__c"));
 		columns.add(new StringColumn(i++, "periodTypeC", "Period_Type__c"));
 		columns.add(new DoubleColumn(i++, "monthQtyC", "Month_Qty__c"));

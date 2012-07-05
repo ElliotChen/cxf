@@ -40,7 +40,7 @@ public class Req06I1EFormatter extends SubParser<ProductOpportunityC, Opportunit
 		columns.add(new StringColumn(i++, "id", ""));
 		columns.add(new StringColumn(i++, "productTypeC", "Product_Type__c"));
 		columns.add(new StringColumn(i++, "densityC", "Density__c"));
-		columns.add(new StringColumn(i++, "EPNC", "EPN__c"));
+		columns.add(new StringColumn(i++, "EPNNameC", "EPN_Name__c"));
 		columns.add(new StringColumn(i++, "techUmC", "Tech_um__c"));
 		columns.add(new StringColumn(i++, "gradeC", "Grade__c"));
 		columns.add(new StringColumn(i++, "referenceEPNC", "Reference_EPN__c"));
@@ -57,11 +57,11 @@ public class Req06I1EFormatter extends SubParser<ProductOpportunityC, Opportunit
 		columns.add(new DateColumn(i++, "MPDateAtCustomerC", "MP_Date_at_Customer__c"));
 		columns.add(new StringColumn(i++, "firstMPOrderNoC", "First_MP_Order_No__c"));
 		columns.add(new StringColumn(i++, "checkResultStatusC", "Check_Result_Status__c"));
-		columns.add(new StringColumn(i++, "actualOrderInPartyC", "Actual_Order_in_Party__c"));
+		columns.add(new StringColumn(i++, "actualOrderInPartyIDC", "Actual_Order_in_Party_ID__c"));
 		
 		columns.add(new StringColumn(i++, "currencyC", "Currency__c"));
 		columns.add(new FakeColumn(i++, "quotePriceC", "Quote_Price__c"));
-		columns.add(new FakeColumn(i++, "", ""));
+		columns.add(new FakeColumn(i++, "quotePriceUSDC", "Quote_Price_USD__c"));
 		columns.add(new DateColumn(i++, "lifeCycleFromC", "Life_Cycle_from__c"));
 		columns.add(new DateColumn(i++, "lifeCycleToC", "Life_Cycle_to__c"));
 		columns.add(new DoubleColumn(i++, "SAMAvgQtyC", "SAM_Avg_Qty__c"));
@@ -73,9 +73,9 @@ public class Req06I1EFormatter extends SubParser<ProductOpportunityC, Opportunit
 		columns.add(new DateColumn(i++, "lastModifiedDate", "LastModifiedDate"));
 		columns.add(new StringColumn(i++, "name", "Name"));
 		columns.add(new StringColumn(i++, "productMigrationC", "Product_Migration__c"));
-		columns.add(new StringColumn(i++, "competitor1C", "Competitor_1__c"));
-		columns.add(new StringColumn(i++, "competitor2C", "Competitor_2__c"));
-		columns.add(new StringColumn(i++, "competitor3C", "Competitor_3__c"));
+		columns.add(new StringColumn(i++, "competitor1IDC", "Competitor1_ID__c"));
+		columns.add(new StringColumn(i++, "competitor2IDC", "Competitor2_ID__c"));
+		columns.add(new StringColumn(i++, "competitor3IDC", "Competitor3_ID__c"));
 		
 		this.tableName = "Opportunity.Product_Opportunity__r";
 	}

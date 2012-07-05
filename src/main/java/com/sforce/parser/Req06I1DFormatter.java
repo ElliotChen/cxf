@@ -10,7 +10,7 @@ import com.sforce.column.Column;
 import com.sforce.column.DateColumn;
 import com.sforce.column.FakeColumn;
 import com.sforce.column.StringColumn;
-import com.sforce.soap.enterprise.sobject.DIMilestoneHistoryC;
+import com.sforce.soap.enterprise.sobject.KeyMilestoneC;
 import com.sforce.soap.enterprise.sobject.Opportunity;
 import com.sforce.to.SfSqlConfig;
 /**
@@ -24,7 +24,7 @@ import com.sforce.to.SfSqlConfig;
  * @author elliot
  *
  */
-public class Req06I1DFormatter extends SubParser<DIMilestoneHistoryC, Opportunity> {
+public class Req06I1DFormatter extends SubParser<KeyMilestoneC, Opportunity> {
 	private static final Logger logger = LoggerFactory.getLogger(Req06I1DFormatter.class);
 	
 	@Override
@@ -44,16 +44,16 @@ public class Req06I1DFormatter extends SubParser<DIMilestoneHistoryC, Opportunit
 		columns.add(new FakeColumn(i++, "I1D", ""));
 		
 		columns.add(new StringColumn(i++, "id", ""));
-		columns.add(new StringColumn(i++, "keyMilestoneC", "Key_Milestone__c"));
+		columns.add(new StringColumn(i++, "name", "Name"));
 		columns.add(new DateColumn(i++, "keyMilestoneDateC", "Key_Milestone_Date__c"));
-		columns.add(new StringColumn(i++, "bingoDocNoC", "Bingo_Doc_No__c"));
-		columns.add(new BooleanColumn(i++, "isCurrentMilestoneC", "Is_Current_Milestone__c", "Y", "N"));
+		columns.add(new StringColumn(i++, "bingoDocNoNameC", "Bingo_Doc_No_Name__c"));
+		columns.add(new StringColumn(i++, "isCurrentMilestoneC", "Is_Current_Milestone__c"));
 		
-		this.tableName = "Opportunity.DI_Milestone_History__r";
+		this.tableName = "Opportunity.Key_Milestones__r";
 	}
 
 	@Override
-	public void buildSyncKey(DIMilestoneHistoryC entity) {
+	public void buildSyncKey(KeyMilestoneC entity) {
 	}
 
 	protected String buildSfCondition(SfSqlConfig config) {
@@ -61,13 +61,13 @@ public class Req06I1DFormatter extends SubParser<DIMilestoneHistoryC, Opportunit
 	}
 
 	@Override
-	public void preFormat(DIMilestoneHistoryC entity) {
+	public void preFormat(KeyMilestoneC entity) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void preFormat(Opportunity master, DIMilestoneHistoryC entity) {
+	public void preFormat(Opportunity master, KeyMilestoneC entity) {
 		entity.setId(master.getName());
 	}
 	

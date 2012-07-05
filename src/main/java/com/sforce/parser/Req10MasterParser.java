@@ -96,7 +96,6 @@ public class Req10MasterParser extends BaseParser<Account> {
 	@Override
 	public void buildSyncKey(Account entity) {
 		if ("S".equalsIgnoreCase(entity.getRecordTypeC())) {
-//			entity.setSyncFlagC(value)
 		} else {
 			
 		}

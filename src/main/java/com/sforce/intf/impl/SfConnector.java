@@ -6,6 +6,7 @@ import javax.xml.ws.BindingProvider;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.sforce.soap.enterprise.GetServerTimestampResult;
 import com.sforce.soap.enterprise.LoginResult;
@@ -22,14 +23,16 @@ public class SfConnector {
 	protected Soap soap;
 	protected SessionHeader sh;
 	protected Boolean connected = Boolean.FALSE;
+	@Value("${sf.account}")
 	protected String account;
+	@Value("${sf.password}")
 	protected String password;
 	
 	protected String component;
 	protected Boolean debugMode = Boolean.FALSE;
-	public void connect() {
+	public void connect(String account, String password) {
 		if (null == SOAP) {
-			if (createSoap()) {
+			if (createSoap(account, password)) {
 				this.soap = SOAP;
 			}
 		} else {
@@ -37,7 +40,7 @@ public class SfConnector {
 				this.soap = SOAP;
 			} else {
 				SOAP = null;
-				if (createSoap()) {
+				if (createSoap(account, password)) {
 					this.soap = SOAP;
 				}
 			}
@@ -83,7 +86,7 @@ public class SfConnector {
 		connected = Boolean.FALSE;
 	}
 	
-	public synchronized static boolean createSoap() {
+	public synchronized static boolean createSoap(String account, String password) {
 		if (null != SOAP) {
 			return true;
 		}
@@ -91,7 +94,7 @@ public class SfConnector {
 			SforceService sf = new SforceService();
 			SOAP = sf.getSoap();
 			LoginScopeHeader lsh = new LoginScopeHeader();
-			LoginResult login = SOAP.login("fiti02@mxic.com.tw.uat", "t25146875", lsh);
+			LoginResult login = SOAP.login(account, password, lsh);
 			String surl = login.getServerUrl();
 			SH = new SessionHeader();
 			SH.setSessionId(login.getSessionId());

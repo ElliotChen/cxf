@@ -13,8 +13,6 @@ public class Req06MasterFormatterTest {
 	@Test
 	public void testInit() {
 		
-		rf.listColumnInfo();
-		
 		rf.getSubParsers().add(i1a);
 		rf.getSubParsers().add(i1c);
 		rf.getSubParsers().add(i1d);

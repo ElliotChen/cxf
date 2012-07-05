@@ -10,14 +10,15 @@ import org.slf4j.LoggerFactory;
 import com.sforce.domain.Job;
 import com.sforce.parser.Parser;
 import com.sforce.parser.Req06I1AFormatter;
+import com.sforce.parser.Req06I1BFormatter;
 import com.sforce.parser.Req06I1CFormatter;
 import com.sforce.parser.Req06I1DFormatter;
 import com.sforce.parser.Req06I1EFormatter;
 import com.sforce.parser.Req06I1FFormatter;
 import com.sforce.parser.Req06MasterFormatter;
 import com.sforce.soap.enterprise.QueryResult;
-import com.sforce.soap.enterprise.sobject.DIMilestoneHistoryC;
 import com.sforce.soap.enterprise.sobject.DIRelatedAccountC;
+import com.sforce.soap.enterprise.sobject.KeyMilestoneC;
 import com.sforce.soap.enterprise.sobject.Opportunity;
 import com.sforce.soap.enterprise.sobject.OpportunityDataC;
 import com.sforce.soap.enterprise.sobject.OpportunityHistory;
@@ -31,7 +32,7 @@ public class Req06SfReceiver extends SfReceiver {
 	
 	private Req06MasterFormatter masterFormatter = new Req06MasterFormatter();
 	private Req06I1AFormatter i1aFormatter = new Req06I1AFormatter();
-//	Req06I1BFormatter i1b = new Req06I1BFormatter();
+	private Req06I1BFormatter i1bFormatter = new Req06I1BFormatter();
 	private Req06I1CFormatter i1cFormatter = new Req06I1CFormatter();
 	private Req06I1DFormatter i1dFormatter = new Req06I1DFormatter();
 	private Req06I1EFormatter i1eFormatter = new Req06I1EFormatter();
@@ -68,6 +69,14 @@ public class Req06SfReceiver extends SfReceiver {
 				if (null != master.getDIRelatedAccountR()) {
 					for (SObject dso : master.getDIRelatedAccountR().getRecords()) {
 						DIRelatedAccountC detail = (DIRelatedAccountC) dso;
+						i1bFormatter.preFormat(master, detail);
+						
+						source = i1bFormatter.format(detail);
+						FileUtils.write(target, source, true);
+					}
+					
+					for (SObject dso : master.getDIRelatedAccountR().getRecords()) {
+						DIRelatedAccountC detail = (DIRelatedAccountC) dso;
 						i1cFormatter.preFormat(master, detail);
 						
 						source = i1cFormatter.format(detail);
@@ -76,9 +85,9 @@ public class Req06SfReceiver extends SfReceiver {
 				}
 				
 				//DI_Milestone_History__r
-				if (null != master.getDIMilestoneHistoryR()) {
-					for (SObject dso : master.getDIMilestoneHistoryR().getRecords()) {
-						DIMilestoneHistoryC detail = (DIMilestoneHistoryC) dso;
+				if (null != master.getKeyMilestonesR()) {
+					for (SObject dso : master.getKeyMilestonesR().getRecords()) {
+						KeyMilestoneC detail = (KeyMilestoneC) dso;
 						i1dFormatter.preFormat(master, detail);
 						
 						source = i1dFormatter.format(detail);
@@ -119,7 +128,7 @@ public class Req06SfReceiver extends SfReceiver {
 	public void postInit() {
 		masterFormatter.init();
 		i1aFormatter.init();
-//		i1bFormatter.init();
+		i1bFormatter.init();
 		i1cFormatter.init();
 		i1dFormatter.init();
 		i1eFormatter.init();

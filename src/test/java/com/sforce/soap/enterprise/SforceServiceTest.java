@@ -11,8 +11,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sforce.soap.enterprise.sobject.CustomerCategoryC;
-import com.sforce.soap.enterprise.sobject.EPNProductBodyLinkC;
 import com.sforce.soap.enterprise.sobject.SObject;
 
 public class SforceServiceTest {
@@ -188,8 +186,8 @@ public class SforceServiceTest {
 			System.out.println("	"+field.getName());
 		}
 		
-		dso = soap.describeSObject("DI_Milestone_History__c", sh, null, null);
-		System.out.println("Table DI_Milestone_History__c");
+		dso = soap.describeSObject("Key_Milestone__c", sh, null, null);
+		System.out.println("Table Key_Milestone__c");
 		for (Field field : dso.getFields()) {
 			System.out.println("	"+field.getName());
 		}
@@ -213,6 +211,11 @@ public class SforceServiceTest {
 			System.out.println(so);
 		}
 		*/
+		QueryResult query = soap.query("SELECT Name,Document_Status__c, (SELECT EPN_Name__c,Start_Date__c,Period_Type__c,Month_Qty__c,Currency__c,Quote_Price__c,SAM_Qty_Kea__c,SOM_Qty_Kea__c FROM Opportunity.Opportunity_Data__r)  FROM Opportunity WHERE Id <> null  and StageName <> 'Draft'", sh, null, null, null);
+		List<SObject> objects = query.getRecords();
+		for (SObject so : objects) {
+			logger.debug("{}",so);
+		}
 	}
 	
 	@Test
@@ -389,14 +392,6 @@ public class SforceServiceTest {
 			System.out.println("	"+field.getName());
 		}
 		
-		/*
-		QueryResult query = conn.query("SELECT AccountId, Email, LastModifiedDate FROM EPN_Master__c");
-		SObject[] objects = query.getRecords();
-		System.out.println("object size["+objects.length+"]");
-		for (SObject so : objects) {
-			System.out.println(so);
-		}
-		*/
 	}
 
 }

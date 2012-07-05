@@ -1,5 +1,9 @@
 package com.sforce.column;
 
+import java.text.NumberFormat;
+
+import org.springframework.format.number.NumberFormatter;
+
 public class DoubleColumn extends Column<Double> {
 
 	public DoubleColumn(int index, String name, String sfName) {
