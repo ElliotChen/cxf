@@ -3,7 +3,7 @@
 
 <!--
 Salesforce.com Enterprise Web Services API Version 25.0
-Generated on 2012-07-05 09:58:47 +0000.
+Generated on 2012-07-05 16:45:02 +0000.
 
 Copyright 1999-2012 salesforce.com, inc.
 All Rights Reserved
@@ -5917,8 +5917,10 @@ All Rights Reserved
                         <element name="DI__r" nillable="true" minOccurs="0" type="ens:Opportunity"/>
                         <element name="Density__c" nillable="true" minOccurs="0" type="xsd:string"/>
                         <element name="Design_in_Site_ID__c" nillable="true" minOccurs="0" type="xsd:string"/>
+                        <element name="EPN_Density__c" nillable="true" minOccurs="0" type="xsd:string"/>
                         <element name="EPN_NA__c" nillable="true" minOccurs="0" type="xsd:boolean"/>
                         <element name="EPN_Name__c" nillable="true" minOccurs="0" type="xsd:string"/>
+                        <element name="EPN_Product_Type__c" nillable="true" minOccurs="0" type="xsd:string"/>
                         <element name="EPN__c" nillable="true" minOccurs="0" type="tns:ID"/>
                         <element name="EPN__r" nillable="true" minOccurs="0" type="ens:EPN_Master__c"/>
                         <element name="EPN_txt__c" nillable="true" minOccurs="0" type="xsd:string"/>
