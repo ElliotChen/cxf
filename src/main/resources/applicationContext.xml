@@ -270,7 +270,7 @@
 		<property name="receivers" value="${mail.req10}"/>
 	</bean>
 	<bean id="req10Sender" class="com.sforce.intf.impl.SfSender">
-		<property name="syncKey" value="AccountNumber"/>
+		<property name="syncKey" value="Account_Key__c"/>
 		<property name="parsers">
 			<list>
 				<ref bean="req10MasterParser"/>
@@ -279,7 +279,7 @@
 		<property name="receivers" value="${mail.req10}"/>
 	</bean>
 	<bean id="req10MasterParser" class="com.sforce.parser.Req10MasterParser">
-		<property name="syncKey" value="AccountNumber"/>
+		<property name="syncKey" value="Account_Key__c"/>
 	</bean>
 	
 	<!-- REQ13 Customer Category, SAP -> SFDC, 手動, 手動執行 -->

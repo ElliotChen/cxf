@@ -1,0 +1,136 @@
+001	X		X		
+003	X	X	X		
+004	X				
+006	X			X	
+007	X		X	X	
+008	X	X			
+009	X	X	X		
+017	X	X			
+06	X	X	X		
+08				X	
+10	X		X		
+11	X		X		
+12	X		X	X	
+17	X	X			
+18	X				
+19					X
+21	X				
+25		X			
+26	X	X	X		
+27	X				
+32			X		
+36	X		X	X	
+39	X	X			
+42	X				
+43	X				
+47	X				
+70	X		X		
+71				X	
+73	X			X	
+96			X		
+A3		X			X
+A5	X				
+A6	X	X	X		
+A9	X		X		
+AA	X	X	X		
+AN	X				
+AO	X	X	X		
+AP	X	X			
+AQ	X				
+AR	X	X	X		
+BJ	X				
+BU				X	
+C9					X
+CE				X	
+CI	X				
+CJ					X
+CN	X			X	
+DH				X	
+DO	X	X	X		
+FA	X		X		
+G005	X				
+G008	X				
+G020	X				
+G027	X				
+G031	X				
+G034	X		X		
+G043					X
+G047	X	X			
+G057	X				
+G092	X	X	X		
+G096	X				
+G098	X		X		
+G111	X				
+G125				X	
+G134	X	X	X		
+G135					X
+G140				X	
+G149				X	
+G151	X			X	
+G156	X				
+G165	X	X	X		
+G184				X	
+G188		X			X
+G192	X	X	X		
+G193	X	X	X		
+G225	X			X	
+G240				X	
+G253	X	X			
+G260	X	X	X		
+G263	X		X	X	
+G268	X			X	
+G279	X		X		
+G290	X				
+G291		X			
+G306	X		X		
+G325	X	X	X		
+G350				X	
+G365	X	X	X		
+G447	X		X		
+G485			X		
+G554	X				
+G610	X			X	
+G674		X			
+G679					X
+G683	X	X			
+G692			X		
+G712				X	
+G838				X	
+G855				X	
+G871				X	
+G895					X
+G910					X
+G929				X	
+G930					X
+G931					X
+G932					X
+G933					X
+G934					X
+G935					X
+G936					X
+G937					X
+G938					X
+G939					X
+GK				X	
+H5	X	X	X		
+HA	X			X	
+HR					X
+HT				X	
+I4		X			
+I6				X	
+I7					X
+I8				X	
+I9					X
+IA				X	
+IB				X	
+IC					X
+ID					X
+IE					X
+IF					X
+IG					X
+IH					X
+II					X
+IJ					X
+IL					X
+K02	X		X		
+K05	X		X		

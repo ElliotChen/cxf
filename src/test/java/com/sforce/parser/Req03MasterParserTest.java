@@ -27,15 +27,13 @@ public class Req03MasterParserTest {
 	public void testParse() {
 		try {
 //			List<String> lines = FileUtils.readLines(new File("/Users/elliot/gitrepo/cxf/src/test/resources/req03.txt"));
-			List<String> lines = FileUtils.readLines(new File("/Users/elliot/gitrepo/cxf/src/test/resources/req03_mxic.txt"));
+			List<String> lines = FileUtils.readLines(new File("/Users/elliot/mqfile/test/req03_mxic_light.txt"));
 			for (String s: lines) {
 				System.out.println(s);
 				String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(s, "\t");
-				for (int i=0; i < split.length; i++) {
-					logger.debug("{} : [{}]", i+1, split[i]);
-				}
 				Req03MasterParser fp = new Req03MasterParser();
 				fp.init();
+				fp.analysis(split);
 				EPNProductBodyLinkC target = fp.parse(split);
 				logger.debug("Find Source [{}]",target);
 			}

@@ -41,13 +41,33 @@ public class Req06I1CFormatter extends SubParser<DIRelatedAccountC, Opportunity>
 		this.columns = new ArrayList<Column<?>>();
 		int i = 0;
 		columns.add(new FakeColumn(i++, "I1C", ""));
-		
+		//43,3,2,5,36,10
+		//43,3,2,5,5,36,10
+				for (int index = 0; index < 43; index++) {
+					columns.add(new FakeColumn(i++, "", ""));
+				}
+				for (int index = 0; index < 3; index++) {
+					columns.add(new FakeColumn(i++, "", ""));
+				}
+				for (int index = 0; index < 2; index++) {
+					columns.add(new FakeColumn(i++, "", ""));
+				}
+				
+				
 		columns.add(new StringColumn(i++, "id", ""));
 		columns.add(new StringColumn(i++, "manufactureSiteC", "Manufacture_Site__c, Target_Customer_ID__c"));
 		columns.add(new StringColumn(i++, "EMSListC", "EMS_List__c"));
 		columns.add(new StringColumn(i++, "manufactureSiteAMC", "Manufacture_Site_AM__c"));
 		columns.add(new StringColumn(i++, "EMSListAMC", "EMS_List_AM__c"));
-		
+		for (int index = 0; index < 5; index++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
+		for (int index = 0; index < 36; index++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
+		for (int index = 0; index < 10; index++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
 		this.tableName = "Opportunity.DI_Related_Account__r";
 	}
 

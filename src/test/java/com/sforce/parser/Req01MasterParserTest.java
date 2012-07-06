@@ -22,9 +22,12 @@ public class Req01MasterParserTest {
 			for (String s: lines) {
 				System.out.println(s);
 				String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(s, "\t");
+				
 				System.out.println(split.length);
 				Req01MasterParser fp = new Req01MasterParser();
 				fp.init();
+				fp.analysis(split);
+				
 				ExchangeRateC target = fp.parse(split);
 				logger.debug("Find Source [{}]",target);
 			}

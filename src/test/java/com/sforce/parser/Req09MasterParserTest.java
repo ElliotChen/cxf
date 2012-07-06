@@ -24,27 +24,15 @@ public class Req09MasterParserTest {
 	@Test
 	public void testParse() {
 		try {
-			List<String> lines = FileUtils.readLines(new File("/Users/elliot/gitrepo/cxf/src/test/resources/req09.txt"));
+//			List<String> lines = FileUtils.readLines(new File("/Users/elliot/gitrepo/cxf/src/test/resources/req09.txt"));
+			List<String> lines = FileUtils.readLines(new File("/Users/elliot/mqfile/test/req09_mxic_light.txt"));
 //			List<String> lines = FileUtils.readLines(new File("/Users/elliot/gitrepo/cxf/src/test/resources/req09_mxic.txt"));
 			for (String s: lines) {
 				SfSender ss = new SfSender();
 				String[] split = ss.split(s, '\t');
-//				System.out.println(s);
-//				String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(s, "\t");
-				
-//				String[] split = s.split("\t");
-				System.out.println(split.length);
-				System.out.println(split[split.length-1]);
-				StringTokenizer st = new StringTokenizer(s, "\t");
-				System.out.println(st.countTokens());
-				while (st.hasMoreTokens()) {
-					System.out.println(st.nextToken());
-				}
-				for (int i=0; i < split.length; i++) {
-					logger.debug("{} : [{}]", i+1, split[i]);
-				}
 				Req09MasterParser fp = new Req09MasterParser();
 				fp.init();
+				fp.analysis(split);
 				SObject target = fp.parse(split);
 				logger.debug("Find Source [{}]",target);
 			}

@@ -37,7 +37,25 @@ public class Req06I1FFormatter extends SubParser<OpportunityDataC, Opportunity> 
 		this.columns = new ArrayList<Column<?>>();
 		int i = 0;
 		columns.add(new FakeColumn(i++, "I1F", ""));
-		
+		//43,3,2,5,5,36,10
+				for (int index = 0; index < 43; index++) {
+					columns.add(new FakeColumn(i++, "", ""));
+				}
+				for (int index = 0; index < 3; index++) {
+					columns.add(new FakeColumn(i++, "", ""));
+				}
+				for (int index = 0; index < 2; index++) {
+					columns.add(new FakeColumn(i++, "", ""));
+				}
+				for (int index = 0; index < 5; index++) {
+					columns.add(new FakeColumn(i++, "", ""));
+				}
+				for (int index = 0; index < 5; index++) {
+					columns.add(new FakeColumn(i++, "", ""));
+				}
+				for (int index = 0; index < 36; index++) {
+					columns.add(new FakeColumn(i++, "", ""));
+				}
 		columns.add(new StringColumn(i++, "id", "")); //cheat
 		columns.add(new StringColumn(i++, "EPNNameC", "EPN_Name__c"));
 		columns.add(new DateColumn(i++, "startDateC", "Start_Date__c"));

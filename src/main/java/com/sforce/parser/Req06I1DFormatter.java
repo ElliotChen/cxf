@@ -42,13 +42,31 @@ public class Req06I1DFormatter extends SubParser<KeyMilestoneC, Opportunity> {
 		this.columns = new ArrayList<Column<?>>();
 		int i = 0;
 		columns.add(new FakeColumn(i++, "I1D", ""));
-		
+		//43,3,2,5,5,36,10
+				for (int index = 0; index < 43; index++) {
+					columns.add(new FakeColumn(i++, "", ""));
+				}
+				for (int index = 0; index < 3; index++) {
+					columns.add(new FakeColumn(i++, "", ""));
+				}
+				for (int index = 0; index < 2; index++) {
+					columns.add(new FakeColumn(i++, "", ""));
+				}
+				for (int index = 0; index < 5; index++) {
+					columns.add(new FakeColumn(i++, "", ""));
+				}
+				
 		columns.add(new StringColumn(i++, "id", ""));
 		columns.add(new StringColumn(i++, "name", "Name"));
 		columns.add(new DateColumn(i++, "keyMilestoneDateC", "Key_Milestone_Date__c"));
 		columns.add(new StringColumn(i++, "bingoDocNoNameC", "Bingo_Doc_No_Name__c"));
 		columns.add(new StringColumn(i++, "isCurrentMilestoneC", "Is_Current_Milestone__c"));
-		
+		for (int index = 0; index < 36; index++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
+		for (int index = 0; index < 10; index++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
 		this.tableName = "Opportunity.Key_Milestones__r";
 	}
 

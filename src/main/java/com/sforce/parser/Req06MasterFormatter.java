@@ -80,7 +80,28 @@ public class Req06MasterFormatter extends BaseParser<Opportunity> {
 		columns.add(new DateColumn(i++, "submitDateC", "Submit_Date__c"));
 		columns.add(new StringColumn(i++, "lastModifiedById", "LastModifiedBy.FirstName,LastModifiedBy.LastName"));//cheat 11
 		columns.add(new DateColumn(i++, "lastModifiedDate", "LastModifiedDate"));
-		
+		//43,3,2,5,5,36,10
+		for (int index = 0; index < 43; index++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
+		for (int index = 0; index < 3; index++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
+		for (int index = 0; index < 2; index++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
+		for (int index = 0; index < 5; index++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
+		for (int index = 0; index < 5; index++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
+		for (int index = 0; index < 36; index++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
+		for (int index = 0; index < 10; index++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
 		this.tableName = "Opportunity";
 	}
 

@@ -96,8 +96,10 @@ public class Req10MasterParser extends BaseParser<Account> {
 	@Override
 	public void buildSyncKey(Account entity) {
 		if ("S".equalsIgnoreCase(entity.getRecordTypeC())) {
+			//S => Key = Account ID AccountNumber + Sales Org. + Dist. Channel 
+			entity.setAccountKeyC(entity.getAccountNumber()+entity.getSalesOrgC()+entity.getDistChannelC());
 		} else {
-			
+			entity.setAccountKeyC(entity.getAccountNumber());
 		}
 		entity.setSyncFlagC("N2SF");
 	}

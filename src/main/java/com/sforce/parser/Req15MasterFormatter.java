@@ -80,16 +80,20 @@ public class Req15MasterFormatter extends BaseParser<VisitReportC> {
 		columns.add(new StringColumn(i++, "visitReportURLC", "Visit_Report_URL__c"));
 		columns.add(new StringColumn(i++, "customerApplicationC", "Customer_Application__c"));
 		columns.add(new StringColumn(i++, "purposeC", "Purpose__c"));
-		
-		for (int fi = 0; fi<=3; fi++) {
+		//41,3,2,2
+		for (int fi = 0; fi < 41; fi++) {
 			columns.add(new FakeColumn(i++, "", ""));
 		}
 		
-		for (int fi = 0; fi<=2; fi++) {
+		for (int fi = 0; fi< 3; fi++) {
 			columns.add(new FakeColumn(i++, "", ""));
 		}
 		
-		for (int fi = 0; fi<=2; fi++) {
+		for (int fi = 0; fi< 2; fi++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
+		
+		for (int fi = 0; fi< 2; fi++) {
 			columns.add(new FakeColumn(i++, "", ""));
 		}
 		this.tableName = "Visit_Report__c";

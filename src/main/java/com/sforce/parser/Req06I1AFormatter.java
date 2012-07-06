@@ -37,10 +37,31 @@ public class Req06I1AFormatter extends SubParser<OpportunityHistory, Opportunity
 		int i = 0;
 		columns.add(new FakeColumn(i++, "I1A", ""));
 		
+		//43,3,2,5,5,36,10
+				for (int index = 0; index < 43; index++) {
+					columns.add(new FakeColumn(i++, "", ""));
+				}
+				
+				
 		columns.add(new StringColumn(i++, "id", ""));
 		columns.add(new StringColumn(i++, "stageName", "StageName"));
 		columns.add(new DateColumn(i++, "createdDate", "CreatedDate"));
 		
+		for (int index = 0; index < 2; index++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
+		for (int index = 0; index < 5; index++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
+		for (int index = 0; index < 5; index++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
+		for (int index = 0; index < 36; index++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
+		for (int index = 0; index < 10; index++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
 		this.tableName = "Opportunity.OpportunityHistories";
 	}
 

@@ -41,10 +41,29 @@ public class Req06I1BFormatter extends SubParser<DIRelatedAccountC, Opportunity>
 		this.columns = new ArrayList<Column<?>>();
 		int i = 0;
 		columns.add(new FakeColumn(i++, "I1B", ""));
-		
+		//43,3,2,5,5,36,10
+				for (int index = 0; index < 43; index++) {
+					columns.add(new FakeColumn(i++, "", ""));
+				}
+				for (int index = 0; index < 3; index++) {
+					columns.add(new FakeColumn(i++, "", ""));
+				}
+				
 		columns.add(new StringColumn(i++, "id", ""));
 		columns.add(new StringColumn(i++, "targetCustomerIDC", ""));
 		
+		for (int index = 0; index < 5; index++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
+		for (int index = 0; index < 5; index++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
+		for (int index = 0; index < 36; index++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
+		for (int index = 0; index < 10; index++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
 		this.tableName = "Opportunity.DI_Related_Account__r";
 	}
 

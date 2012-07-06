@@ -1,8 +1,6 @@
 package com.sforce.column;
 
-import java.text.NumberFormat;
-
-import org.springframework.format.number.NumberFormatter;
+import org.apache.commons.lang.StringUtils;
 
 public class DoubleColumn extends Column<Double> {
 
@@ -12,7 +10,11 @@ public class DoubleColumn extends Column<Double> {
 
 	@Override
 	public Double parse(String value) {
-		return Double.parseDouble(value);
+		if (StringUtils.isEmpty(value)) {
+			return null;
+		}
+		String svalue = value.trim();
+		return Double.parseDouble(svalue);
 	}
 
 	@Override

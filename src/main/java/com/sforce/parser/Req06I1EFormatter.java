@@ -36,7 +36,23 @@ public class Req06I1EFormatter extends SubParser<ProductOpportunityC, Opportunit
 		this.columns = new ArrayList<Column<?>>();
 		int i = 0;
 		columns.add(new FakeColumn(i++, "I1E", ""));
-		
+		//43,3,2,5,5,36,10
+				for (int index = 0; index < 43; index++) {
+					columns.add(new FakeColumn(i++, "", ""));
+				}
+				for (int index = 0; index < 3; index++) {
+					columns.add(new FakeColumn(i++, "", ""));
+				}
+				for (int index = 0; index < 2; index++) {
+					columns.add(new FakeColumn(i++, "", ""));
+				}
+				for (int index = 0; index < 5; index++) {
+					columns.add(new FakeColumn(i++, "", ""));
+				}
+				for (int index = 0; index < 5; index++) {
+					columns.add(new FakeColumn(i++, "", ""));
+				}
+				
 		columns.add(new StringColumn(i++, "id", "DI__c"));//cheat, for detail - OpportunityDataC
 		columns.add(new StringColumn(i++, "productTypeC", "Product_Type__c"));
 		columns.add(new StringColumn(i++, "densityC", "Density__c"));
@@ -76,6 +92,10 @@ public class Req06I1EFormatter extends SubParser<ProductOpportunityC, Opportunit
 		columns.add(new StringColumn(i++, "competitor1IDC", "Competitor1_ID__c"));
 		columns.add(new StringColumn(i++, "competitor2IDC", "Competitor2_ID__c"));
 		columns.add(new StringColumn(i++, "competitor3IDC", "Competitor3_ID__c"));
+		
+		for (int index = 0; index < 10; index++) {
+			columns.add(new FakeColumn(i++, "", ""));
+		}
 		
 		this.tableName = "Opportunity.Product_Opportunity__r";
 	}

@@ -53,7 +53,7 @@ public abstract class SfReceiver extends SfConnector implements Receiver {
 			execution.setLastSuccessDate(now);
 			execution.setStatus(ExecutionStatus.Success);
 			
-			logger.debug("Reading data from salesforce finished. Creating [{}] for component[{}].", job, this.component);
+			logger.debug("Reading data from salesforce finished. Try to create [{}] for component[{}].", job, this.component);
 			File f = new File(job.getAbsolutePath());
 			if (f.exists()) {
 				jobManager.create(job);

@@ -1,5 +1,7 @@
 package com.sforce.column;
 
+import org.apache.commons.lang.StringUtils;
+
 
 
 public class StringColumn extends Column<String> {
@@ -8,7 +10,10 @@ public class StringColumn extends Column<String> {
 	}
 
 	public String parse(String value) {
-		return value;
+		if (StringUtils.isEmpty(value)) {
+			return "";
+		}
+		return value.trim();
 	}
 
 	@Override
