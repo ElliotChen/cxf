@@ -92,7 +92,7 @@ public class Req09MasterParser extends BaseParser<ApplicationC>{
 	}
 
 	@Override
-	public void buildSyncKey(ApplicationC entity) {
+	public void postParse(ApplicationC entity) {
 		
 	}
 	@Override

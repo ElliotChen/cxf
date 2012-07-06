@@ -41,7 +41,7 @@ public class Req14TripFormatter extends BaseParser<TripReportC> {
 		columns.add(new StringColumn(i++, "name", "Name"));
 		columns.add(new StringColumn(i++, "tripReportURLC", "Trip_Report_URL__c"));
 		columns.add(new DateColumn(i++, "submitDateC", "Submit_Date__c"));
-		columns.add(new StringColumn(i++, "createdById", "CreatedBy.FirstName,CreatedBy.LastName"));
+		columns.add(new StringColumn(i++, "createdById", "CreatedBy.Notes_Name__c"));
 		columns.add(new DateColumn(i++, "tripFromDateC", "Trip_From_Date__c"));
 		columns.add(new FakeColumn(i++, "", ""));
 		columns.add(new FakeColumn(i++, "", ""));
@@ -55,7 +55,7 @@ public class Req14TripFormatter extends BaseParser<TripReportC> {
 	}
 
 	@Override
-	public void buildSyncKey(TripReportC entity) {
+	public void postParse(TripReportC entity) {
 	}
 
 	protected String buildSfCondition(SfSqlConfig config) {
@@ -71,7 +71,7 @@ public class Req14TripFormatter extends BaseParser<TripReportC> {
 	@Override
 	public void preFormat(TripReportC entity) {
 		if (null != entity.getCreatedBy()) {
-			entity.setCreatedById(this.formateAsName(entity.getCreatedBy()));
+			entity.setCreatedById(entity.getCreatedBy().getNotesNameC());
 		}
 		
 	}

@@ -106,7 +106,7 @@ public class Req06MasterFormatter extends BaseParser<Opportunity> {
 	}
 
 	@Override
-	public void buildSyncKey(Opportunity entity) {
+	public void postParse(Opportunity entity) {
 	}
 
 	protected String buildSfCondition(SfSqlConfig config) {

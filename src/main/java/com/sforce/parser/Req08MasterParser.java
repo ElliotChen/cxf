@@ -55,7 +55,7 @@ public class Req08MasterParser extends BaseParser<ProductOpportunityC>{
 	}
 
 	@Override
-	public void buildSyncKey(ProductOpportunityC entity) {
+	public void postParse(ProductOpportunityC entity) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -52,7 +52,7 @@ public class Req15I1BFormatter extends SubParser<OtherRelatedGroupC, VisitReport
 	}
 
 	@Override
-	public void buildSyncKey(OtherRelatedGroupC entity) {
+	public void postParse(OtherRelatedGroupC entity) {
 	}
 
 	protected String buildSfCondition(SfSqlConfig config) {

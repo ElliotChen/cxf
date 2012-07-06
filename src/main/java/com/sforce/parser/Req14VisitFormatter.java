@@ -51,7 +51,7 @@ public class Req14VisitFormatter extends BaseParser<VisitReportC> {
 		columns.add(new StringColumn(i++, "name", "Name"));
 		columns.add(new StringColumn(i++, "visitReportURLC", "Visit_Report_URL__c"));
 		columns.add(new DateColumn(i++, "submitDateC", "Submit_Date__c"));
-		columns.add(new StringColumn(i++, "createdById", "CreatedBy.FirstName,CreatedBy.LastName"));//cheat
+		columns.add(new StringColumn(i++, "createdById", "CreatedBy.Notes_Name__c"));//cheat
 		columns.add(new DateColumn(i++, "visitDateC", "Visit_Date__c"));
 		columns.add(new StringColumn(i++, "customerC", "Customer__r.Name"));//cheat
 		columns.add(new StringColumn(i++, "productEPN2C", "Customer__r.AccountNumber")); //cheat...
@@ -67,7 +67,7 @@ public class Req14VisitFormatter extends BaseParser<VisitReportC> {
 	}
 
 	@Override
-	public void buildSyncKey(VisitReportC entity) {
+	public void postParse(VisitReportC entity) {
 	}
 
 	protected String buildSfCondition(SfSqlConfig config) {
@@ -82,7 +82,7 @@ public class Req14VisitFormatter extends BaseParser<VisitReportC> {
 	@Override
 	public void preFormat(VisitReportC entity) {
 		if (null != entity.getCreatedBy()) {
-			entity.setCreatedById(this.formateAsName(entity.getCreatedBy()));
+			entity.setCreatedById(entity.getCreatedBy().getNotesNameC());
 		}
 		if (null != entity.getCustomerR()) {
 			entity.setCustomerC(entity.getCustomerR().getName());

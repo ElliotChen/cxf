@@ -66,7 +66,7 @@ public class Req06I1AFormatter extends SubParser<OpportunityHistory, Opportunity
 	}
 
 	@Override
-	public void buildSyncKey(OpportunityHistory entity) {
+	public void postParse(OpportunityHistory entity) {
 	}
 
 	protected String buildSfCondition(SfSqlConfig config) {

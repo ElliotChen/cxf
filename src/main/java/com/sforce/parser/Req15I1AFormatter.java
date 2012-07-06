@@ -53,7 +53,7 @@ public class Req15I1AFormatter extends SubParser<MacronixSiteAttendeeC, VisitRep
 	}
 
 	@Override
-	public void buildSyncKey(MacronixSiteAttendeeC entity) {
+	public void postParse(MacronixSiteAttendeeC entity) {
 	}
 
 	protected String buildSfCondition(SfSqlConfig config) {

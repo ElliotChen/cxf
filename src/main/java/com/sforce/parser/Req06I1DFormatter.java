@@ -71,7 +71,7 @@ public class Req06I1DFormatter extends SubParser<KeyMilestoneC, Opportunity> {
 	}
 
 	@Override
-	public void buildSyncKey(KeyMilestoneC entity) {
+	public void postParse(KeyMilestoneC entity) {
 	}
 
 	protected String buildSfCondition(SfSqlConfig config) {

@@ -40,7 +40,7 @@ public class Req01MasterParser extends BaseParser<ExchangeRateC> {
 	}
 
 	@Override
-	public void buildSyncKey(ExchangeRateC entity) {
+	public void postParse(ExchangeRateC entity) {
 		if (null != entity.getDateC() && StringUtils.isNotEmpty(entity.getCurrencyC())) {
 			entity.setKeySyncC(DateUtils.formatDate(entity.getDateC())+entity.getCurrencyC());
 		} else {

@@ -53,9 +53,9 @@ public class Req04MasterFormatter extends BaseParser<CompetitorPriceC> {
 		columns.add(new StringColumn(i++, "customerRegionC", "Customer_Region__c"));
 		columns.add(new StringColumn(i++, "groupIDC", "Group_ID__c"));
 		columns.add(new StringColumn(i++, "groupEnglishShortNameC", "Group_English_Short_Name__c"));
-		columns.add(new StringColumn(i++, "createdById", "CreatedBy.FirstName,CreatedBy.LastName"));
+		columns.add(new StringColumn(i++, "createdById", "CreatedBy.Notes_Name__c")); //cheat
 		columns.add(new DateColumn(i++, "createdDate", "CreatedDate"));
-		columns.add(new StringColumn(i++, "ownerId", "Owner.FirstName,Owner.LastName"));
+		columns.add(new StringColumn(i++, "customerOwnerNotesNameC", "Customer_Owner_Notes_Name__c"));
 		
 		columns.add(new StringColumn(i++, "visitReportDocNoC", "Visit_Report_Doc_No__c"));
 		columns.add(new StringColumn(i++, "visitReportURLC", "Visit_Report_URL__c"));
@@ -66,7 +66,7 @@ public class Req04MasterFormatter extends BaseParser<CompetitorPriceC> {
 	}
 
 	@Override
-	public void buildSyncKey(CompetitorPriceC entity) {
+	public void postParse(CompetitorPriceC entity) {
 	}
 
 	protected String buildSfCondition(SfSqlConfig config) {
@@ -80,13 +80,15 @@ public class Req04MasterFormatter extends BaseParser<CompetitorPriceC> {
 
 	@Override
 	public void preFormat(CompetitorPriceC entity) {
+		//cheat
 		if (null != entity.getCreatedBy()) {
-			entity.setCreatedById(this.formateAsName(entity.getCreatedBy()));
+			entity.setCreatedById(entity.getCreatedBy().getNotesNameC());
 		}
-		
+		/*
 		if (null != entity.getOwner()) {
-			entity.setOwnerId(this.formateAsName(entity.getOwner()));
+//			entity.setOwnerId();
 		}
+		*/
 	}
 	
 }

@@ -29,7 +29,7 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 	
 	public abstract Logger getLogger();
 	protected abstract void initDefaultColumns();
-	public abstract void buildSyncKey(T entity);
+	public abstract void postParse(T entity);
 	public abstract void preFormat(T entity);
 	public void init() {
 		if (columns.isEmpty()) {
@@ -185,7 +185,7 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 			}
 		}
 		
-		this.buildSyncKey((T)target);
+		this.postParse((T)target);
 		return (T)target;
 	}
 

@@ -70,16 +70,16 @@ public class Req11MasterFormatter extends BaseParser<Account> {
 		columns.add(new StringColumn(i++, "expiredActivateReasonC", "Expired_Activate_Reason__c"));
 		
 		columns.add(new StringColumn(i++, "otherRelatedPersonC", "Other_Related_Person__c"));
-		columns.add(new StringColumn(i++, "createdById", "CreatedBy.FirstName,CreatedBy.LastName"));
-		columns.add(new DateColumn(i++, "createdDate", "CreatedDate"));
-		columns.add(new StringColumn(i++, "ownerId", "Owner.FirstName,Owner.LastName"));
+		columns.add(new StringColumn(i++, "creatorUplinkC", "Creator_Uplink__c"));
+		columns.add(new DateColumn(i++, "createdDateUplinkC", "CreatedDate_Uplink__c"));
+		columns.add(new StringColumn(i++, "ownerUplinkC", "Owner_Uplink__c"));
 		columns.add(new StringColumn(i++, "parentNameC", "Parent_Name__c"));
 		
 		this.tableName = "Account";
 	}
 
 	@Override
-	public void buildSyncKey(Account entity) {
+	public void postParse(Account entity) {
 	}
 
 	protected String buildSfCondition(SfSqlConfig config) {
@@ -95,6 +95,7 @@ public class Req11MasterFormatter extends BaseParser<Account> {
 
 	@Override
 	public void preFormat(Account entity) {
+		/*
 		if (null != entity.getCreatedBy()) {
 			entity.setCreatedById(this.formateAsName(entity.getCreatedBy()));
 		}
@@ -102,6 +103,7 @@ public class Req11MasterFormatter extends BaseParser<Account> {
 		if (null != entity.getOwner()) {
 			entity.setOwnerId(this.formateAsName(entity.getOwner()));
 		}
+		*/
 	}
 	
 }

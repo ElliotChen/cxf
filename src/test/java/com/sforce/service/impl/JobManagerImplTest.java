@@ -22,7 +22,7 @@ public class JobManagerImplTest {
 	@Rollback(false)
 	public void test() {
 		Job job = new Job();
-		
+		/*
 		job = new Job();
 		job.setOid("testreq01");
 		job.setComponent("req01");
@@ -47,7 +47,7 @@ public class JobManagerImplTest {
 		job.setMqId("req03.txt");
 		this.jobManager.create(job);
 		
-		/*
+		
 		job = new Job();
 		job.setOid("testreq08");
 		job.setComponent("req08");
@@ -55,7 +55,7 @@ public class JobManagerImplTest {
 		job.setState(JobState.Created);
 		job.setMqId("req08.txt");
 		this.jobManager.create(job);
-		*/
+		
 		job = new Job();
 		job.setOid("testreq09");
 		job.setComponent("req09");
@@ -63,7 +63,15 @@ public class JobManagerImplTest {
 		job.setState(JobState.Created);
 		job.setMqId("req09.txt");
 		this.jobManager.create(job);
-		
+		*/
+		job = new Job();
+		job.setOid("testreq10");
+		job.setComponent("req10");
+		job.setAbsolutePath("/Users/elliot/mqfile/test/req10_mxic.txt");
+		job.setState(JobState.Created);
+		job.setMqId("req10.txt");
+		this.jobManager.create(job);
+		/*
 		job = new Job();
 		job.setOid("testreq13");
 		job.setComponent("req13");
@@ -71,6 +79,7 @@ public class JobManagerImplTest {
 		job.setState(JobState.Created);
 		job.setMqId("req13.txt");
 		this.jobManager.create(job);
+		*/
 	}
 
 }

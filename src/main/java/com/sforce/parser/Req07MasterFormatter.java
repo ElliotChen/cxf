@@ -51,7 +51,7 @@ public class Req07MasterFormatter extends BaseParser<ProductOpportunityC> {
 	}
 
 	@Override
-	public void buildSyncKey(ProductOpportunityC entity) {
+	public void postParse(ProductOpportunityC entity) {
 	}
 
 	protected String buildSfCondition(SfSqlConfig config) {

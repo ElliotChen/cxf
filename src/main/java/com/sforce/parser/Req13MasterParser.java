@@ -40,7 +40,7 @@ public class Req13MasterParser extends BaseParser<CustomerCategoryC>{
 	}
 
 	@Override
-	public void buildSyncKey(CustomerCategoryC entity) {
+	public void postParse(CustomerCategoryC entity) {
 		
 	}
 

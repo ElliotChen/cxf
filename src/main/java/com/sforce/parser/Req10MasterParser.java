@@ -10,6 +10,7 @@ import com.sforce.column.Column;
 import com.sforce.column.DateColumn;
 import com.sforce.column.StringColumn;
 import com.sforce.soap.enterprise.sobject.Account;
+import com.sforce.soap.enterprise.sobject.User;
 
 /**	
  * @author elliot
@@ -21,7 +22,7 @@ public class Req10MasterParser extends BaseParser<Account> {
 	protected void initDefaultColumns() {
 		this.columns = new ArrayList<Column<?>>();
 		int i = 0;
-		columns.add(new StringColumn(i++, "recordTypeC", "Record_Type__c"));
+		columns.add(new StringColumn(i++, "accountTypeCodeC", "Account_Type_Code__c"));
 		columns.add(new StringColumn(i++, "accountNumber", "AccountNumber"));
 		columns.add(new StringColumn(i++, "documentStatusC", "Document_Status__c"));
 		columns.add(new StringColumn(i++, "dataTypeC", "Data_Type__c"));
@@ -62,10 +63,10 @@ public class Req10MasterParser extends BaseParser<Account> {
 		columns.add(new DateColumn(i++, "expiredDateC", "Expired_Date__c"));
 		columns.add(new StringColumn(i++, "expiredActivateReasonC", "Expired_Activate_Reason__c"));
 		columns.add(new StringColumn(i++, "otherRelatedPersonC", "Other_Related_Person__c"));
-		columns.add(new StringColumn(i++, "createdById", "CreatedById"));
-		columns.add(new DateColumn(i++, "createdDate", "CreatedDate"));
+		columns.add(new StringColumn(i++, "notesCreatorNameC", "Notes_Creator_Name__c"));
+		columns.add(new DateColumn(i++, "notesCreatedDateC", "Notes_CreatedDate__c"));
 		
-		columns.add(new StringColumn(i++, "ownerId", "OwnerId"));
+		columns.add(new StringColumn(i++, "notesOwnerNameC", "Notes_Owner_Name__c")); //cheat 1
 	}
 	/*
 	public ApplicationC parse(String[] source) {
@@ -94,7 +95,7 @@ public class Req10MasterParser extends BaseParser<Account> {
 	}
 
 	@Override
-	public void buildSyncKey(Account entity) {
+	public void postParse(Account entity) {
 		if ("S".equalsIgnoreCase(entity.getRecordTypeC())) {
 			//S => Key = Account ID AccountNumber + Sales Org. + Dist. Channel 
 			entity.setAccountKeyC(entity.getAccountNumber()+entity.getSalesOrgC()+entity.getDistChannelC());
@@ -102,6 +103,14 @@ public class Req10MasterParser extends BaseParser<Account> {
 			entity.setAccountKeyC(entity.getAccountNumber());
 		}
 		entity.setSyncFlagC("N2SF");
+		
+		//cheat 01
+		/*
+		User owner = new User();
+		owner.setNotesNameC(entity.getOwnerId());
+		entity.setOwner(owner);
+		entity.setOwnerId(null);
+		*/
 	}
 	@Override
 	public void preFormat(Account entity) {

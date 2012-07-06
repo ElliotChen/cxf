@@ -100,7 +100,7 @@ public class Req15MasterFormatter extends BaseParser<VisitReportC> {
 	}
 
 	@Override
-	public void buildSyncKey(VisitReportC entity) {
+	public void postParse(VisitReportC entity) {
 	}
 
 	protected String buildSfCondition(SfSqlConfig config) {

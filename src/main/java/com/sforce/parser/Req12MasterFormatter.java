@@ -43,7 +43,7 @@ public class Req12MasterFormatter extends BaseParser<Account> {
 	}
 
 	@Override
-	public void buildSyncKey(Account entity) {
+	public void postParse(Account entity) {
 	}
 
 	protected String buildSfCondition(SfSqlConfig config) {

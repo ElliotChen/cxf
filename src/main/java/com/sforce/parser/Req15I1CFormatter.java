@@ -57,7 +57,7 @@ public class Req15I1CFormatter extends SubParser<RelatedApplicationC, VisitRepor
 	}
 
 	@Override
-	public void buildSyncKey(RelatedApplicationC entity) {
+	public void postParse(RelatedApplicationC entity) {
 	}
 
 	protected String buildSfCondition(SfSqlConfig config) {

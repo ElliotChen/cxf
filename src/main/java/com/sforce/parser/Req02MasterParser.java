@@ -72,7 +72,7 @@ public class Req02MasterParser extends BaseParser<EPNMasterC> {
 	}
 
 	@Override
-	public void buildSyncKey(EPNMasterC entity) {
+	public void postParse(EPNMasterC entity) {
 		entity.setKeySyncC(entity.getName());
 	}
 

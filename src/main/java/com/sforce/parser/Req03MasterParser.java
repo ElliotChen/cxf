@@ -49,7 +49,7 @@ public class Req03MasterParser extends BaseParser<EPNProductBodyLinkC> {
 	}
 
 	@Override
-	public void buildSyncKey(EPNProductBodyLinkC entity) {
+	public void postParse(EPNProductBodyLinkC entity) {
 		entity.setKeySyncC(entity.getName()+entity.getProductBodyC()+entity.getMaskOptC()+entity.getBEOptC());
 	}
 

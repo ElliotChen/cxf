@@ -68,7 +68,7 @@ public class Req06I1BFormatter extends SubParser<DIRelatedAccountC, Opportunity>
 	}
 
 	@Override
-	public void buildSyncKey(DIRelatedAccountC entity) {
+	public void postParse(DIRelatedAccountC entity) {
 	}
 
 	protected String buildSfCondition(SfSqlConfig config) {

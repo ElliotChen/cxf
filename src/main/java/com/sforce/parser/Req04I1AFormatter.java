@@ -65,7 +65,7 @@ public class Req04I1AFormatter extends SubParser<CompetitorPriceItemC, Competito
 	}
 
 	@Override
-	public void buildSyncKey(CompetitorPriceItemC entity) {
+	public void postParse(CompetitorPriceItemC entity) {
 	}
 
 	protected String buildSfCondition(SfSqlConfig config) {
