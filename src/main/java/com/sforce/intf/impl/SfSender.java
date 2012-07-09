@@ -15,6 +15,7 @@ import com.sforce.intf.Sender;
 import com.sforce.parser.Parser;
 import com.sforce.service.JobManager;
 import com.sforce.soap.enterprise.Error;
+import com.sforce.soap.enterprise.MruHeader;
 import com.sforce.soap.enterprise.UpsertResult;
 import com.sforce.soap.enterprise.sobject.SObject;
 import com.sforce.to.InitConfig;
@@ -25,7 +26,7 @@ public class SfSender extends SfConnector implements Sender {
 	@Autowired
 	protected JobManager jobManager;
 	private List<Parser<?>> parsers;
-	private List<SObject> objs = new ArrayList<SObject>();
+	private List<SObject> objs = null;
 	private String syncKey;
 	
 	@Override
@@ -43,6 +44,7 @@ public class SfSender extends SfConnector implements Sender {
 		List<Job> jobs = new ArrayList<Job>();
 		Job job = null;
 		while ((job = jobManager.occupyFirstJob(component)) != null) {
+			objs = new ArrayList<SObject>();
 			List<String> errors = new ArrayList<String>();
 			jobs.add(job);
 			logger.info("Find Job for Sending : {}", job);
@@ -51,6 +53,7 @@ public class SfSender extends SfConnector implements Sender {
 				File source = new File(job.getAbsolutePath());
 				logger.debug("Read File Lines by FileUtils.readLines");
 				List<String> lines = FileUtils.readLines(source);
+				logger.error("find lines [{}]", lines.size());
 				/*
 				BufferedReader br
 				   = new BufferedReader(new FileReader(source));
@@ -62,9 +65,10 @@ public class SfSender extends SfConnector implements Sender {
 				}
 				*/
 				logger.debug("Split line to String[]");
+				logger.error("Using Apache Lib");
 				for (String s : lines) {
-//					String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(s, "\t");
-					String[] split = this.split(s, '\t');
+					String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(s, "\t");
+//					String[] split = this.split(s, '\t');
 					SObject target = null;
 					Parser parser = null;
 					for (Parser p : this.parsers) {
@@ -98,12 +102,10 @@ public class SfSender extends SfConnector implements Sender {
 				} else {
 					int pageSize = 200;
 					List<List<SObject>> lists = CollectionUtils.splitList(objs, pageSize);
-					
 					int loop = 0;
 					for (List<SObject> sos : lists) {
 						logger.debug("Begin Loop[{}] and Current Size[{}]", loop, sos.size());
 						List<UpsertResult> result = soap.upsert(syncKey, sos , sh, null, null, null, null, null, null, null, null, null, null);
-						
 						for (int rindex = 0; rindex < result.size(); rindex++) {
 							UpsertResult ur = result.get(rindex);
 							if (!ur.getSuccess()) {

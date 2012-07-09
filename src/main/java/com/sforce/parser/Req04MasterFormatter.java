@@ -21,7 +21,7 @@ public class Req04MasterFormatter extends BaseParser<CompetitorPriceC> {
 	
 	@Override
 	public boolean accept(String[] source) {
-		return 2 == source.length;
+		return 24 == source.length;
 	}
 
 	@Override
@@ -53,13 +53,14 @@ public class Req04MasterFormatter extends BaseParser<CompetitorPriceC> {
 		columns.add(new StringColumn(i++, "customerRegionC", "Customer_Region__c"));
 		columns.add(new StringColumn(i++, "groupIDC", "Group_ID__c"));
 		columns.add(new StringColumn(i++, "groupEnglishShortNameC", "Group_English_Short_Name__c"));
-		columns.add(new StringColumn(i++, "createdById", "CreatedBy.Notes_Name__c")); //cheat
+		columns.add(new StringColumn(i++, "createdById", "CreatedBy.Notes_Name__c")); //cheat01 createdById
 		columns.add(new DateColumn(i++, "createdDate", "CreatedDate"));
 		columns.add(new StringColumn(i++, "customerOwnerNotesNameC", "Customer_Owner_Notes_Name__c"));
 		
 		columns.add(new StringColumn(i++, "visitReportDocNoC", "Visit_Report_Doc_No__c"));
 		columns.add(new StringColumn(i++, "visitReportURLC", "Visit_Report_URL__c"));
-		columns.add(new StringColumn(i++, "otherRelatedPersonC", "Other_Related_Person__c"));
+//		columns.add(new StringColumn(i++, "otherRelatedPersonC", "Other_Related_Person__c"));
+		columns.add(new StringColumn(i++, "relatedPersonC", "Related_Person__r.Related_Person__c"));//cheat02  relatedPersonC
 		
 		
 		this.tableName = "Competitor_price__c";
@@ -83,6 +84,11 @@ public class Req04MasterFormatter extends BaseParser<CompetitorPriceC> {
 		//cheat
 		if (null != entity.getCreatedBy()) {
 			entity.setCreatedById(entity.getCreatedBy().getNotesNameC());
+		}
+		
+		//cheat02  relatedPersonC
+		if (null != entity.getRelatedPersonR()) {
+			entity.setRelatedPersonC(entity.getRelatedPersonR().getRelatedPersonC());
 		}
 		/*
 		if (null != entity.getOwner()) {

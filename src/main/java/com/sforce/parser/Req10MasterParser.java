@@ -2,15 +2,19 @@ package com.sforce.parser;
 
 import java.util.ArrayList;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.sforce.column.BooleanColumn;
 import com.sforce.column.Column;
 import com.sforce.column.DateColumn;
+import com.sforce.column.FakeColumn;
 import com.sforce.column.StringColumn;
 import com.sforce.soap.enterprise.sobject.Account;
-import com.sforce.soap.enterprise.sobject.User;
+import com.sforce.soap.enterprise.sobject.ApplicationC;
+import com.sforce.soap.enterprise.sobject.CountryC;
+import com.sforce.soap.enterprise.sobject.StateC;
 
 /**	
  * @author elliot
@@ -44,16 +48,19 @@ public class Req10MasterParser extends BaseParser<Account> {
 		columns.add(new StringColumn(i++, "postalCodeC", "Postal_Code__c"));
 		columns.add(new StringColumn(i++, "cityC", "City__c"));
 		
-		columns.add(new StringColumn(i++, "stateProvinceIDC", "State_Province_ID__c"));
-		columns.add(new StringColumn(i++, "stateProvinceNameC", "State_Province_Name__c"));
-		columns.add(new StringColumn(i++, "countryIDC", "Country_ID__c"));
-		columns.add(new StringColumn(i++, "countryNameC", "Country_Name__c"));
+		columns.add(new StringColumn(i++, "stateProvinceIDC", "State_Province_ID__c")); //cheat01 stateProvinceIDC
+//		columns.add(new StringColumn(i++, "stateProvinceNameC", "State_Province_Name__c"));
+		columns.add(new FakeColumn(i++, "", ""));
+		columns.add(new StringColumn(i++, "countryIDC", "Country_ID__c"));//cheat02 countryIDC
+//		columns.add(new StringColumn(i++, "countryNameC", "Country_Name__c"));
+		columns.add(new FakeColumn(i++, "", ""));
 		columns.add(new StringColumn(i++, "website", "Website"));
 		columns.add(new StringColumn(i++, "phone", "Phone"));
 		columns.add(new StringColumn(i++, "fax", "Fax"));
 		columns.add(new StringColumn(i++, "regionC", "Region__c"));
-		columns.add(new StringColumn(i++, "applicationIDC", "Application_ID__c"));
-		columns.add(new StringColumn(i++, "applicationNameC", "Application_Name__c"));
+		columns.add(new StringColumn(i++, "applicationIDC", "Application_ID__c"));//cheat03 applicationIDC
+//		columns.add(new StringColumn(i++, "applicationNameC", "Application_Name__c"));
+		columns.add(new FakeColumn(i++, "", ""));
 		
 		columns.add(new StringColumn(i++, "attributionC", "Attribution__c"));
 		columns.add(new StringColumn(i++, "customerGroup1IDC", "Customer_Group1_ID__c"));
@@ -66,7 +73,7 @@ public class Req10MasterParser extends BaseParser<Account> {
 		columns.add(new StringColumn(i++, "notesCreatorNameC", "Notes_Creator_Name__c"));
 		columns.add(new DateColumn(i++, "notesCreatedDateC", "Notes_CreatedDate__c"));
 		
-		columns.add(new StringColumn(i++, "notesOwnerNameC", "Notes_Owner_Name__c")); //cheat 1
+		columns.add(new StringColumn(i++, "notesOwnerNameC", "Notes_Owner_Name__c"));
 	}
 	/*
 	public ApplicationC parse(String[] source) {
@@ -104,13 +111,32 @@ public class Req10MasterParser extends BaseParser<Account> {
 		}
 		entity.setSyncFlagC("N2SF");
 		
-		//cheat 01
-		/*
-		User owner = new User();
-		owner.setNotesNameC(entity.getOwnerId());
-		entity.setOwner(owner);
-		entity.setOwnerId(null);
-		*/
+		//cheat01 stateProvinceIDC
+		if (StringUtils.isNotEmpty(entity.getStateProvinceIDC())) {
+			StateC state = new StateC();
+			state.setStateKeyC(entity.getStateProvinceIDC());
+			entity.setStateProvinceR(state);
+			entity.setStateProvinceIDC(null);
+		}
+		
+		//cheat02 countryIDC
+		if (StringUtils.isNotEmpty(entity.getCountryIDC())) {
+			CountryC country = new CountryC();
+			country.setCountryIDC(entity.getCountryIDC());
+			entity.setCountryR(country);
+			entity.setCountryIDC(null);
+		}
+		
+		//cheat03 applicationIDC
+		if (StringUtils.isNotEmpty(entity.getApplicationIDC())) {
+			ApplicationC ac = new ApplicationC();
+			ac.setApplicationIDC(entity.getApplicationIDC());
+			
+			entity.setApplicationR(ac);
+			entity.setApplicationIDC(null);
+		}
+		
+//		entity.getRelatedPersonR()
 	}
 	@Override
 	public void preFormat(Account entity) {

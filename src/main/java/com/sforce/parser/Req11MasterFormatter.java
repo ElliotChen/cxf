@@ -69,7 +69,8 @@ public class Req11MasterFormatter extends BaseParser<Account> {
 		columns.add(new DateColumn(i++, "expiredDateC", "Expired_Date__c"));
 		columns.add(new StringColumn(i++, "expiredActivateReasonC", "Expired_Activate_Reason__c"));
 		
-		columns.add(new StringColumn(i++, "otherRelatedPersonC", "Other_Related_Person__c"));
+//		columns.add(new StringColumn(i++, "otherRelatedPersonC", "Other_Related_Person__c"));
+		columns.add(new StringColumn(i++, "relatedPersonC", "Related_Person__r.Related_Person__c"));//cheat01  relatedPersonC
 		columns.add(new StringColumn(i++, "creatorUplinkC", "Creator_Uplink__c"));
 		columns.add(new DateColumn(i++, "createdDateUplinkC", "CreatedDate_Uplink__c"));
 		columns.add(new StringColumn(i++, "ownerUplinkC", "Owner_Uplink__c"));
@@ -95,6 +96,10 @@ public class Req11MasterFormatter extends BaseParser<Account> {
 
 	@Override
 	public void preFormat(Account entity) {
+		//cheat01  relatedPersonC
+		if (null != entity.getRelatedPersonR()) {
+			entity.setRelatedPersonC(entity.getRelatedPersonR().getRelatedPersonC());
+		}
 		/*
 		if (null != entity.getCreatedBy()) {
 			entity.setCreatedById(this.formateAsName(entity.getCreatedBy()));

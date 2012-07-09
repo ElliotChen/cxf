@@ -28,8 +28,8 @@
 	<category name="com.sforce">
 		<level value="DEBUG" />
 	</category>
-	<category name="org.apache.cxf">
-		<level value="INFO" />
+	<category name="com.sforce.soap.enterprise">
+		<level value="DEBUG" />
 	</category>
 
 	<root>

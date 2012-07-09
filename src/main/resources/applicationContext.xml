@@ -3,11 +3,13 @@
 	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jee="http://www.springframework.org/schema/jee"
 	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:cxf="http://cxf.apache.org/core"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
-	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+	http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 
 	<context:property-placeholder location="classpath:system.properties" />
 	<!-- <jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/mysqlds" /> -->
@@ -140,6 +142,10 @@
 		<property name="info" value="Exchange Rate, SAP -> SFDC, 自動, 每日一次" />
 	</bean>
 	<bean id="req01Receiver" class="com.sforce.intf.impl.MqReceiver" parent="mqReceiver">
+		<property name="queueName" value="${mq.req01}" />
+		<property name="receivers" value="${mail.req01}"/>
+	</bean>
+	<bean id="req01mqSender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
 		<property name="queueName" value="${mq.req01}" />
 		<property name="receivers" value="${mail.req01}"/>
 	</bean>
@@ -431,5 +437,22 @@
 		<property name="receivers" value="${mail.req15}"/>
 	</bean>
 	
+	
+	<cxf:bus>
+        <cxf:features>
+            <cxf:logging/>
+        </cxf:features>
+    </cxf:bus>
+    <bean id="logOutbound" class="org.apache.cxf.interceptor.LoggingOutInterceptor"/>
+     <cxf:bus>
+        <cxf:outInterceptors>
+            <ref bean="logOutbound"/>
+        </cxf:outInterceptors>
+        <cxf:outFaultInterceptors>
+            <ref bean="logOutbound"/>
+        </cxf:outFaultInterceptors>
+    </cxf:bus> 
 	<import resource="applicationContext_Mail.xml"/>
+	
+	
 </beans>
