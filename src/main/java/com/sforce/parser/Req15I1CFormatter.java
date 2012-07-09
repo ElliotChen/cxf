@@ -19,7 +19,7 @@ public class Req15I1CFormatter extends SubParser<RelatedApplicationC, VisitRepor
 	
 	@Override
 	public boolean accept(String[] source) {
-		return 7 == source.length;
+		return 49 == source.length && "I1C".equals(source[0]);
 	}
 
 	@Override
@@ -39,10 +39,6 @@ public class Req15I1CFormatter extends SubParser<RelatedApplicationC, VisitRepor
 		}
 
 		for (int fi = 0; fi < 3; fi++) {
-			columns.add(new FakeColumn(i++, "", ""));
-		}
-
-		for (int fi = 0; fi < 2; fi++) {
 			columns.add(new FakeColumn(i++, "", ""));
 		}
 

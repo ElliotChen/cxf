@@ -19,7 +19,7 @@ public class Req15I1AFormatter extends SubParser<MacronixSiteAttendeeC, VisitRep
 	
 	@Override
 	public boolean accept(String[] source) {
-		return 7 == source.length;
+		return 49 == source.length && "I1A".equals(source[0]);
 	}
 
 	@Override

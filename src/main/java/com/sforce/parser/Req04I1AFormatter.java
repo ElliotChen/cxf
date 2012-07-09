@@ -22,7 +22,7 @@ public class Req04I1AFormatter extends SubParser<CompetitorPriceItemC, Competito
 	
 	@Override
 	public boolean accept(String[] source) {
-		return 2 == source.length;
+		return 26 == source.length && "I1A".equals(source[0]);
 	}
 
 	@Override

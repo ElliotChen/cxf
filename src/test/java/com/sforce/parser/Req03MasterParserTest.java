@@ -23,16 +23,14 @@ import com.sforce.soap.enterprise.sobject.ExchangeRateC;
  */
 public class Req03MasterParserTest {
 	private static final Logger logger = LoggerFactory.getLogger(Req03MasterParserTest.class);
+	Req03MasterParser fp = new Req03MasterParser();
 	@Test
 	public void testParse() {
 		try {
 //			List<String> lines = FileUtils.readLines(new File("/Users/elliot/gitrepo/cxf/src/test/resources/req03.txt"));
 			List<String> lines = FileUtils.readLines(new File("/Users/elliot/mqfile/test/req03_mxic_light.txt"));
 			for (String s: lines) {
-				System.out.println(s);
 				String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(s, "\t");
-				Req03MasterParser fp = new Req03MasterParser();
-				fp.init();
 				fp.analysis(split);
 				EPNProductBodyLinkC target = fp.parse(split);
 				logger.debug("Find Source [{}]",target);
@@ -43,7 +41,6 @@ public class Req03MasterParserTest {
 	}
 	@Test
 	public void testGenSQL() {
-		Req03MasterParser fp = new Req03MasterParser();
 		fp.listColumnInfo();
 		logger.debug(fp.genSQLColumn());
 	}

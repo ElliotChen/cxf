@@ -21,7 +21,7 @@ public class Req15MasterFormatter extends BaseParser<VisitReportC> {
 	
 	@Override
 	public boolean accept(String[] source) {
-		return 52 == source.length && "H".equals(source[0]);
+		return 49 == source.length && "H".equals(source[0]);
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class Req15MasterFormatter extends BaseParser<VisitReportC> {
 		int i = 0;
 		columns.add(new FakeColumn(i++, "H", ""));
 		
-		columns.add(new StringColumn(i++, "recordTypeId", "RecordType.Name")); //cheating
+		columns.add(new StringColumn(i++, "recordTypeC", "RecordType.Name")); //cheat01 recordTypeId
 		columns.add(new StringColumn(i++, "name", "Name"));
 		columns.add(new StringColumn(i++, "statusC", "Status__c"));
 		columns.add(new DateColumn(i++, "submitDateC", "Submit_Date__c"));
@@ -55,7 +55,7 @@ public class Req15MasterFormatter extends BaseParser<VisitReportC> {
 		columns.add(new StringColumn(i++, "customerIssueTimeC", "Customer_Issue_Time__c"));
 		columns.add(new DateColumn(i++, "customerRequestVisitDateC", "Customer_Request_Visit_Date__c"));
 		columns.add(new StringColumn(i++, "customerRequestVisitTimeC", "Customer_Request_Visit_Time__c"));
-		columns.add(new StringColumn(i++, "customerC", "Customer__r.AccountNumber")); //cheat
+		columns.add(new StringColumn(i++, "customerC", "Customer__r.AccountNumber")); //cheat02
 		
 		columns.add(new StringColumn(i++, "productEPNName1C", "Product_EPN_Name1__c"));
 		columns.add(new StringColumn(i++, "productEPNName2C", "Product_EPN_Name2__c"));
@@ -73,17 +73,14 @@ public class Req15MasterFormatter extends BaseParser<VisitReportC> {
 		columns.add(new StringColumn(i++, "customerApplicationRemarkC", "Customer_Application_Remark__c"));
 		columns.add(new StringColumn(i++, "titleOfSeminarShowC", "Title_of_Seminar_Show__c"));
 		columns.add(new StringColumn(i++, "placeC", "Place__c"));
-		
-		columns.add(new StringColumn(i++, "createdById", "CreatedBy.FirstName,CreatedBy.LastName"));//cheat
+		columns.add(new StringColumn(i++, "createdById", "CreatedBy.FirstName,CreatedBy.LastName"));//cheat03
 		columns.add(new DateColumn(i++, "createdDate", "CreatedDate"));
-		columns.add(new StringColumn(i++, "ownerId", "Owner.FirstName,Owner.LastName"));//cheat
+		columns.add(new StringColumn(i++, "ownerId", "Owner.FirstName,Owner.LastName"));//cheat04
 		columns.add(new StringColumn(i++, "visitReportURLC", "Visit_Report_URL__c"));
 		columns.add(new StringColumn(i++, "customerApplicationC", "Customer_Application__c"));
+		
 		columns.add(new StringColumn(i++, "purposeC", "Purpose__c"));
 		//41,3,2,2
-		for (int fi = 0; fi < 41; fi++) {
-			columns.add(new FakeColumn(i++, "", ""));
-		}
 		
 		for (int fi = 0; fi< 3; fi++) {
 			columns.add(new FakeColumn(i++, "", ""));
@@ -114,6 +111,11 @@ public class Req15MasterFormatter extends BaseParser<VisitReportC> {
 
 	@Override
 	public void preFormat(VisitReportC entity) {
+		//cheat01 recordTypeId
+		if (null != entity.getRecordType()) {
+			entity.setRecordTypeC(entity.getRecordType().getName());
+		}
+		
 		if (null != entity.getCustomerR()) {
 			entity.setCustomerC(entity.getCustomerR().getAccountNumber());
 		}

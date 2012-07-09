@@ -14,10 +14,9 @@ import com.sforce.soap.enterprise.sobject.SObject;
 
 public class Req02MasterParserTest {
 	private static final Logger logger = LoggerFactory.getLogger(Req02MasterParserTest.class);
-//	private Req02MasterParser parser = new Req02MasterParser();
+	Req02MasterParser fp = new Req02MasterParser();
 	@Test
 	public void testInit() {
-		Req02MasterParser fp = new Req02MasterParser();
 		fp.listColumnInfo();
 		logger.debug(fp.genSQLColumn());
 	}
@@ -29,8 +28,6 @@ public class Req02MasterParserTest {
 			List<String> lines = FileUtils.readLines(new File("/Users/elliot/mqfile/test/req02_mxic_light.txt"));
 			for (String s: lines) {
 				String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(s, "\t");
-				Req02MasterParser fp = new Req02MasterParser();
-				fp.init();
 				fp.analysis(split);
 				SObject target = fp.parse(split);
 				logger.debug("Find Source [{}]",target);

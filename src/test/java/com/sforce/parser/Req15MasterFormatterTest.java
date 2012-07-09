@@ -34,13 +34,18 @@ public class Req15MasterFormatterTest {
 	@Test
 	public void testRead() {
 		try {
-			List<String> readLines = FileUtils.readLines(new File("/Users/elliot/gitrepo/cxf/src/test/resources/req15.txt"));
+			List<String> readLines = FileUtils.readLines(new File("/Users/elliot/mqfile/test/req15_sf.txt"));
 			for (String line : readLines) {
 				String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(line, "\t");
+				logger.debug("Split Size[{}]", split.length);
 				if (mf.accept(split)) {
 					mf.analysis(split);
 				} else if (i1f.accept(split)) {
 					i1f.analysis(split);
+				} else if (i2f.accept(split)) {
+					i2f.analysis(split);
+				} else if (i3f.accept(split)) {
+					i3f.analysis(split);
 				}
 			}
 		} catch (Exception e) {

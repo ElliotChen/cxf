@@ -19,7 +19,7 @@ public class Req15I1BFormatter extends SubParser<OtherRelatedGroupC, VisitReport
 	
 	@Override
 	public boolean accept(String[] source) {
-		return 7 == source.length;
+		return 49 == source.length && "I1B".equals(source[0]);
 	}
 
 	@Override

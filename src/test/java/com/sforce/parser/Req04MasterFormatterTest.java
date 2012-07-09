@@ -39,11 +39,11 @@ public class Req04MasterFormatterTest {
 				SfSender ss = new SfSender();
 				String[] split = ss.split(s, '\t');
 				logger.debug("Size is [{}]",split.length);
-				Req04MasterFormatter fp = new Req04MasterFormatter();
-				fp.init();
-				fp.analysis(split);
-				SObject target = fp.parse(split);
-				logger.debug("Find Source [{}]",target);
+				if (mf.accept(split)) {
+					mf.analysis(split);
+				} else if (i1af.accept(split)) {
+					i1af.analysis(split);
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

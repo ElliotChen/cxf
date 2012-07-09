@@ -22,7 +22,7 @@ public class JobManagerImplTest {
 	@Rollback(false)
 	public void test() {
 		Job job = new Job();
-		/*
+		/**/
 		job = new Job();
 		job.setOid("testreq01");
 		job.setComponent("req01");
@@ -34,7 +34,7 @@ public class JobManagerImplTest {
 		job = new Job();
 		job.setOid("testreq02");
 		job.setComponent("req02");
-		job.setAbsolutePath("/Users/elliot/mqfile/test/req02_mxic.txt");
+		job.setAbsolutePath("/Users/elliot/mqfile/test/req02_mxic_light.txt");
 		job.setState(JobState.Created);
 		job.setMqId("req02.txt");
 		this.jobManager.create(job);
@@ -42,12 +42,12 @@ public class JobManagerImplTest {
 		job = new Job();
 		job.setOid("testreq03");
 		job.setComponent("req03");
-		job.setAbsolutePath("/Users/elliot/mqfile/test/req03_mxic.txt");
+		job.setAbsolutePath("/Users/elliot/mqfile/test/req03_mxic_light.txt");
 		job.setState(JobState.Created);
 		job.setMqId("req03.txt");
 		this.jobManager.create(job);
 		
-		
+		/*
 		job = new Job();
 		job.setOid("testreq08");
 		job.setComponent("req08");
@@ -59,11 +59,11 @@ public class JobManagerImplTest {
 		job = new Job();
 		job.setOid("testreq09");
 		job.setComponent("req09");
-		job.setAbsolutePath("/Users/elliot/mqfile/test/req09_mxic.txt");
+		job.setAbsolutePath("/Users/elliot/mqfile/test/req09_mxic_light.txt");
 		job.setState(JobState.Created);
 		job.setMqId("req09.txt");
 		this.jobManager.create(job);
-		*/
+		
 		job = new Job();
 		job.setOid("testreq10");
 		job.setComponent("req10");
@@ -71,11 +71,11 @@ public class JobManagerImplTest {
 		job.setState(JobState.Created);
 		job.setMqId("req10.txt");
 		this.jobManager.create(job);
-		/*
+		
 		job = new Job();
 		job.setOid("testreq13");
 		job.setComponent("req13");
-		job.setAbsolutePath("/Users/elliot/mqfile/test/req13_mxic.txt");
+		job.setAbsolutePath("/Users/elliot/mqfile/test/req13_mxic_light.txt");
 		job.setState(JobState.Created);
 		job.setMqId("req13.txt");
 		this.jobManager.create(job);

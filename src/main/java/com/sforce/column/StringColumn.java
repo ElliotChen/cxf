@@ -18,6 +18,6 @@ public class StringColumn extends Column<String> {
 
 	@Override
 	public String format(Object value) {
-		return value == null ? "" : value.toString();
+		return value == null ? "" : value.toString().trim();
 	}
 }

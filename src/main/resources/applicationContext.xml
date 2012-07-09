@@ -437,7 +437,7 @@
 		<property name="receivers" value="${mail.req15}"/>
 	</bean>
 	
-	
+	<!-- 
 	<cxf:bus>
         <cxf:features>
             <cxf:logging/>
@@ -452,6 +452,7 @@
             <ref bean="logOutbound"/>
         </cxf:outFaultInterceptors>
     </cxf:bus> 
+     -->
 	<import resource="applicationContext_Mail.xml"/>
 	
 	

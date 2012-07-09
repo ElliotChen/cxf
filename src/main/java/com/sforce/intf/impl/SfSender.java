@@ -53,7 +53,7 @@ public class SfSender extends SfConnector implements Sender {
 				File source = new File(job.getAbsolutePath());
 				logger.debug("Read File Lines by FileUtils.readLines");
 				List<String> lines = FileUtils.readLines(source);
-				logger.error("find lines [{}]", lines.size());
+				logger.debug("find lines [{}]", lines.size());
 				/*
 				BufferedReader br
 				   = new BufferedReader(new FileReader(source));
@@ -65,7 +65,7 @@ public class SfSender extends SfConnector implements Sender {
 				}
 				*/
 				logger.debug("Split line to String[]");
-				logger.error("Using Apache Lib");
+				logger.debug("Using Apache Lib");
 				for (String s : lines) {
 					String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(s, "\t");
 //					String[] split = this.split(s, '\t');
