@@ -103,7 +103,7 @@ public class Req10MasterParser extends BaseParser<Account> {
 
 	@Override
 	public void postParse(Account entity) {
-		if ("S".equalsIgnoreCase(entity.getRecordTypeC())) {
+		if ("S".equalsIgnoreCase(entity.getAccountTypeCodeC())) {
 			//S => Key = Account ID AccountNumber + Sales Org. + Dist. Channel 
 			entity.setAccountKeyC(entity.getAccountNumber()+entity.getSalesOrgC()+entity.getDistChannelC());
 		} else {
@@ -114,7 +114,8 @@ public class Req10MasterParser extends BaseParser<Account> {
 		//cheat01 stateProvinceIDC
 		if (StringUtils.isNotEmpty(entity.getStateProvinceIDC())) {
 			StateC state = new StateC();
-			state.setStateKeyC(entity.getStateProvinceIDC());
+			logger.debug("CountryId[{}] and StateId[{}]", entity.getCountryIDC(), entity.getStateProvinceIDC());
+			state.setStateKeyC(entity.getCountryIDC() + entity.getStateProvinceIDC());
 			entity.setStateProvinceR(state);
 			entity.setStateProvinceIDC(null);
 		}

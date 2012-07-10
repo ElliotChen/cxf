@@ -22,7 +22,7 @@ public class JobManagerImplTest {
 	@Rollback(false)
 	public void test() {
 		Job job = new Job();
-		/**/
+		/*
 		job = new Job();
 		job.setOid("testreq01");
 		job.setComponent("req01");
@@ -46,7 +46,7 @@ public class JobManagerImplTest {
 		job.setState(JobState.Created);
 		job.setMqId("req03.txt");
 		this.jobManager.create(job);
-		
+		*/
 		/*
 		job = new Job();
 		job.setOid("testreq08");
@@ -80,6 +80,13 @@ public class JobManagerImplTest {
 		job.setMqId("req13.txt");
 		this.jobManager.create(job);
 		*/
+		job = new Job();
+		job.setOid("testreq10");
+		job.setComponent("req10");
+		job.setAbsolutePath("/Users/elliot/mqfile/test/req10_mxic_01.txt");
+		job.setState(JobState.Created);
+		job.setMqId("req1001.txt");
+		this.jobManager.create(job);
 	}
 
 }
