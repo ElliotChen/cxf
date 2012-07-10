@@ -73,7 +73,7 @@ public class Req06I1EFormatter extends SubParser<ProductOpportunityC, Opportunit
 		columns.add(new DateColumn(i++, "MPDateAtCustomerC", "MP_Date_at_Customer__c"));
 		columns.add(new StringColumn(i++, "firstMPOrderNoC", "First_MP_Order_No__c"));
 		columns.add(new StringColumn(i++, "checkResultStatusC", "Check_Result_Status__c"));
-		columns.add(new StringColumn(i++, "actualOrderInPartyIDC", "Actual_Order_in_Party_ID__c"));
+		columns.add(new StringColumn(i++, "actualOrderInPartyC", "Actual_Order_in_Party__c"));
 		
 		columns.add(new StringColumn(i++, "currencyC", "Currency__c"));
 		columns.add(new FakeColumn(i++, "quotePriceC", "Quote_Price__c"));

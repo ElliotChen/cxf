@@ -3,7 +3,7 @@
 
 <!--
 Salesforce.com Enterprise Web Services API Version 25.0
-Generated on 2012-07-09 17:00:01 +0000.
+Generated on 2012-07-10 01:47:55 +0000.
 
 Copyright 1999-2012 salesforce.com, inc.
 All Rights Reserved
@@ -5359,6 +5359,7 @@ All Rights Reserved
                         <element name="ProcessSteps" nillable="true" minOccurs="0" type="tns:QueryResult"/>
                         <element name="Product_Opportunity__c" nillable="true" minOccurs="0" type="tns:ID"/>
                         <element name="Product_Opportunity__r" nillable="true" minOccurs="0" type="ens:Product_Opportunity__c"/>
+                        <element name="Quote_Price_USD__c" nillable="true" minOccurs="0" type="xsd:double"/>
                         <element name="Quote_Price__c" nillable="true" minOccurs="0" type="xsd:double"/>
                         <element name="SAM_Qty_Kea__c" nillable="true" minOccurs="0" type="xsd:double"/>
                         <element name="SOM_Qty_Kea__c" nillable="true" minOccurs="0" type="xsd:double"/>
@@ -5938,6 +5939,7 @@ All Rights Reserved
                     <extension base="ens:sObject">
                         <sequence>
                         <element name="AVL_No__c" nillable="true" minOccurs="0" type="xsd:string"/>
+                        <element name="Actual_Order_in_Party_ID_del__c" nillable="true" minOccurs="0" type="xsd:string"/>
                         <element name="Actual_Order_in_Party__c" nillable="true" minOccurs="0" type="xsd:string"/>
                         <element name="Application__c" nillable="true" minOccurs="0" type="xsd:string"/>
                         <element name="Approval_Sheet_Linkage__c" nillable="true" minOccurs="0" type="xsd:string"/>

@@ -26,7 +26,8 @@ public class Req08MasterParser extends BaseParser<ProductOpportunityC>{
 		int i = 0;
 		columns.add(new StringColumn(i++, "id", "Id"));
 		columns.add(new StringColumn(i++, "checkResultC", "Check_Result__c"));
-		columns.add(new StringColumn(i++, "designInSiteIDC", "Design_in_Site_ID__c"));
+//		columns.add(new StringColumn(i++, "designInSiteIDC", "Design_in_Site_ID__c"));
+		columns.add(new StringColumn(i++, "actualOrderInPartyC", "Actual_Order_in_Party__c"));
 	}
 	/*
 	public ApplicationC parse(String[] source) {
