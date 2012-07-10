@@ -36,7 +36,7 @@ public class Req11MasterFormatter extends BaseParser<Account> {
 	protected void initDefaultColumns() {
 		this.columns = new ArrayList<Column<?>>();
 		int i = 0;
-		columns.add(new StringColumn(i++, "recordTypeC", "Record_Type__c"));
+		columns.add(new StringColumn(i++, "accountTypeCodeC", "Account_Type_Code__c"));
 		columns.add(new StringColumn(i++, "accountNumber", "AccountNumber"));
 		columns.add(new StringColumn(i++, "documentStatusC", "Document_Status__c"));
 		columns.add(new StringColumn(i++, "salesOrgC", "Sales_Org__c"));

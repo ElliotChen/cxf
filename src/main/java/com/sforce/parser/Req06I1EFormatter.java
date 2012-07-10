@@ -76,15 +76,15 @@ public class Req06I1EFormatter extends SubParser<ProductOpportunityC, Opportunit
 		columns.add(new StringColumn(i++, "actualOrderInPartyC", "Actual_Order_in_Party__c"));
 		
 		columns.add(new StringColumn(i++, "currencyC", "Currency__c"));
-		columns.add(new FakeColumn(i++, "quotePriceC", "Quote_Price__c"));
-		columns.add(new FakeColumn(i++, "quotePriceUSDC", "Quote_Price_USD__c"));
+		columns.add(new DoubleColumn(i++, "quotePriceC", "Quote_Price__c"));
+		columns.add(new DoubleColumn(i++, "quotePriceUSDC", "Quote_Price_USD__c"));
 		columns.add(new DateColumn(i++, "lifeCycleFromC", "Life_Cycle_from__c"));
 		columns.add(new DateColumn(i++, "lifeCycleToC", "Life_Cycle_to__c"));
 		columns.add(new DoubleColumn(i++, "SAMAvgQtyC", "SAM_Avg_Qty__c"));
 		columns.add(new DoubleColumn(i++, "SOMAvgQtyC", "SOM_Avg_Qty__c"));
-		columns.add(new StringColumn(i++, "createdById", "CreatedBy.FirstName,CreatedBy.LastName"));
+		columns.add(new StringColumn(i++, "createdById", "CreatedBy.FirstName,CreatedBy.LastName")); //cheat01 createdById
 		columns.add(new DateColumn(i++, "createdDate", "CreatedDate"));
-		columns.add(new StringColumn(i++, "lastModifiedById", "LastModifiedById"));
+		columns.add(new StringColumn(i++, "lastModifiedById", "LastModifiedBy.FirstName,LastModifiedBy.LastName"));//cheat02 lastModifiedById
 		
 		columns.add(new DateColumn(i++, "lastModifiedDate", "LastModifiedDate"));
 		columns.add(new StringColumn(i++, "name", "Name"));
@@ -112,6 +112,10 @@ public class Req06I1EFormatter extends SubParser<ProductOpportunityC, Opportunit
 	public void preFormat(ProductOpportunityC entity) {
 		if (null != entity.getCreatedBy()) {
 			entity.setCreatedById(this.formateAsName(entity.getCreatedBy()));
+		}
+		
+		if (null != entity.getLastModifiedBy()) {
+			entity.setLastModifiedById(this.formateAsName(entity.getLastModifiedBy()));
 		}
 		
 	}

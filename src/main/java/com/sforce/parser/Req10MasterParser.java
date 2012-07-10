@@ -65,7 +65,7 @@ public class Req10MasterParser extends BaseParser<Account> {
 		columns.add(new StringColumn(i++, "attributionC", "Attribution__c"));
 		columns.add(new StringColumn(i++, "customerGroup1IDC", "Customer_Group1_ID__c"));
 		columns.add(new StringColumn(i++, "customerGroup1C", "Customer_Group1__c"));
-		columns.add(new StringColumn(i++, "parentIDC", "Parent_ID__c"));
+		columns.add(new StringColumn(i++, "parentIDC", "Parent_ID__c")); //cheat04 parentIDC
 		columns.add(new StringColumn(i++, "SAPCustomerNoC", "SAP_Customer_No__c"));
 		columns.add(new DateColumn(i++, "expiredDateC", "Expired_Date__c"));
 		columns.add(new StringColumn(i++, "expiredActivateReasonC", "Expired_Activate_Reason__c"));
@@ -136,6 +136,13 @@ public class Req10MasterParser extends BaseParser<Account> {
 			entity.setApplicationIDC(null);
 		}
 		
+		//cheat04 parentIDC
+		if (StringUtils.isNotEmpty(entity.getParentIDC())) {
+			Account account = new Account();
+			account.setAccountKeyC(entity.getParentIDC());
+			entity.setParent(account);
+			entity.setParentIDC(null);
+		}
 //		entity.getRelatedPersonR()
 	}
 	@Override
