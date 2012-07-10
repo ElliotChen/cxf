@@ -64,11 +64,10 @@ public class SfSender extends SfConnector implements Sender {
 					lines.add(sline);
 				}
 				*/
-				logger.debug("Split line to String[]");
-				logger.debug("Using Apache Lib");
+				logger.debug("Split line to String[], using split");
 				for (String s : lines) {
-					String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(s, "\t");
-//					String[] split = this.split(s, '\t');
+//					String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(s, "\t");
+					String[] split = this.split(s, '\t');
 					SObject target = null;
 					Parser parser = null;
 					for (Parser p : this.parsers) {
