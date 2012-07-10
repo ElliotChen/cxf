@@ -28,7 +28,7 @@ public class Req06I1BFormatter extends SubParser<DIRelatedAccountC, Opportunity>
 	
 	@Override
 	public boolean accept(String[] source) {
-		return 2 == source.length;
+		return 105 == source.length && "I1B".equals(source[0]);
 	}
 
 	@Override

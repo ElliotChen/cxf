@@ -20,7 +20,7 @@ public class Req06MasterFormatter extends BaseParser<Opportunity> {
 	
 	@Override
 	public boolean accept(String[] source) {
-		return 2 == source.length;
+		return 105 == source.length && "H".equals(source[0]);
 	}
 
 	@Override
@@ -65,8 +65,8 @@ public class Req06MasterFormatter extends BaseParser<Opportunity> {
 		columns.add(new StringColumn(i++, "nextStep", "NextStep"));
 		columns.add(new DateColumn(i++, "milestoneDateC", "Milestone_Date__c"));
 		columns.add(new StringColumn(i++, "orderInFromC", "Order_in_from__c"));
-		
 		columns.add(new StringColumn(i++, "ownerId", "Owner.FirstName,Owner.LastName"));//cheat 9 -0
+
 		columns.add(new StringColumn(i++, "tempRecordTypeC", "Owner.Region__c"));//cheat 9 -1
 		columns.add(new StringColumn(i++, "manufactureSiteAMC", "Owner.DI_Region__c"));//cheat 9 -2
 		columns.add(new StringColumn(i++, "manufactureSiteC", "Owner.DEPT__c"));//cheat 9 -3
@@ -77,13 +77,11 @@ public class Req06MasterFormatter extends BaseParser<Opportunity> {
 		columns.add(new StringColumn(i++, "DIURLC", "DI_URL__c"));
 		columns.add(new DateColumn(i++, "needBDIDateC", "Need_BDI_Date__c"));
 		columns.add(new DateColumn(i++, "incentiveAppliedDateC", "Incentive_Applied_Date__c"));
+
 		columns.add(new DateColumn(i++, "submitDateC", "Submit_Date__c"));
 		columns.add(new StringColumn(i++, "lastModifiedById", "LastModifiedBy.FirstName,LastModifiedBy.LastName"));//cheat 11
 		columns.add(new DateColumn(i++, "lastModifiedDate", "LastModifiedDate"));
 		//43,3,2,5,5,36,10
-		for (int index = 0; index < 43; index++) {
-			columns.add(new FakeColumn(i++, "", ""));
-		}
 		for (int index = 0; index < 3; index++) {
 			columns.add(new FakeColumn(i++, "", ""));
 		}

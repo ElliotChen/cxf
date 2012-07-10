@@ -29,7 +29,7 @@ public class Req06I1DFormatter extends SubParser<KeyMilestoneC, Opportunity> {
 	
 	@Override
 	public boolean accept(String[] source) {
-		return 2 == source.length;
+		return 105 == source.length && "I1D".equals(source[0]);
 	}
 
 	@Override

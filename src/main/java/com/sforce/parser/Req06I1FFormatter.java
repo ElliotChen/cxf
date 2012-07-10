@@ -24,7 +24,7 @@ public class Req06I1FFormatter extends SubParser<OpportunityDataC, Opportunity> 
 	
 	@Override
 	public boolean accept(String[] source) {
-		return 2 == source.length;
+		return 105 == source.length && "I1F".equals(source[0]);
 	}
 
 	@Override
@@ -57,7 +57,8 @@ public class Req06I1FFormatter extends SubParser<OpportunityDataC, Opportunity> 
 					columns.add(new FakeColumn(i++, "", ""));
 				}
 		columns.add(new StringColumn(i++, "id", "")); //cheat
-		columns.add(new StringColumn(i++, "EPNNameC", "EPN_Name__c"));
+//		columns.add(new StringColumn(i++, "EPNNameC", "EPN_Name__c"));
+		columns.add(new StringColumn(i++, "EPNNameC", "Product_Opportunity__r.EPN_Name__c"));//cheat01 EPNNameC
 		columns.add(new DateColumn(i++, "startDateC", "Start_Date__c"));
 		columns.add(new StringColumn(i++, "periodTypeC", "Period_Type__c"));
 		columns.add(new DoubleColumn(i++, "monthQtyC", "Month_Qty__c"));
@@ -91,8 +92,10 @@ public class Req06I1FFormatter extends SubParser<OpportunityDataC, Opportunity> 
 	
 	@Override
 	public void preFormat(OpportunityDataC entity) {
-		
-		
+		//cheat01 EPNNameC
+		if (null != entity.getProductOpportunityR()) {
+			entity.setEPNNameC(entity.getProductOpportunityR().getEPNNameC());
+		}
 	}
 
 	@Override

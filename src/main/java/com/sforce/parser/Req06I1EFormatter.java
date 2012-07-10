@@ -23,7 +23,7 @@ public class Req06I1EFormatter extends SubParser<ProductOpportunityC, Opportunit
 	
 	@Override
 	public boolean accept(String[] source) {
-		return 2 == source.length;
+		return 105 == source.length && "I1E".equals(source[0]);
 	}
 
 	@Override

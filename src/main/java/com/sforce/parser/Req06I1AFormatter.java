@@ -23,7 +23,7 @@ public class Req06I1AFormatter extends SubParser<OpportunityHistory, Opportunity
 	
 	@Override
 	public boolean accept(String[] source) {
-		return 2 == source.length;
+		return 105 == source.length && "I1A".equals(source[0]);
 	}
 
 	@Override
