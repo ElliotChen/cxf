@@ -48,7 +48,7 @@ public class Req12MasterFormatter extends BaseParser<Account> {
 
 	protected String buildSfCondition(SfSqlConfig config) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(" and Record_Type__c = 'SAP_Customer' ");
+		sb.append(" and Account_Type_Code__c = 'S' ");
 		if (null != config.getLasySyncDate()) {
 			sb.append(" and SAP_Sync_Date__c > "+DateUtils.formatSfDateTime(config.getLasySyncDate()));
 		}
