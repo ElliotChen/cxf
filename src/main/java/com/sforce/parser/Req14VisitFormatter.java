@@ -93,16 +93,16 @@ public class Req14VisitFormatter extends BaseParser<VisitReportC> {
 			sb.append(entity.getProductEPNName1C());
 		}
 		if (StringUtils.isNotEmpty(entity.getProductEPNName2C())) {
-			sb.append(entity.getProductEPNName2C());
+			sb.append(";"+entity.getProductEPNName2C());
 		}
 		if (StringUtils.isNotEmpty(entity.getProductEPNName3C())) {
-			sb.append(entity.getProductEPNName3C());
+			sb.append(";"+entity.getProductEPNName3C());
 		}
 		if (StringUtils.isNotEmpty(entity.getProductEPNName4C())) {
-			sb.append(entity.getProductEPNName4C());
+			sb.append(";"+entity.getProductEPNName4C());
 		}
 		if (StringUtils.isNotEmpty(entity.getProductEPNName5C())) {
-			sb.append(entity.getProductEPNName5C());
+			sb.append(";"+entity.getProductEPNName5C());
 		}
 		entity.setProductEPNName1C(sb.toString());
 		
@@ -111,16 +111,16 @@ public class Req14VisitFormatter extends BaseParser<VisitReportC> {
 			sb.append(entity.getProductBody1C());
 		}
 		if (StringUtils.isNotEmpty(entity.getProductBody2C())) {
-			sb.append(entity.getProductBody2C());
+			sb.append(";"+entity.getProductBody2C());
 		}
 		if (StringUtils.isNotEmpty(entity.getProductBody3C())) {
-			sb.append(entity.getProductBody3C());
+			sb.append(";"+entity.getProductBody3C());
 		}
 		if (StringUtils.isNotEmpty(entity.getProductBody4C())) {
-			sb.append(entity.getProductBody4C());
+			sb.append(";"+entity.getProductBody4C());
 		}
 		if (StringUtils.isNotEmpty(entity.getProductBody5C())) {
-			sb.append(entity.getProductBody5C());
+			sb.append(";"+entity.getProductBody5C());
 		}
 		entity.setProductBody1C(sb.toString());
 	}

@@ -35,50 +35,17 @@ public class Req15SfReceiver extends SfReceiver {
 		
 		String queryString = null;
 		QueryResult query = null;
-		String source = null;
+		
 
 		try {
 			queryString = masterFormatter.genSfSQL(config);
 			logger.info(queryString);
 			query = this.soap.query(queryString, this.sh, null, null, null);
-			for (SObject so : query.getRecords()) {
-				VisitReportC vr = (VisitReportC)so;
-				source = masterFormatter.format(vr);
-				this.write(target, source);
-				
-				//Macronix_Site_Attendee__r
-				if (null != vr.getMacronixSiteAttendeeR()) {
-					for (SObject i1a : vr.getMacronixSiteAttendeeR().getRecords()) {
-						MacronixSiteAttendeeC msa = (MacronixSiteAttendeeC) i1a;
-						i1aFormatter.preFormat(vr, msa);
-						
-						source = i1aFormatter.format(msa);
-						this.write(target, source);
-					}
-				}
-				
-				//Other_Related_Group__r
-				if (null != vr.getOtherRelatedGroupR()) {
-					for (SObject i1a : vr.getOtherRelatedGroupR().getRecords()) {
-						OtherRelatedGroupC msa = (OtherRelatedGroupC) i1a;
-						i1bFormatter.preFormat(vr, msa);
-						
-						source = i1bFormatter.format(msa);
-						this.write(target, source);
-					}
-				}
-				
-				//Related_Applications__r
-				if (null != vr.getRelatedApplicationsR()) {
-					for (SObject i1a : vr.getRelatedApplicationsR().getRecords()) {
-						RelatedApplicationC msa = (RelatedApplicationC) i1a;
-						i1cFormatter.preFormat(vr, msa);
-						
-						source = i1cFormatter.format(msa);
-						this.write(target, source);
-					}
-				}
-				
+			this.handleQuery(query, target);
+			
+			while (!query.getDone()) {
+				query = this.soap.queryMore(query.getQueryLocator(), this.sh, null);
+				this.handleQuery(query, target);
 			}
 			
 		} catch (Exception e) {
@@ -86,6 +53,48 @@ public class Req15SfReceiver extends SfReceiver {
 		}
 	}
 	
+	protected void handleQuery(QueryResult query, File target) {
+		String source = null;
+		for (SObject so : query.getRecords()) {
+			VisitReportC vr = (VisitReportC)so;
+			source = masterFormatter.format(vr);
+			this.write(target, source);
+			
+			//Macronix_Site_Attendee__r
+			if (null != vr.getMacronixSiteAttendeeR()) {
+				for (SObject i1a : vr.getMacronixSiteAttendeeR().getRecords()) {
+					MacronixSiteAttendeeC msa = (MacronixSiteAttendeeC) i1a;
+					i1aFormatter.preFormat(vr, msa);
+					
+					source = i1aFormatter.format(msa);
+					this.write(target, source);
+				}
+			}
+			
+			//Other_Related_Group__r
+			if (null != vr.getOtherRelatedGroupR()) {
+				for (SObject i1a : vr.getOtherRelatedGroupR().getRecords()) {
+					OtherRelatedGroupC msa = (OtherRelatedGroupC) i1a;
+					i1bFormatter.preFormat(vr, msa);
+					
+					source = i1bFormatter.format(msa);
+					this.write(target, source);
+				}
+			}
+			
+			//Related_Applications__r
+			if (null != vr.getRelatedApplicationsR()) {
+				for (SObject i1a : vr.getRelatedApplicationsR().getRecords()) {
+					RelatedApplicationC msa = (RelatedApplicationC) i1a;
+					i1cFormatter.preFormat(vr, msa);
+					
+					source = i1cFormatter.format(msa);
+					this.write(target, source);
+				}
+			}
+			
+		}
+	}
 	@Override
 	public void postInit() {
 		masterFormatter.init();

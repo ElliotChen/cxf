@@ -30,15 +30,23 @@ public class Req07SfReceiver extends SfReceiver {
 		
 		try {
 			QueryResult query = this.soap.query(queryString, this.sh, null, null, null);
-			String source = null;
-			for (SObject so : query.getRecords()) {
-				source = masterFormatter.format((ProductOpportunityC)so);
-				//logger.info(source);
-				this.write(target, source);
+			this.handleQuery(query, target);
+			
+			while (!query.getDone()) {
+				query = this.soap.queryMore(query.getQueryLocator(), this.sh, null);
+				this.handleQuery(query, target);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	protected void handleQuery(QueryResult query, File target) {
+		String source = null;
+		for (SObject so : query.getRecords()) {
+			source = masterFormatter.format((ProductOpportunityC)so);
+			this.write(target, source);
 		}
 	}
 	

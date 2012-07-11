@@ -29,15 +29,40 @@ public class Req11SfReceiver extends SfReceiver {
 		
 		try {
 			QueryResult query = this.soap.query(queryString, this.sh, null, null, null);
+			this.handleQuery(query, target);
+			
+			/*
 			String source = null;
 			for (SObject so : query.getRecords()) {
 				source = masterFormatter.format((Account)so);
 				//logger.info(source);
 				this.write(target, source);
 			}
+			*/
+			
+			while (!query.getDone()) {
+				query = this.soap.queryMore(query.getQueryLocator(), this.sh, null);
+				this.handleQuery(query, target);
+				/*
+				for (SObject so : query.getRecords()) {
+					source = masterFormatter.format((Account)so);
+					//logger.info(source);
+					this.write(target, source);
+				}
+				*/
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	protected void handleQuery(QueryResult query, File target) {
+		String source = null;
+		for (SObject so : query.getRecords()) {
+			source = masterFormatter.format((Account)so);
+			//logger.info(source);
+			this.write(target, source);
 		}
 	}
 	

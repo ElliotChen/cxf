@@ -29,11 +29,11 @@ public class Req12SfReceiver extends SfReceiver {
 		
 		try {
 			QueryResult query = this.soap.query(queryString, this.sh, null, null, null);
-			String source = null;
-			for (SObject so : query.getRecords()) {
-				source = masterFormatter.format((Account)so);
-				//logger.info(source);
-				this.write(target, source);
+			this.handleQuery(query, target);
+			
+			while (!query.getDone()) {
+				query = this.soap.queryMore(query.getQueryLocator(), this.sh, null);
+				this.handleQuery(query, target);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -41,6 +41,14 @@ public class Req12SfReceiver extends SfReceiver {
 		}
 	}
 	
+	protected void handleQuery(QueryResult query, File target) {
+		String source = null;
+		for (SObject so : query.getRecords()) {
+			source = masterFormatter.format((Account)so);
+			//logger.info(source);
+			this.write(target, source);
+		}
+	}
 	@Override
 	public void postInit() {
 		masterFormatter.init();

@@ -35,24 +35,11 @@ public class Req04SfReceiver extends SfReceiver {
 		
 		try {
 			QueryResult query = this.soap.query(queryString, this.sh, null, null, null);
-			String source = null;
-			for (SObject so : query.getRecords()) {
-				CompetitorPriceC cp = (CompetitorPriceC)so;
-				source = masterFormatter.format(cp);
-				this.write(target, source);
-				
-				QueryResult result = cp.getCompetitorPriceItemR();
-				List<SObject> i1As = result.getRecords();
-				if (null != i1As && !i1As.isEmpty()) {
-					for (SObject i1A : i1As) {
-						CompetitorPriceItemC cpi = (CompetitorPriceItemC)i1A;
-						this.i1AFormatter.preFormat(cp, cpi);
-						source = i1AFormatter.format(cpi);
-						this.write(target, source);
-					}
-				}
-				//logger.info(source);
-				
+			this.handleQuery(query, target);
+			
+			while (!query.getDone()) {
+				query = this.soap.queryMore(query.getQueryLocator(), this.sh, null);
+				this.handleQuery(query, target);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -60,6 +47,27 @@ public class Req04SfReceiver extends SfReceiver {
 		}
 	}
 
+	protected void handleQuery(QueryResult query, File target) {
+		String source = null;
+		for (SObject so : query.getRecords()) {
+			CompetitorPriceC cp = (CompetitorPriceC)so;
+			source = masterFormatter.format(cp);
+			this.write(target, source);
+			
+			QueryResult result = cp.getCompetitorPriceItemR();
+			List<SObject> i1As = result.getRecords();
+			if (null != i1As && !i1As.isEmpty()) {
+				for (SObject i1A : i1As) {
+					CompetitorPriceItemC cpi = (CompetitorPriceItemC)i1A;
+					this.i1AFormatter.preFormat(cp, cpi);
+					source = i1AFormatter.format(cpi);
+					this.write(target, source);
+				}
+			}
+			//logger.info(source);
+			
+		}
+	}
 	@Override
 	public void postInit() {
 		masterFormatter.init();

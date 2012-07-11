@@ -29,31 +29,47 @@ public class Req14SfReceiver extends SfReceiver {
 		
 		String queryString = null;
 		QueryResult query = null;
-		String source = null;
+		
 
 		try {
 			queryString = tripFormatter.genSfSQL(config);
 			logger.info(queryString);
 			query = this.soap.query(queryString, this.sh, null, null, null);
-			for (SObject so : query.getRecords()) {
-				source = tripFormatter.format((TripReportC)so);
-				this.write(target, source);
+			this.handleTripQuery(query, target);
+			while (!query.getDone()) {
+				query = this.soap.queryMore(query.getQueryLocator(), this.sh, null);
+				this.handleTripQuery(query, target);
 			}
+			
+			
 			
 			queryString = visitFormatter.genSfSQL(config);
 			logger.info(queryString);
 			query = this.soap.query(queryString, this.sh, null, null, null);
-			for (SObject so : query.getRecords()) {
-				VisitReportC vr = (VisitReportC) so;
-				//this.preFormat(vr);
-				source = visitFormatter.format(vr);
-				this.write(target, source);
+			this.handleVisitQuery(query, target);
+			while (!query.getDone()) {
+				query = this.soap.queryMore(query.getQueryLocator(), this.sh, null);
+				this.handleVisitQuery(query, target);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	protected void handleTripQuery(QueryResult query, File target) throws Exception {
+		String source = null;
+		for (SObject so : query.getRecords()) {
+			source = tripFormatter.format((TripReportC)so);
+			this.write(target, source);
+		}
+	}
 	
+	protected void handleVisitQuery(QueryResult query, File target) throws Exception {
+		String source = null;
+		for (SObject so : query.getRecords()) {
+			source = visitFormatter.format((VisitReportC) so);
+			this.write(target, source);
+		}
+	}
 	@Override
 	public void postInit() {
 		tripFormatter.init();

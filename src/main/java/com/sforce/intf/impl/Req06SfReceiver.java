@@ -16,7 +16,13 @@ import com.sforce.parser.Req06I1DFormatter;
 import com.sforce.parser.Req06I1EFormatter;
 import com.sforce.parser.Req06I1FFormatter;
 import com.sforce.parser.Req06MasterFormatter;
+import com.sforce.soap.enterprise.InvalidFieldFault;
+import com.sforce.soap.enterprise.InvalidIdFault;
+import com.sforce.soap.enterprise.InvalidQueryLocatorFault;
+import com.sforce.soap.enterprise.InvalidSObjectFault;
+import com.sforce.soap.enterprise.MalformedQueryFault;
 import com.sforce.soap.enterprise.QueryResult;
+import com.sforce.soap.enterprise.UnexpectedErrorFault;
 import com.sforce.soap.enterprise.sobject.DIRelatedAccountC;
 import com.sforce.soap.enterprise.sobject.KeyMilestoneC;
 import com.sforce.soap.enterprise.sobject.Opportunity;
@@ -43,97 +49,106 @@ public class Req06SfReceiver extends SfReceiver {
 		
 		String queryString = null;
 		QueryResult query = null;
-		String source = null;
-
+		
 		try {
 			queryString = masterFormatter.genSfSQL(config);
 			logger.info(queryString);
 			query = this.soap.query(queryString, this.sh, null, null, null);
-			for (SObject so : query.getRecords()) {
-				Opportunity master = (Opportunity)so;
-				source = masterFormatter.format(master);
-				this.write(target, source);
-				
-				//OpportunityHistories
-				if (null != master.getOpportunityHistories()) {
-					for (SObject dso : master.getOpportunityHistories().getRecords()) {
-						OpportunityHistory detail = (OpportunityHistory) dso;
-						i1aFormatter.preFormat(master, detail);
-						
-						source = i1aFormatter.format(detail);
-						this.write(target, source);
-					}
-				}
-				
-				//DI_Related_Account__r
-				if (null != master.getDIRelatedAccountR()) {
-					for (SObject dso : master.getDIRelatedAccountR().getRecords()) {
-						DIRelatedAccountC detail = (DIRelatedAccountC) dso;
-						i1bFormatter.preFormat(master, detail);
-						
-						source = i1bFormatter.format(detail);
-						this.write(target, source);
-					}
-					
-					for (SObject dso : master.getDIRelatedAccountR().getRecords()) {
-						DIRelatedAccountC detail = (DIRelatedAccountC) dso;
-						i1cFormatter.preFormat(master, detail);
-						
-						source = i1cFormatter.format(detail);
-						this.write(target, source);
-					}
-				}
-				
-				//DI_Milestone_History__r
-				if (null != master.getKeyMilestonesR()) {
-					for (SObject dso : master.getKeyMilestonesR().getRecords()) {
-						KeyMilestoneC detail = (KeyMilestoneC) dso;
-						i1dFormatter.preFormat(master, detail);
-						
-						source = i1dFormatter.format(detail);
-						this.write(target, source);
-					}
-				}
-				
-				//Product_Opportunity__r
-				if (null != master.getProductOpportunityR()) {
-					for (SObject dso : master.getProductOpportunityR().getRecords()) {
-						ProductOpportunityC detail = (ProductOpportunityC) dso;
-						i1eFormatter.preFormat(master, detail);
-						
-						source = i1eFormatter.format(detail);
-						this.write(target, source);
-						
-					}
-				}
-				//Catch Opportunity_Data__r
-				config.setMasterId(master.getId());
-				queryString = i1fFormatter.genSfSQL(config);
-				logger.info(queryString);
-				QueryResult odsos = this.soap.query(queryString, this.sh, null, null, null);
-				for (SObject odso : odsos.getRecords()) {
-					OpportunityDataC od = (OpportunityDataC) odso;
-					i1fFormatter.preFormat(master, od);
-					source = i1fFormatter.format(od);
-					this.write(target, source);
-				}
-				/*
-				//Opportunity_Data__r
-				if (null != master.getOpportunityDataR()) {
-					for (SObject dso : master.getOpportunityDataR().getRecords()) {
-						OpportunityDataC detail = (OpportunityDataC) dso;
-						i1fFormatter.preFormat(master, detail);
-						
-						source = i1fFormatter.format(detail);
-						FileUtils.write(target, source, true);
-					}
-				}
-				*/
-				
+			this.handleQuery(query, target, config);
+			
+			while (!query.getDone()) {
+				query = this.soap.queryMore(query.getQueryLocator(), this.sh, null);
+				this.handleQuery(query, target, config);
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	protected void handleQuery(QueryResult query, File target, SfSqlConfig config) throws Exception {
+		String source = null;
+		for (SObject so : query.getRecords()) {
+			Opportunity master = (Opportunity)so;
+			source = masterFormatter.format(master);
+			this.write(target, source);
+			
+			//OpportunityHistories
+			if (null != master.getOpportunityHistories()) {
+				for (SObject dso : master.getOpportunityHistories().getRecords()) {
+					OpportunityHistory detail = (OpportunityHistory) dso;
+					i1aFormatter.preFormat(master, detail);
+					
+					source = i1aFormatter.format(detail);
+					this.write(target, source);
+				}
+			}
+			
+			//DI_Related_Account__r
+			if (null != master.getDIRelatedAccountR()) {
+				for (SObject dso : master.getDIRelatedAccountR().getRecords()) {
+					DIRelatedAccountC detail = (DIRelatedAccountC) dso;
+					i1bFormatter.preFormat(master, detail);
+					
+					source = i1bFormatter.format(detail);
+					this.write(target, source);
+				}
+				
+				for (SObject dso : master.getDIRelatedAccountR().getRecords()) {
+					DIRelatedAccountC detail = (DIRelatedAccountC) dso;
+					i1cFormatter.preFormat(master, detail);
+					
+					source = i1cFormatter.format(detail);
+					this.write(target, source);
+				}
+			}
+			
+			//DI_Milestone_History__r
+			if (null != master.getKeyMilestonesR()) {
+				for (SObject dso : master.getKeyMilestonesR().getRecords()) {
+					KeyMilestoneC detail = (KeyMilestoneC) dso;
+					i1dFormatter.preFormat(master, detail);
+					
+					source = i1dFormatter.format(detail);
+					this.write(target, source);
+				}
+			}
+			
+			//Product_Opportunity__r
+			if (null != master.getProductOpportunityR()) {
+				for (SObject dso : master.getProductOpportunityR().getRecords()) {
+					ProductOpportunityC detail = (ProductOpportunityC) dso;
+					i1eFormatter.preFormat(master, detail);
+					
+					source = i1eFormatter.format(detail);
+					this.write(target, source);
+					
+				}
+			}
+			//Catch Opportunity_Data__r
+			config.setMasterId(master.getId());
+			String queryString = i1fFormatter.genSfSQL(config);
+			logger.info(queryString);
+			QueryResult odsos = this.soap.query(queryString, this.sh, null, null, null);
+			for (SObject odso : odsos.getRecords()) {
+				OpportunityDataC od = (OpportunityDataC) odso;
+				i1fFormatter.preFormat(master, od);
+				source = i1fFormatter.format(od);
+				this.write(target, source);
+			}
+			/*
+			//Opportunity_Data__r
+			if (null != master.getOpportunityDataR()) {
+				for (SObject dso : master.getOpportunityDataR().getRecords()) {
+					OpportunityDataC detail = (OpportunityDataC) dso;
+					i1fFormatter.preFormat(master, detail);
+					
+					source = i1fFormatter.format(detail);
+					FileUtils.write(target, source, true);
+				}
+			}
+			*/
+			
 		}
 	}
 	
