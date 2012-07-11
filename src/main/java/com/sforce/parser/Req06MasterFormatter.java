@@ -45,7 +45,7 @@ public class Req06MasterFormatter extends BaseParser<Opportunity> {
 		columns.add(new StringColumn(i++, "proposerNameC", "Proposer_Name__c"));
 		columns.add(new StringColumn(i++, "groupNameC", "Group_Name__c"));
 		
-		columns.add(new StringColumn(i++, "majorApplicationC", "Major_Application__r.Name"));//cheat 1
+		columns.add(new StringColumn(i++, "majorApplicationC", "Major_Application__r.Application_ID__c"));//cheat 1
 		columns.add(new StringColumn(i++, "realApplicationC", "Real_Application__c"));
 		columns.add(new StringColumn(i++, "modelNameC", "Model_Name__r.Name")); //cheat 2
 		columns.add(new StringColumn(i++, "coreChipVendorC", "Core_chip_Vendor__r.AccountNumber"));//cheat 3
@@ -122,7 +122,7 @@ public class Req06MasterFormatter extends BaseParser<Opportunity> {
 	public void preFormat(Opportunity entity) {
 		//cheat 1
 		if (null != entity.getMajorApplicationR()) {
-			entity.setMajorApplicationC(entity.getMajorApplicationR().getName());
+			entity.setMajorApplicationC(entity.getMajorApplicationR().getApplicationIDC());
 		}
 		//cheat 2
 		if (null != entity.getModelNameR()) {
