@@ -53,8 +53,6 @@ public class Req12MasterFormatter extends BaseParser<Account> {
 			sb.append(" and SAP_Sync_Date__c > "+DateUtils.formatSfDateTime(config.getLasySyncDate()));
 		}
 		
-		//TODO Design-in status = win?
-		
 		return sb.toString();
 	}
 

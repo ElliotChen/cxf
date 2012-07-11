@@ -39,7 +39,7 @@ public class Req04SfReceiver extends SfReceiver {
 			for (SObject so : query.getRecords()) {
 				CompetitorPriceC cp = (CompetitorPriceC)so;
 				source = masterFormatter.format(cp);
-				FileUtils.write(target, source, true);
+				this.write(target, source);
 				
 				QueryResult result = cp.getCompetitorPriceItemR();
 				List<SObject> i1As = result.getRecords();
@@ -48,7 +48,7 @@ public class Req04SfReceiver extends SfReceiver {
 						CompetitorPriceItemC cpi = (CompetitorPriceItemC)i1A;
 						this.i1AFormatter.preFormat(cp, cpi);
 						source = i1AFormatter.format(cpi);
-						FileUtils.write(target, source, true);
+						this.write(target, source);
 					}
 				}
 				//logger.info(source);

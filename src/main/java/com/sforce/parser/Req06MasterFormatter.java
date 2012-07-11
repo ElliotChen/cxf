@@ -12,6 +12,7 @@ import com.sforce.column.FakeColumn;
 import com.sforce.column.StringColumn;
 import com.sforce.soap.enterprise.sobject.Opportunity;
 import com.sforce.to.SfSqlConfig;
+import com.sforce.util.DateUtils;
 /**
  * 
  */
@@ -109,12 +110,10 @@ public class Req06MasterFormatter extends BaseParser<Opportunity> {
 
 	protected String buildSfCondition(SfSqlConfig config) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(" and StageName <> 'Draft' ");
-		/*
+		sb.append(" and Document_Status__c <> 'Draft' ");
 		if (null != config.getLasySyncDate()) {
 			sb.append(" and LastModifiedDate > "+DateUtils.formatSfDateTime(config.getLasySyncDate()));
 		}
-		*/
 		return sb.toString();
 	}
 

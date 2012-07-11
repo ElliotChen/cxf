@@ -9,4 +9,5 @@ public interface JobManager extends BaseDomainService<Job, String> {
 	void finish(Job job, List<String> errors, String[] receivers);
 	void release(Job job);
 	void abandon(Job job, List<String> errors, String[] receivers);
+	void reset(Job job);
 }

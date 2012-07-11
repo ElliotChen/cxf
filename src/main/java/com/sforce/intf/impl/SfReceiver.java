@@ -1,6 +1,7 @@
 package com.sforce.intf.impl;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +35,6 @@ public abstract class SfReceiver extends SfConnector implements Receiver {
 	private String parentPath;
 	@Override
 	public boolean receive() {
-		logger.debug("A {}/P {}", this.account, this.password);
 		this.connect(this.account, this.password);
 		
 		if (!this.connected) {
@@ -132,5 +132,11 @@ public abstract class SfReceiver extends SfConnector implements Receiver {
 		this.parentPath = parentPath;
 	}
 	
-	
+	public void write(File target, String source) {
+		try {
+			FileUtils.write(target, source, "UTF-8", true);
+		} catch (IOException e) {
+			logger.error("Write data to file failed!", e);
+		}
+	}
 }

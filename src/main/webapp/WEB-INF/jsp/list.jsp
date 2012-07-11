@@ -24,6 +24,10 @@
 	            target: '#jobdiv',
 	            success : $.unblockUI
 	        });
+			$('#resetform').ajaxForm({
+	            target: '#jobdiv',
+	            success : $.unblockUI
+	        });
 		});
 		
 		function trigger(cpname) {
@@ -34,6 +38,11 @@
 		function listjob(cpname) {
 			$("#lcpname").val(cpname);
 			$("#jobform").submit();
+		}
+		
+		function resetjob(jobId) {
+			$("#jobId").val(jobId);
+			$("#resetform").submit();
 		}
 </script>
 </head>
@@ -48,12 +57,20 @@
 	<input type="hidden" id="lcpname" name="cpname" />
 </form>
 
+<form id="resetform" action="${ctx}/components" method="post">
+	<input type="hidden" name="action" value="resetjob" />
+	<input type="hidden" id="jobId" name="jobId" />
+</form>
 <div id="cpdiv">
 	<jsp:include page="components.jsp" />
 </div>
 
 <div id="jobdiv">
 	<jsp:include page="jobs.jsp" />
+</div>
+
+<div id="resetdiv">
+	
 </div>
 </body>
 </html>

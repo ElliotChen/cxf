@@ -44,7 +44,7 @@ public class Req15SfReceiver extends SfReceiver {
 			for (SObject so : query.getRecords()) {
 				VisitReportC vr = (VisitReportC)so;
 				source = masterFormatter.format(vr);
-				FileUtils.write(target, source, true);
+				this.write(target, source);
 				
 				//Macronix_Site_Attendee__r
 				if (null != vr.getMacronixSiteAttendeeR()) {
@@ -53,7 +53,7 @@ public class Req15SfReceiver extends SfReceiver {
 						i1aFormatter.preFormat(vr, msa);
 						
 						source = i1aFormatter.format(msa);
-						FileUtils.write(target, source, true);
+						this.write(target, source);
 					}
 				}
 				
@@ -64,7 +64,7 @@ public class Req15SfReceiver extends SfReceiver {
 						i1bFormatter.preFormat(vr, msa);
 						
 						source = i1bFormatter.format(msa);
-						FileUtils.write(target, source, true);
+						this.write(target, source);
 					}
 				}
 				
@@ -75,7 +75,7 @@ public class Req15SfReceiver extends SfReceiver {
 						i1cFormatter.preFormat(vr, msa);
 						
 						source = i1cFormatter.format(msa);
-						FileUtils.write(target, source, true);
+						this.write(target, source);
 					}
 				}
 				

@@ -37,7 +37,7 @@ public class Req14SfReceiver extends SfReceiver {
 			query = this.soap.query(queryString, this.sh, null, null, null);
 			for (SObject so : query.getRecords()) {
 				source = tripFormatter.format((TripReportC)so);
-				FileUtils.write(target, source, true);
+				this.write(target, source);
 			}
 			
 			queryString = visitFormatter.genSfSQL(config);
@@ -47,7 +47,7 @@ public class Req14SfReceiver extends SfReceiver {
 				VisitReportC vr = (VisitReportC) so;
 				//this.preFormat(vr);
 				source = visitFormatter.format(vr);
-				FileUtils.write(target, source, true);
+				this.write(target, source);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -42,6 +42,7 @@ public class ComponentServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		String cpname = request.getParameter("cpname");
+		String jobId = request.getParameter("jobId");
 		List<Job> jobs = new ArrayList<Job>();
 		request.setAttribute("components", ContextHolder.getAllConComponents());
 		request.setAttribute("jobs", jobs);
@@ -58,6 +59,18 @@ public class ComponentServlet extends HttpServlet {
 			example.setComponent(cpname);
 			jobs.addAll(jobManager.listByExample(example, null, null, null, new String[] {"createdDate"}));
 			request.getRequestDispatcher("/WEB-INF/jsp/jobs.jsp").forward(request, response);
+		} else if ("resetjob".equals(action)) {
+			JobManager jobManager = ContextHolder.context.getBean("jobManager", JobManager.class);
+			Job job = jobManager.findByOid(jobId);
+			if (null != job) {
+				jobManager.reset(job);
+				
+				Job example = new Job();
+				example.setComponent(job.getComponent());
+				jobs.addAll(jobManager.listByExample(example, null, null, null, new String[] {"createdDate"}));
+				request.getRequestDispatcher("/WEB-INF/jsp/jobs.jsp").forward(request, response);
+			}
+			
 		} else {
 			request.getRequestDispatcher("/WEB-INF/jsp/list.jsp").forward(request, response);
 		}

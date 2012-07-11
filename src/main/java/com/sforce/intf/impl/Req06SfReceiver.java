@@ -52,7 +52,7 @@ public class Req06SfReceiver extends SfReceiver {
 			for (SObject so : query.getRecords()) {
 				Opportunity master = (Opportunity)so;
 				source = masterFormatter.format(master);
-				FileUtils.write(target, source, true);
+				this.write(target, source);
 				
 				//OpportunityHistories
 				if (null != master.getOpportunityHistories()) {
@@ -61,7 +61,7 @@ public class Req06SfReceiver extends SfReceiver {
 						i1aFormatter.preFormat(master, detail);
 						
 						source = i1aFormatter.format(detail);
-						FileUtils.write(target, source, true);
+						this.write(target, source);
 					}
 				}
 				
@@ -72,7 +72,7 @@ public class Req06SfReceiver extends SfReceiver {
 						i1bFormatter.preFormat(master, detail);
 						
 						source = i1bFormatter.format(detail);
-						FileUtils.write(target, source, true);
+						this.write(target, source);
 					}
 					
 					for (SObject dso : master.getDIRelatedAccountR().getRecords()) {
@@ -80,7 +80,7 @@ public class Req06SfReceiver extends SfReceiver {
 						i1cFormatter.preFormat(master, detail);
 						
 						source = i1cFormatter.format(detail);
-						FileUtils.write(target, source, true);
+						this.write(target, source);
 					}
 				}
 				
@@ -91,7 +91,7 @@ public class Req06SfReceiver extends SfReceiver {
 						i1dFormatter.preFormat(master, detail);
 						
 						source = i1dFormatter.format(detail);
-						FileUtils.write(target, source, true);
+						this.write(target, source);
 					}
 				}
 				
@@ -102,7 +102,7 @@ public class Req06SfReceiver extends SfReceiver {
 						i1eFormatter.preFormat(master, detail);
 						
 						source = i1eFormatter.format(detail);
-						FileUtils.write(target, source, true);
+						this.write(target, source);
 						
 					}
 				}
@@ -115,7 +115,7 @@ public class Req06SfReceiver extends SfReceiver {
 					OpportunityDataC od = (OpportunityDataC) odso;
 					i1fFormatter.preFormat(master, od);
 					source = i1fFormatter.format(od);
-					FileUtils.write(target, source, true);
+					this.write(target, source);
 				}
 				/*
 				//Opportunity_Data__r

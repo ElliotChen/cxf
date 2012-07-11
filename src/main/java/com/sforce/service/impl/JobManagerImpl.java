@@ -113,4 +113,10 @@ public class JobManagerImpl extends AbstractDomainService<JobDao, Job, String>
 		job.setState(JobState.Abandon);
 		this.dao.update(job);
 	}
+	
+	@Transactional(readOnly=false)
+	public void reset(Job job) {
+		job.setState(JobState.Created);
+		this.dao.update(job);
+	}
 }

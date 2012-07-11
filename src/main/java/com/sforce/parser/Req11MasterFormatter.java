@@ -89,8 +89,6 @@ public class Req11MasterFormatter extends BaseParser<Account> {
 			sb.append(" and Notes_Sync_Date__c > "+DateUtils.formatSfDateTime(config.getLasySyncDate()));
 		}
 		
-		//TODO Design-in status = win?
-		
 		return sb.toString();
 	}
 

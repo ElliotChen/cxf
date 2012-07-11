@@ -115,7 +115,7 @@ public class MqReceiver extends MqConnector implements Receiver {
 	}
 	
 	private void appendData(List<Job> jobs, MQMessage message) {
-		String messageId = new String(message.messageId);
+		String messageId = new String(message.messageId).trim();
 		Job job = null;
 		for (Job iter : jobs) {
 			if (messageId.equals(iter.getMqId())) {

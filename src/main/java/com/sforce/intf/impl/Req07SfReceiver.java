@@ -34,7 +34,7 @@ public class Req07SfReceiver extends SfReceiver {
 			for (SObject so : query.getRecords()) {
 				source = masterFormatter.format((ProductOpportunityC)so);
 				//logger.info(source);
-				FileUtils.write(target, source, true);
+				this.write(target, source);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
