@@ -53,7 +53,7 @@ public class SfSender extends SfConnector implements Sender {
 				logger.debug("Load File as source");
 				File source = new File(job.getAbsolutePath());
 				logger.debug("Read File Lines by FileUtils.readLines");
-				List<String> lines = FileUtils.readLines(source, encoding);
+				List<String> lines = FileUtils.readLines(source, this.encoding);
 				logger.debug("find lines [{}]", lines.size());
 				/*
 				BufferedReader br
@@ -67,11 +67,11 @@ public class SfSender extends SfConnector implements Sender {
 				*/
 				logger.debug("Split line to String[], using split");
 				for (String s : lines) {
-					String es = new String(s.getBytes(), DEFAULT_ENCODING);
-					logger.debug("Source [{}]",s);
-					logger.debug("Encoding Source [{}]", es);
+//					String es = new String(s.getBytes(encoding), DEFAULT_ENCODING);
+//					logger.debug("Source [{}]",s);
+//					logger.debug("Encoding Source [{}]", es);
 //					String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(s, "\t");
-					String[] split = this.split(es, '\t');
+					String[] split = this.split(s, '\t');
 					SObject target = null;
 					Parser parser = null;
 					for (Parser p : this.parsers) {

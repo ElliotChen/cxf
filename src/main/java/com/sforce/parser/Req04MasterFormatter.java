@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import com.sforce.column.Column;
 import com.sforce.column.DateColumn;
+import com.sforce.column.DateTimeColumn;
 import com.sforce.column.FakeColumn;
 import com.sforce.column.StringColumn;
 import com.sforce.column.TimeColumn;
@@ -54,7 +55,7 @@ public class Req04MasterFormatter extends BaseParser<CompetitorPriceC> {
 		columns.add(new StringColumn(i++, "groupIDC", "Group_ID__c"));
 		columns.add(new StringColumn(i++, "groupEnglishShortNameC", "Group_English_Short_Name__c"));
 		columns.add(new StringColumn(i++, "createdById", "CreatedBy.Notes_Name__c")); //cheat01 createdById
-		columns.add(new DateColumn(i++, "createdDate", "CreatedDate"));
+		columns.add(new DateTimeColumn(i++, "createdDate", "CreatedDate"));
 		columns.add(new StringColumn(i++, "customerOwnerNotesNameC", "Customer_Owner_Notes_Name__c"));
 		
 		columns.add(new StringColumn(i++, "visitReportDocNoC", "Visit_Report_Doc_No__c"));

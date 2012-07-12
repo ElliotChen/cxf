@@ -51,7 +51,7 @@ public abstract class DateUtils {
 	
 	public static final SimpleDateFormat getDefaultDateTimeFormat() {
 		if (null == defaultDateTimeFormat.get()) {
-			defaultDateTimeFormat.set(new SimpleDateFormat("yyyyMMdd HHmmss", Locale.TAIWAN));
+			defaultDateTimeFormat.set(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.TAIWAN));
 		}
 		
 		return defaultDateTimeFormat.get();
