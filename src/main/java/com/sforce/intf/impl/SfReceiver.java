@@ -135,10 +135,10 @@ public abstract class SfReceiver extends SfConnector implements Receiver {
 	
 	public void write(File target, String source) {
 		try {
-			String es = new String(source.getBytes(), encoding);
-			logger.debug("Source [{}]", source);
-			logger.debug("[{}] Encoding [{}]", this.encoding, es);
-			FileUtils.write(target, es, true);
+//			String es = new String(source.getBytes(DEFAULT_ENCODING), encoding);
+//			logger.debug("Source [{}]", source);
+//			logger.debug("[{}] Encoding [{}]", this.encoding, es);
+			FileUtils.write(target, source, encoding, true);
 		} catch (IOException e) {
 			logger.error("Write data to file failed!", e);
 		}
