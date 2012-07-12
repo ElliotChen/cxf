@@ -1,6 +1,9 @@
 package com.sforce.parser;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,10 +52,25 @@ public class Req12MasterFormatter extends BaseParser<Account> {
 	protected String buildSfCondition(SfSqlConfig config) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(" and Account_Type_Code__c = 'S' ");
+		
+		Date lastDate = config.getLasySyncDate();
+		if (null == lastDate) {
+			Calendar cal = Calendar.getInstance(Locale.TAIWAN);
+			cal.set(Calendar.MONTH, 0);
+			cal.set(Calendar.DAY_OF_MONTH, 1);
+			cal.set(Calendar.HOUR_OF_DAY, 0);
+			cal.set(Calendar.MINUTE, 0);
+			cal.set(Calendar.SECOND, 0);
+			cal.set(Calendar.MILLISECOND, 0);
+			lastDate = cal.getTime();
+		}
+		
+		sb.append(" and Notes_Sync_Date__c > "+DateUtils.formatSfDateTime(lastDate));
+		/*
 		if (null != config.getLasySyncDate()) {
 			sb.append(" and SAP_Sync_Date__c > "+DateUtils.formatSfDateTime(config.getLasySyncDate()));
 		}
-		
+		*/
 		return sb.toString();
 	}
 

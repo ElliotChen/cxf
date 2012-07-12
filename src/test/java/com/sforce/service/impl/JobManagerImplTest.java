@@ -83,10 +83,11 @@ public class JobManagerImplTest {
 		job = new Job();
 		job.setOid("testreq10");
 		job.setComponent("req10");
-		job.setAbsolutePath("/Users/elliot/mqfile/test/req10_mxic_01.txt");
+		job.setAbsolutePath("/Users/elliot/mqfile/test/req10_chinese.txt");
 		job.setState(JobState.Created);
 		job.setMqId("req1001.txt");
 		this.jobManager.create(job);
+		
 	}
 
 }

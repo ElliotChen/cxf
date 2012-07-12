@@ -39,7 +39,7 @@ public class Req03MasterParser extends BaseParser<EPNProductBodyLinkC> {
 	protected void initDefaultColumns() {
 		this.columns = new ArrayList<Column<?>>();
 		int i = 0;
-		columns.add(new StringColumn(i++, "name", "Name"));
+		columns.add(new StringColumn(i++, "EPNC", "EPN__c"));
 		columns.add(new StringColumn(i++, "productBodyC", "Product_Body__c"));
 		columns.add(new StringColumn(i++, "maskOptC", "Mask_Opt__c"));
 		columns.add(new StringColumn(i++, "BEOptC", "BE_Opt__c"));
@@ -50,7 +50,10 @@ public class Req03MasterParser extends BaseParser<EPNProductBodyLinkC> {
 
 	@Override
 	public void postParse(EPNProductBodyLinkC entity) {
-		entity.setKeySyncC(entity.getName()+entity.getProductBodyC()+entity.getMaskOptC()+entity.getBEOptC());
+		entity.setKeySyncC(entity.getEPNC()+entity.getProductBodyC()+entity.getMaskOptC()+entity.getBEOptC());
+		
+		
+		entity.setName(entity.getEPNC() + " / " + entity.getProductBodyC());
 	}
 
 	@Override

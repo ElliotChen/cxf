@@ -18,6 +18,7 @@ import com.sforce.soap.enterprise.UnexpectedErrorFault;
 
 public class SfConnector {
 	private static final Logger logger = LoggerFactory.getLogger(SfConnector.class);
+	public static final String DEFAULT_ENCODING = "UTF-8";
 	protected static Soap SOAP = null;
 	protected static SessionHeader SH = null;
 	protected Soap soap;
@@ -33,6 +34,7 @@ public class SfConnector {
 	
 	protected String[] receivers;
 	
+	protected String encoding = DEFAULT_ENCODING;
 	public void connect(String account, String password) {
 		if (null == SOAP) {
 			if (createSoap(account, password)) {
@@ -184,5 +186,13 @@ public class SfConnector {
 
 	public void setReceivers(String[] receivers) {
 		this.receivers = receivers;
+	}
+	
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
 	}
 }

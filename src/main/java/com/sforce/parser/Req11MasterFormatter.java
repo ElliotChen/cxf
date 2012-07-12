@@ -1,6 +1,9 @@
 package com.sforce.parser;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,8 +44,8 @@ public class Req11MasterFormatter extends BaseParser<Account> {
 		columns.add(new StringColumn(i++, "documentStatusC", "Document_Status__c"));
 		columns.add(new StringColumn(i++, "salesOrgC", "Sales_Org__c"));
 		columns.add(new StringColumn(i++, "distChannelC", "Dist_Channel__c"));
-		columns.add(new BooleanColumn(i++, "FBGCustomerC", "FBG_Customer__c"));
-		columns.add(new BooleanColumn(i++, "disabledDataC", "Disabled_Data__c"));
+		columns.add(new BooleanColumn(i++, "FBGCustomerC", "FBG_Customer__c", "1", ""));
+		columns.add(new BooleanColumn(i++, "disabledDataC", "Disabled_Data__c", "1", ""));
 		columns.add(new DateColumn(i++, "submitDateC", "Submit_Date__c"));
 		columns.add(new StringColumn(i++, "name", "Name"));
 		columns.add(new StringColumn(i++, "localLanguageShortNameC", "Local_Language_Short_Name__c"));
@@ -85,10 +88,24 @@ public class Req11MasterFormatter extends BaseParser<Account> {
 
 	protected String buildSfCondition(SfSqlConfig config) {
 		StringBuilder sb = new StringBuilder();
+		Date lastDate = config.getLasySyncDate();
+		if (null == lastDate) {
+			Calendar cal = Calendar.getInstance(Locale.TAIWAN);
+			cal.set(Calendar.MONTH, 0);
+			cal.set(Calendar.DAY_OF_MONTH, 1);
+			cal.set(Calendar.HOUR_OF_DAY, 0);
+			cal.set(Calendar.MINUTE, 0);
+			cal.set(Calendar.SECOND, 0);
+			cal.set(Calendar.MILLISECOND, 0);
+			lastDate = cal.getTime();
+		}
+		
+		sb.append(" and Notes_Sync_Date__c > "+DateUtils.formatSfDateTime(lastDate));
+		/*
 		if (null != config.getLasySyncDate()) {
 			sb.append(" and Notes_Sync_Date__c > "+DateUtils.formatSfDateTime(config.getLasySyncDate()));
 		}
-		
+		*/		
 		return sb.toString();
 	}
 

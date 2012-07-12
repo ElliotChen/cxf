@@ -37,8 +37,8 @@ public class Req10MasterParser extends BaseParser<Account> {
 		columns.add(new StringColumn(i++, "AAMDC", "AAMD__c"));
 		columns.add(new StringColumn(i++, "SAMDtC", "SAMDt__c"));
 		
-		columns.add(new BooleanColumn(i++, "FBGCustomerC", "FBG_Customer__c"));
-		columns.add(new BooleanColumn(i++, "disabledDataC", "Disabled_Data__c"));
+		columns.add(new BooleanColumn(i++, "FBGCustomerC", "FBG_Customer__c", "1", ""));
+		columns.add(new BooleanColumn(i++, "disabledDataC", "Disabled_Data__c", "1", ""));
 		columns.add(new DateColumn(i++, "submitDateC", "Submit_Date__c"));
 		columns.add(new StringColumn(i++, "name", "Name"));
 		columns.add(new StringColumn(i++, "localLanguageShortNameC", "Local_Language_Short_Name__c"));

@@ -32,7 +32,8 @@ public abstract class SfReceiver extends SfConnector implements Receiver {
 	protected JobManager jobManager;
 	
 	@Value("${file.parent.path}")
-	private String parentPath;
+	protected String parentPath;
+	
 	@Override
 	public boolean receive() {
 		this.connect(this.account, this.password);
@@ -134,9 +135,21 @@ public abstract class SfReceiver extends SfConnector implements Receiver {
 	
 	public void write(File target, String source) {
 		try {
-			FileUtils.write(target, source, "UTF-8", true);
+			String es = new String(source.getBytes(), encoding);
+			logger.debug("Source [{}]", source);
+			logger.debug("[{}] Encoding [{}]", this.encoding, es);
+			FileUtils.write(target, es, true);
 		} catch (IOException e) {
 			logger.error("Write data to file failed!", e);
 		}
 	}
+
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
+	}
+	
 }

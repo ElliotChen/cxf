@@ -1,6 +1,5 @@
 package com.sforce.column;
 
-import org.apache.commons.lang.StringUtils;
 
 
 
@@ -8,7 +7,7 @@ public class BooleanColumn extends Column<Boolean> {
 	private String yes;
 	private String no;
 	public BooleanColumn(int index, String name, String sfName) {
-		this(index, name, sfName, "", "X");
+		this(index, name, sfName, "X", "");
 	}
 
 	public BooleanColumn(int index, String name, String sfName, String yes, String no) {
@@ -18,7 +17,10 @@ public class BooleanColumn extends Column<Boolean> {
 	}
 	
 	public Boolean parse(String value) {
-		return StringUtils.isNotEmpty(value);
+		if (yes.equals(value)) {
+			return Boolean.TRUE;
+		}
+		return Boolean.FALSE;
 	}
 
 	@Override

@@ -287,6 +287,7 @@
 			</list>
 		</property>
 		<property name="receivers" value="${mail.req10}"/>
+		<property name="encoding" value="BIG5" />
 	</bean>
 	<bean id="req10MasterParser" class="com.sforce.parser.Req10MasterParser">
 		<property name="syncKey" value="Account_Key__c"/>
@@ -390,6 +391,7 @@
 		<property name="info" value="Account, SFDC -> Notes, 自動, 即時" />
 	</bean>
 	<bean id="req11Receiver" class="com.sforce.intf.impl.Req11SfReceiver">
+		<property name="encoding" value="BIG5" />
 	</bean>
 	<bean id="req11Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
 		<property name="queueName" value="${mq.req11}" />
