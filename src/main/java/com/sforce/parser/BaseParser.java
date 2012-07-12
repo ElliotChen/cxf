@@ -179,12 +179,14 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 			try {
 				if (StringUtils.isNotEmpty(s) && null != col.getWriteMethod()) {
 					col.getWriteMethod().invoke(target, col.parse(s));
+				} else if (col.getNullable() && StringUtils.isNotEmpty(col.getSfName()) && null != col.getWriteMethod()) {
+					((T)target).getFieldsToNull().add(col.getSfName());
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		
+		this.getLogger().debug("Set To Null Cols[{}]", ((T)target).getFieldsToNull());
 		this.postParse((T)target);
 		return (T)target;
 	}

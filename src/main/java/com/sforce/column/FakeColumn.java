@@ -4,6 +4,7 @@ public class FakeColumn extends Column<String> {
 	public FakeColumn(int index, String name, String sfName) {
 		super(index, name, sfName);
 		this.fake = Boolean.TRUE;
+		this.nullable = Boolean.FALSE;
 	}
 
 	public String parse(String value) {

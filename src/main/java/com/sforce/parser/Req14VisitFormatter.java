@@ -56,7 +56,7 @@ public class Req14VisitFormatter extends BaseParser<VisitReportC> {
 		columns.add(new StringColumn(i++, "customerC", "Customer__r.Name"));//cheat
 		columns.add(new StringColumn(i++, "productEPN2C", "Customer__r.AccountNumber")); //cheat...
 		columns.add(new StringColumn(i++, "placeC", "Place__c"));
-		columns.add(new StringColumn(i++, "recordTypeId", "RecordType.Name"));
+		columns.add(new StringColumn(i++, "categoryC", "Category__c")); //cheat04 recordTypeId
 		
 		//cheat
 		columns.add(new StringColumn(i++, "productEPNName1C", "Product_EPN_Name1__c,Product_EPN_Name2__c,Product_EPN_Name3__c,Product_EPN_Name4__c,Product_EPN_Name5__c"));
@@ -84,10 +84,17 @@ public class Req14VisitFormatter extends BaseParser<VisitReportC> {
 		if (null != entity.getCreatedBy()) {
 			entity.setCreatedById(entity.getCreatedBy().getNotesNameC());
 		}
+		
 		if (null != entity.getCustomerR()) {
 			entity.setCustomerC(entity.getCustomerR().getName());
 			entity.setProductEPN2C(entity.getCustomerR().getAccountNumber());
 		}
+		/*
+		//cheat04 recordTypeId
+		if (null != entity.getRecordType()) {
+			entity.setRecordTypeId(entity.getRecordType().getName());
+		}
+		*/
 		StringBuilder sb = new StringBuilder();
 		if (StringUtils.isNotEmpty(entity.getProductEPNName1C())) {
 			sb.append(entity.getProductEPNName1C());

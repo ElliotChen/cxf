@@ -14,6 +14,7 @@ public class BooleanColumn extends Column<Boolean> {
 		super(index, name, sfName);
 		this.yes = yes;
 		this.no = no;
+		this.nullable = Boolean.FALSE;
 	}
 	
 	public Boolean parse(String value) {

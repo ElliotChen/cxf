@@ -35,7 +35,7 @@ public class Req15MasterFormatter extends BaseParser<VisitReportC> {
 		int i = 0;
 		columns.add(new FakeColumn(i++, "H", ""));
 		
-		columns.add(new StringColumn(i++, "recordTypeC", "RecordType.Name")); //cheat01 recordTypeId
+		columns.add(new StringColumn(i++, "categoryC", "Category__c"));
 		columns.add(new StringColumn(i++, "name", "Name"));
 		columns.add(new StringColumn(i++, "statusC", "Status__c"));
 		columns.add(new DateColumn(i++, "submitDateC", "Submit_Date__c"));
@@ -111,10 +111,11 @@ public class Req15MasterFormatter extends BaseParser<VisitReportC> {
 
 	@Override
 	public void preFormat(VisitReportC entity) {
-		//cheat01 recordTypeId
+		/*
 		if (null != entity.getRecordType()) {
 			entity.setRecordTypeC(entity.getRecordType().getName());
 		}
+		*/
 		
 		if (null != entity.getCustomerR()) {
 			entity.setCustomerC(entity.getCustomerR().getAccountNumber());
