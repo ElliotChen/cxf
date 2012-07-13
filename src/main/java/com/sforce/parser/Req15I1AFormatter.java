@@ -37,7 +37,7 @@ public class Req15I1AFormatter extends SubParser<MacronixSiteAttendeeC, VisitRep
 			columns.add(new FakeColumn(i++, "", ""));
 		}
 		
-		columns.add(new StringColumn(i++, "visitReportC", "Visit_Report__c"));
+		columns.add(new StringColumn(i++, "visitReportC", "")); //cheat master
 		columns.add(new StringColumn(i++, "attendeeNameC", "Attendee_Name__r.FirstName,Attendee_Name__r.LastName"));//cheat
 		columns.add(new StringColumn(i++, "departmentC", "Department__c"));
 		

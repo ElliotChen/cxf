@@ -55,8 +55,8 @@ public class Req06I1CFormatter extends SubParser<DIRelatedAccountC, Opportunity>
 				
 				
 		columns.add(new StringColumn(i++, "id", ""));
-		columns.add(new StringColumn(i++, "manufactureSiteC", "Manufacture_Site__c, Target_Customer_ID__c"));
-		columns.add(new StringColumn(i++, "EMSListC", "EMS_List__c"));
+		columns.add(new StringColumn(i++, "manufactureSiteIDC", "Manufacture_Site_ID__c, Target_Customer_ID__c"));
+		columns.add(new StringColumn(i++, "EMSListIDC", "EMS_List_ID__c"));
 		columns.add(new StringColumn(i++, "manufactureSiteAMC", "Manufacture_Site_AM__c"));
 		columns.add(new StringColumn(i++, "EMSListAMC", "EMS_List_AM__c"));
 		for (int index = 0; index < 5; index++) {

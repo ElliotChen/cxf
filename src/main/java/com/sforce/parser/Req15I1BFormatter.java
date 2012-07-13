@@ -41,7 +41,7 @@ public class Req15I1BFormatter extends SubParser<OtherRelatedGroupC, VisitReport
 			columns.add(new FakeColumn(i++, "", ""));
 		}
 		
-		columns.add(new StringColumn(i++, "visitReportC", "Visit_Report__c"));
+		columns.add(new StringColumn(i++, "visitReportC", "")); //cheat for master
 		columns.add(new StringColumn(i++, "groupNameFomulaC", "Group_Name_Fomula__c"));
 		
 		
@@ -68,7 +68,6 @@ public class Req15I1BFormatter extends SubParser<OtherRelatedGroupC, VisitReport
 	@Override
 	public void preFormat(VisitReportC master, OtherRelatedGroupC entity) {
 		entity.setVisitReportC(master.getName());
-		
 	}
 	
 }

@@ -3,7 +3,7 @@
 
 <!--
 Salesforce.com Enterprise Web Services API Version 25.0
-Generated on 2012-07-12 11:03:12 +0000.
+Generated on 2012-07-13 02:07:14 +0000.
 
 Copyright 1999-2012 salesforce.com, inc.
 All Rights Reserved
@@ -83,7 +83,6 @@ All Rights Reserved
                         <sequence>
                         <element name="AR_Category__c" nillable="true" minOccurs="0" type="xsd:string"/>
                         <element name="AR_Owner_Manager_Email__c" nillable="true" minOccurs="0" type="xsd:string"/>
-                        <element name="AR_Owner_Special_Territory_Id__c" nillable="true" minOccurs="0" type="xsd:string"/>
                         <element name="AR_Owner__c" nillable="true" minOccurs="0" type="tns:ID"/>
                         <element name="AR_Owner__r" nillable="true" minOccurs="0" type="ens:User"/>
                         <element name="ActivityHistories" nillable="true" minOccurs="0" type="tns:QueryResult"/>
@@ -122,7 +121,6 @@ All Rights Reserved
                         <element name="Reader__c" nillable="true" minOccurs="0" type="xsd:string"/>
                         <element name="RecordType" nillable="true" minOccurs="0" type="ens:RecordType"/>
                         <element name="RecordTypeId" nillable="true" minOccurs="0" type="tns:ID"/>
-                        <element name="Requester_Special_Territory_Id__c" nillable="true" minOccurs="0" type="xsd:string"/>
                         <element name="Requester__c" nillable="true" minOccurs="0" type="tns:ID"/>
                         <element name="Requester__r" nillable="true" minOccurs="0" type="ens:User"/>
                         <element name="Response__c" nillable="true" minOccurs="0" type="xsd:string"/>
@@ -5003,8 +5001,6 @@ All Rights Reserved
                         <element name="Amount" nillable="true" minOccurs="0" type="xsd:double"/>
                         <element name="Attachments" nillable="true" minOccurs="0" type="tns:QueryResult"/>
                         <element name="BingoDocs__r" nillable="true" minOccurs="0" type="tns:QueryResult"/>
-                        <element name="Bingo_CDI_Doc_No__c" nillable="true" minOccurs="0" type="tns:ID"/>
-                        <element name="Bingo_CDI_Doc_No__r" nillable="true" minOccurs="0" type="ens:Opportunity"/>
                         <element name="Bingo_Date__c" nillable="true" minOccurs="0" type="xsd:date"/>
                         <element name="Bingo_Doc_No__c" nillable="true" minOccurs="0" type="tns:ID"/>
                         <element name="Bingo_Doc_No__r" nillable="true" minOccurs="0" type="tns:QueryResult"/>
@@ -5027,7 +5023,6 @@ All Rights Reserved
                         <element name="CreatedById" nillable="true" minOccurs="0" type="tns:ID"/>
                         <element name="CreatedDate" nillable="true" minOccurs="0" type="xsd:dateTime"/>
                         <element name="Creator_Dept__c" nillable="true" minOccurs="0" type="xsd:string"/>
-                        <element name="Customer_Project_Status__c" nillable="true" minOccurs="0" type="xsd:string"/>
                         <element name="DI_Related_Account__r" nillable="true" minOccurs="0" type="tns:QueryResult"/>
                         <element name="DI_URL__c" nillable="true" minOccurs="0" type="xsd:string"/>
                         <element name="Description" nillable="true" minOccurs="0" type="xsd:string"/>
@@ -5051,9 +5046,9 @@ All Rights Reserved
                         <element name="IsClosed" nillable="true" minOccurs="0" type="xsd:boolean"/>
                         <element name="IsDeleted" nillable="true" minOccurs="0" type="xsd:boolean"/>
                         <element name="IsWon" nillable="true" minOccurs="0" type="xsd:boolean"/>
-                        <element name="KeyMilestones__r" nillable="true" minOccurs="0" type="tns:QueryResult"/>
                         <element name="Key_Milestone_Date__c" nillable="true" minOccurs="0" type="xsd:date"/>
                         <element name="Key_Milestone__c" nillable="true" minOccurs="0" type="xsd:string"/>
+                        <element name="Key_Milestones__r" nillable="true" minOccurs="0" type="tns:QueryResult"/>
                         <element name="LastActivityDate" nillable="true" minOccurs="0" type="xsd:date"/>
                         <element name="LastModifiedBy" nillable="true" minOccurs="0" type="ens:User"/>
                         <element name="LastModifiedById" nillable="true" minOccurs="0" type="tns:ID"/>
@@ -5079,7 +5074,6 @@ All Rights Reserved
                         <element name="Notes_Doc_No__c" nillable="true" minOccurs="0" type="xsd:string"/>
                         <element name="OpenActivities" nillable="true" minOccurs="0" type="tns:QueryResult"/>
                         <element name="Operating_System__c" nillable="true" minOccurs="0" type="xsd:string"/>
-                        <element name="Opportunities__r" nillable="true" minOccurs="0" type="tns:QueryResult"/>
                         <element name="OpportunityCompetitors" nillable="true" minOccurs="0" type="tns:QueryResult"/>
                         <element name="OpportunityContactRoles" nillable="true" minOccurs="0" type="tns:QueryResult"/>
                         <element name="OpportunityHistories" nillable="true" minOccurs="0" type="tns:QueryResult"/>
@@ -5969,6 +5963,7 @@ All Rights Reserved
                         <element name="CreatedDate" nillable="true" minOccurs="0" type="xsd:dateTime"/>
                         <element name="Currency__c" nillable="true" minOccurs="0" type="xsd:string"/>
                         <element name="Customer_Part_No__c" nillable="true" minOccurs="0" type="xsd:string"/>
+                        <element name="DI_Density__c" nillable="true" minOccurs="0" type="xsd:string"/>
                         <element name="DI_Grade__c" nillable="true" minOccurs="0" type="xsd:string"/>
                         <element name="DI__c" nillable="true" minOccurs="0" type="tns:ID"/>
                         <element name="DI__r" nillable="true" minOccurs="0" type="ens:Opportunity"/>
@@ -6209,7 +6204,7 @@ All Rights Reserved
                 <complexContent>
                     <extension base="ens:sObject">
                         <sequence>
-                        <element name="Application_Name__c" nillable="true" minOccurs="0" type="xsd:string"/>
+                        <element name="Application_ID__c" nillable="true" minOccurs="0" type="xsd:string"/>
                         <element name="Application__c" nillable="true" minOccurs="0" type="tns:ID"/>
                         <element name="Application__r" nillable="true" minOccurs="0" type="ens:Application__c"/>
                         <element name="Attachments" nillable="true" minOccurs="0" type="tns:QueryResult"/>

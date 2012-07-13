@@ -78,25 +78,29 @@
 		</property>
 	</bean>
 	<task:scheduler id="scheduler" pool-size="20" />
+		
 	<!-- 
 	<task:scheduled-tasks scheduler="scheduler">
 		<task:scheduled ref="req01" cron="0 0 1 * * *" method="run"/>
-		<task:scheduled ref="req02" cron="0 0 0/4 * * *" method="run"/>
 		<task:scheduled ref="req03" cron="0 0 1/4 * * *" method="run"/>
+		<task:scheduled ref="req10" cron="0 2/5 * * * *" method="run"/>
+		<task:scheduled ref="req11" cron="0 1/5 * * * *" method="run"/>
+		<task:scheduled ref="req13" cron="0 3/5 * * * *" method="run"/>
+		
+		<task:scheduled ref="req02" cron="0 0 0/4 * * *" method="run"/>
 		<task:scheduled ref="req04" cron="0 3/5 * * * *" method="run"/>
 		<task:scheduled ref="req05" cron="0 4/5 * * * *" method="run"/>
 		<task:scheduled ref="req06" cron="0 0 2/4 * * *" method="run"/>
 		<task:scheduled ref="req07" cron="0 0/5 * * * *" method="run"/>
 		<task:scheduled ref="req08" cron="0 0/5 * * * *" method="run"/>
 		<task:scheduled ref="req09" cron="0 1/5 * * * *" method="run"/>
-		<task:scheduled ref="req10" cron="0 2/5 * * * *" method="run"/>
-		<task:scheduled ref="req11" cron="0 1/5 * * * *" method="run"/>
 		<task:scheduled ref="req12" cron="0 2/5 * * * *" method="run"/>
-		<task:scheduled ref="req13" cron="0 3/5 * * * *" method="run"/>
 		<task:scheduled ref="req14" cron="0 4/5 * * * *" method="run"/>
 		<task:scheduled ref="req15" cron="0 0 3/4 * * *" method="run"/>
+	
 	</task:scheduled-tasks>
-	 -->
+		 -->
+	
 	<bean id="mqReceiver" abstract="true">
 		<property name="queueManagerName" value="${mq.queueManagerName}"/>
 		<property name="option" value="1"/>
@@ -443,7 +447,7 @@
 		<property name="receivers" value="${mail.req15}"/>
 	</bean>
 	
-	<!-- -->
+	<!--
 	<cxf:bus>
         <cxf:features>
             <cxf:logging/>
@@ -465,6 +469,7 @@
             <ref bean="logOutbound"/>
         </cxf:outFaultInterceptors>
     </cxf:bus> 
+     -->
 	<import resource="applicationContext_Mail.xml"/>
 	
 	

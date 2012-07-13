@@ -46,8 +46,8 @@ public class Req15I1CFormatter extends SubParser<RelatedApplicationC, VisitRepor
 			columns.add(new FakeColumn(i++, "", ""));
 		}
 		
-		columns.add(new StringColumn(i++, "visitReportC", "Visit_Report__c")); //cheat
-		columns.add(new StringColumn(i++, "applicationNameC", "Application_Name__c"));
+		columns.add(new StringColumn(i++, "visitReportC", "")); //cheat for master
+		columns.add(new StringColumn(i++, "applicationIDC", "Application_ID__c"));
 		
 		this.tableName = "Visit_Report__c.Related_Applications__r";
 	}
