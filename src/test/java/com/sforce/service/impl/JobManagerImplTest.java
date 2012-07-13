@@ -55,7 +55,7 @@ public class JobManagerImplTest {
 		job.setState(JobState.Created);
 		job.setMqId("req08.txt");
 		this.jobManager.create(job);
-		*/
+		
 		job = new Job();
 		job.setOid("testreq09");
 		job.setComponent("req09");
@@ -63,15 +63,15 @@ public class JobManagerImplTest {
 		job.setState(JobState.Created);
 		job.setMqId("req09.txt");
 		this.jobManager.create(job);
-		/*
+		*/
 		job = new Job();
 		job.setOid("testreq10");
 		job.setComponent("req10");
-		job.setAbsolutePath("/Users/elliot/mqfile/test/req10_mxic.txt");
+		job.setAbsolutePath("/Users/elliot/mqfile/test/req10_mxic_002.txt");
 		job.setState(JobState.Created);
 		job.setMqId("req10.txt");
 		this.jobManager.create(job);
-		*/
+		/*
 		job = new Job();
 		job.setOid("testreq13");
 		job.setComponent("req13");

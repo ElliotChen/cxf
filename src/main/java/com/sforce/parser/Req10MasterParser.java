@@ -48,24 +48,24 @@ public class Req10MasterParser extends BaseParser<Account> {
 		columns.add(new StringColumn(i++, "postalCodeC", "Postal_Code__c"));
 		columns.add(new StringColumn(i++, "cityC", "City__c"));
 		
-		columns.add(new StringColumn(i++, "stateProvinceIDC", "State_Province_ID__c")); //cheat01 stateProvinceIDC
+		columns.add(new StringColumn(i++, "stateProvinceIDC", "State_Province_ID__c", "State_Province__c")); //cheat01 stateProvinceIDC
 //		columns.add(new StringColumn(i++, "stateProvinceNameC", "State_Province_Name__c"));
 		columns.add(new FakeColumn(i++, "", ""));
-		columns.add(new StringColumn(i++, "countryIDC", "Country_ID__c"));//cheat02 countryIDC
+		columns.add(new StringColumn(i++, "countryIDC", "Country_ID__c", "Country__c"));//cheat02 countryIDC
 //		columns.add(new StringColumn(i++, "countryNameC", "Country_Name__c"));
 		columns.add(new FakeColumn(i++, "", ""));
 		columns.add(new StringColumn(i++, "website", "Website"));
 		columns.add(new StringColumn(i++, "phone", "Phone"));
 		columns.add(new StringColumn(i++, "fax", "Fax"));
 		columns.add(new StringColumn(i++, "regionC", "Region__c"));
-		columns.add(new StringColumn(i++, "applicationIDC", "Application_ID__c"));//cheat03 applicationIDC
+		columns.add(new StringColumn(i++, "applicationIDC", "Application_ID__c", "Application__c"));//cheat03 applicationIDC
 //		columns.add(new StringColumn(i++, "applicationNameC", "Application_Name__c"));
 		columns.add(new FakeColumn(i++, "", ""));
 		
 		columns.add(new StringColumn(i++, "attributionC", "Attribution__c"));
 		columns.add(new StringColumn(i++, "customerGroup1IDC", "Customer_Group1_ID__c"));
 		columns.add(new StringColumn(i++, "customerGroup1C", "Customer_Group1__c"));
-		columns.add(new StringColumn(i++, "parentIDC", "Parent_ID__c")); //cheat04 parentIDC
+		columns.add(new StringColumn(i++, "parentIDC", "Parent_ID__c", "ParentId")); //cheat04 parentIDC
 		columns.add(new StringColumn(i++, "SAPCustomerNoC", "SAP_Customer_No__c"));
 		columns.add(new DateColumn(i++, "expiredDateC", "Expired_Date__c"));
 		columns.add(new StringColumn(i++, "expiredActivateReasonC", "Expired_Activate_Reason__c"));

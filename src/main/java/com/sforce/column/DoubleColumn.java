@@ -3,9 +3,11 @@ package com.sforce.column;
 import org.apache.commons.lang.StringUtils;
 
 public class DoubleColumn extends Column<Double> {
-
+	private String format = "%1$.4f";
 	public DoubleColumn(int index, String name, String sfName) {
 		super(index, name, sfName);
+//		if (StringUtils)
+//		this.format = format;
 	}
 
 	@Override
@@ -19,10 +21,11 @@ public class DoubleColumn extends Column<Double> {
 
 	@Override
 	public String format(Object value) {
-		if (null == value) {
+		if (null == value || !(value instanceof Double)) {
 			return "";
 		}
-		return String.valueOf(value);
+		
+		return String.format(format, value);
 	}
 
 }

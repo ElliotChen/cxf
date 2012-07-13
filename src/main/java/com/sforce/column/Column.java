@@ -20,11 +20,14 @@ public abstract class Column<T> {
 	protected Boolean fake = Boolean.FALSE;
 	
 	protected Boolean nullable = Boolean.TRUE;
+	
+	protected String sfNullName;
 	public Column(int index, String name, String sfName) {
 		super();
 		this.index = index;
 		this.name = name;
 		this.sfName = sfName;
+		this.sfNullName = sfName;
 	}
 
 	public int getIndex() {
@@ -95,5 +98,13 @@ public abstract class Column<T> {
 	public abstract String format(Object value);
 	public boolean checkIsNull(String source) {
 		return StringUtils.isEmpty(source);
+	}
+
+	public String getSfNullName() {
+		return sfNullName;
+	}
+
+	public void setSfNullName(String sfNullName) {
+		this.sfNullName = sfNullName;
 	}
 }

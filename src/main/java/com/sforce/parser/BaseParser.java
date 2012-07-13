@@ -180,12 +180,12 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 			try {
 				if (null != col.getWriteMethod()) {
 					if (col.checkIsNull(s)) {
-						((T)target).getFieldsToNull().add(col.getSfName());
+						((T)target).getFieldsToNull().add(col.getSfNullName());
 					} else {
 						col.getWriteMethod().invoke(target, col.parse(s));
 					}
 				} else {
-					this.getLogger().debug("Fake ? "+col.getSfName());
+					this.getLogger().debug("Fake ? "+col.getIndex()+col.getSfName());
 				}
 				
 				/*

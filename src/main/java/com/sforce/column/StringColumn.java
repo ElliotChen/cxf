@@ -9,6 +9,11 @@ public class StringColumn extends Column<String> {
 		super(index, name, sfName);
 	}
 
+	public StringColumn(int index, String name, String sfName, String sfNullName) {
+		super(index, name, sfName);
+		
+		this.sfNullName = sfNullName;
+	}
 	public String parse(String value) {
 		if (StringUtils.isEmpty(value)) {
 			return "";
