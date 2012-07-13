@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.BeanUtils;
 
 import com.sforce.column.Column;
+import com.sforce.column.DateColumn;
 import com.sforce.soap.enterprise.sobject.Account;
 import com.sforce.soap.enterprise.sobject.Name;
 import com.sforce.soap.enterprise.sobject.SObject;
@@ -177,11 +178,27 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 		for (Column<?> col : columns) {
 			String s = source[col.getIndex()];
 			try {
+				if (null != col.getWriteMethod()) {
+					if (col.checkIsNull(s)) {
+						((T)target).getFieldsToNull().add(col.getSfName());
+					} else {
+						col.getWriteMethod().invoke(target, col.parse(s));
+					}
+				} else {
+					this.getLogger().debug("Fake ? "+col.getSfName());
+				}
+				
+				/*
 				if (StringUtils.isNotEmpty(s) && null != col.getWriteMethod()) {
-					col.getWriteMethod().invoke(target, col.parse(s));
+					if (col.checkIsNull(s)) {
+						((T)target).getFieldsToNull().add(col.getSfName());
+					} else {
+						col.getWriteMethod().invoke(target, col.parse(s));
+					}
 				} else if (col.getNullable() && StringUtils.isNotEmpty(col.getSfName()) && null != col.getWriteMethod()) {
 					((T)target).getFieldsToNull().add(col.getSfName());
 				}
+				*/
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

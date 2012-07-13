@@ -43,8 +43,8 @@ public class Req09MasterParser extends BaseParser<ApplicationC>{
 		int i = 0;
 		columns.add(new StringColumn(i++, "applicationIDC", "Application_ID__c"));
 		columns.add(new StringColumn(i++, "name", "Name"));
-		columns.add(new StringColumn(i++, "layer1IDC", "Layer1_ID"));
-		columns.add(new StringColumn(i++, "layer1DescC", "Layer1_Desc"));
+		columns.add(new StringColumn(i++, "layer1IDC", "Layer1_ID__c"));
+		columns.add(new StringColumn(i++, "layer1DescC", "Layer1_Desc__c"));
 		columns.add(new StringColumn(i++, "layer2IDC", "Layer2_ID__c"));
 		columns.add(new StringColumn(i++, "layer2DescC", "Layer2_Desc__c"));
 		columns.add(new StringColumn(i++, "layer3DescC", "Layer3_Desc__c"));

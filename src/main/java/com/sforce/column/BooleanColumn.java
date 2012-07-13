@@ -1,5 +1,7 @@
 package com.sforce.column;
 
+import org.apache.commons.lang.StringUtils;
+
 
 
 
@@ -31,5 +33,10 @@ public class BooleanColumn extends Column<Boolean> {
 		}
 		
 		return (Boolean)value ? yes : no;
+	}
+	
+	@Override
+	public boolean checkIsNull(String source) {
+		return StringUtils.isEmpty(source) && !no.equals(source);
 	}
 }

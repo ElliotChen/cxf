@@ -5,6 +5,8 @@ import java.lang.reflect.Method;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
+import org.apache.commons.lang.StringUtils;
+
 public abstract class Column<T> {
 	public static final QName qname = new QName("urn:sobject.enterprise.soap.sforce.com");
 	public static final char DEFAULT_SEPARATOR = '\t';
@@ -91,4 +93,7 @@ public abstract class Column<T> {
 
 	public abstract T parse(String value);
 	public abstract String format(Object value);
+	public boolean checkIsNull(String source) {
+		return StringUtils.isEmpty(source);
+	}
 }

@@ -25,9 +25,10 @@ public class Req02MasterParserTest {
 	public void testParse() {
 		try {
 //			List<String> lines = FileUtils.readLines(new File("/Users/elliot/gitrepo/cxf/src/test/resources/req02.txt"));
-			List<String> lines = FileUtils.readLines(new File("/Users/elliot/mqfile/test/req02_mxic_light.txt"));
+			List<String> lines = FileUtils.readLines(new File("/Users/elliot/mqfile/test/req02_mxic_001.txt"));
 			for (String s: lines) {
 				String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(s, "\t");
+				fp.init();
 				fp.analysis(split);
 				SObject target = fp.parse(split);
 				logger.debug("Find Source [{}]",target);
