@@ -61,12 +61,12 @@ public class Req06I1FFormatter extends SubParser<OpportunityDataC, Opportunity> 
 		columns.add(new StringColumn(i++, "EPNNameC", "Product_Opportunity__r.EPN_Name__c"));//cheat01 EPNNameC
 		columns.add(new DateColumn(i++, "startDateC", "Start_Date__c"));
 		columns.add(new StringColumn(i++, "periodTypeC", "Period_Type__c"));
-		columns.add(new DoubleColumn(i++, "monthQtyC", "Month_Qty__c"));
+		columns.add(new DoubleColumn(i++, "monthQtyC", "Month_Qty__c","%1$.0f"));
 		columns.add(new StringColumn(i++, "currencyC", "Currency__c"));
 		columns.add(new DoubleColumn(i++, "quotePriceC", "Quote_Price__c"));
 		columns.add(new DoubleColumn(i++, "quotePriceUSDC", "Quote_Price_USD__c"));
-		columns.add(new DoubleColumn(i++, "SAMQtyKeaC", "SAM_Qty_Kea__c"));
-		columns.add(new DoubleColumn(i++, "SOMQtyKeaC", "SOM_Qty_Kea__c"));
+		columns.add(new DoubleColumn(i++, "SAMQtyKeaC", "SAM_Qty_Kea__c","%1$.3f"));
+		columns.add(new DoubleColumn(i++, "SOMQtyKeaC", "SOM_Qty_Kea__c","%1$.3f"));
 		
 //		this.tableName = "Product_Opportunity__c.Opportunity_Data__r";
 		this.tableName = "Opportunity_Data__c";

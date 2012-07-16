@@ -3,11 +3,15 @@ package com.sforce.column;
 import org.apache.commons.lang.StringUtils;
 
 public class DoubleColumn extends Column<Double> {
-	private String format = "%1$.4f";
+	public static final String DEFAULT_FORMAT= "%1$.4f";
+	private String format = DEFAULT_FORMAT;
 	public DoubleColumn(int index, String name, String sfName) {
+		this(index, name, sfName, DEFAULT_FORMAT);
+	}
+	
+	public DoubleColumn(int index, String name, String sfName, String format) {
 		super(index, name, sfName);
-//		if (StringUtils)
-//		this.format = format;
+		this.format = format;
 	}
 
 	@Override

@@ -55,7 +55,7 @@ public class Req06MasterFormatter extends BaseParser<Opportunity> {
 		columns.add(new StringColumn(i++, "brandModelNameC", "Brand_Model_Name__r.Name"));//cheat 6 Brand_Model_Name__r.Name
 		columns.add(new StringColumn(i++, "operatingSystemC", "Operating_System__c"));
 		columns.add(new StringColumn(i++, "bootLoaderC", "Boot_Loader__c"));
-		columns.add(new DoubleColumn(i++, "yearlyVolumeC", "Yearly_Volume__c"));
+		columns.add(new DoubleColumn(i++, "yearlyVolumeC", "Yearly_Volume__c", "%1$.3f"));
 		
 		columns.add(new StringColumn(i++, "accountId", "Account.AccountNumber"));//cheat 7
 		columns.add(new StringColumn(i++, "platformDescriptionC", "Platform_Description__c"));

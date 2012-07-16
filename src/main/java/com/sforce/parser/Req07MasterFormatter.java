@@ -44,7 +44,7 @@ public class Req07MasterFormatter extends BaseParser<ProductOpportunityC> {
 		columns.add(new StringColumn(i++, "prospectGroupNoC", "Prospect_Group_No__c"));
 		columns.add(new StringColumn(i++, "EPNNameC", "EPN_Name__c"));
 		columns.add(new StringColumn(i++, "applicationC", "Application__c"));
-		columns.add(new DoubleColumn(i++, "SAMAvgAmountC", "SAM_Avg_Amount__c"));
+		columns.add(new DoubleColumn(i++, "SAMAvgAmountC", "SAM_Avg_Amount__c","%1$.4f"));
 		columns.add(new StringColumn(i++, "firstMPOrderNoC", "First_MP_Order_No__c"));
 		
 		this.tableName = "Product_Opportunity__c";

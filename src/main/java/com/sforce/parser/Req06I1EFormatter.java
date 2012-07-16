@@ -66,7 +66,7 @@ public class Req06I1EFormatter extends SubParser<ProductOpportunityC, Opportunit
 		
 		columns.add(new DateColumn(i++, "sampleShippedDateC", "Sample_Shipped_Date__c"));
 		columns.add(new StringColumn(i++, "SAPSampleOrderNoC", "SAP_Sample_Order_No__c"));
-		columns.add(new DoubleColumn(i++, "sampleQtyC", "Sample_Qty__c"));
+		columns.add(new DoubleColumn(i++, "sampleQtyC", "Sample_Qty__c", "%1$.0f"));
 		columns.add(new StringColumn(i++, "qualificationStatusC", "Qualification_Status__c"));
 		columns.add(new StringColumn(i++, "failedReasonC", "Failed_Reason__c"));
 		columns.add(new StringColumn(i++, "ISMacronixTheSingleSourceC", "IS_Macronix_the_single_source__c"));
@@ -80,8 +80,8 @@ public class Req06I1EFormatter extends SubParser<ProductOpportunityC, Opportunit
 		columns.add(new DoubleColumn(i++, "quotePriceUSDC", "Quote_Price_USD__c"));
 		columns.add(new DateColumn(i++, "lifeCycleFromC", "Life_Cycle_from__c"));
 		columns.add(new DateColumn(i++, "lifeCycleToC", "Life_Cycle_to__c"));
-		columns.add(new DoubleColumn(i++, "SAMAvgQtyC", "SAM_Avg_Qty__c"));
-		columns.add(new DoubleColumn(i++, "SOMAvgQtyC", "SOM_Avg_Qty__c"));
+		columns.add(new DoubleColumn(i++, "SAMAvgQtyC", "SAM_Avg_Qty__c","%1$.3f"));
+		columns.add(new DoubleColumn(i++, "SOMAvgQtyC", "SOM_Avg_Qty__c","%1$.3f"));
 		columns.add(new StringColumn(i++, "createdById", "CreatedBy.FirstName,CreatedBy.LastName")); //cheat01 createdById
 		columns.add(new DateColumn(i++, "createdDate", "CreatedDate"));
 		columns.add(new StringColumn(i++, "lastModifiedById", "LastModifiedBy.FirstName,LastModifiedBy.LastName"));//cheat02 lastModifiedById
