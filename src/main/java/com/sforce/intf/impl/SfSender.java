@@ -50,9 +50,7 @@ public class SfSender extends SfConnector implements Sender {
 			jobs.add(job);
 			logger.info("Find Job for Sending : {}", job);
 			try {
-				logger.debug("Load File as source");
 				File source = new File(job.getAbsolutePath());
-				logger.debug("Read File Lines by FileUtils.readLines");
 				List<String> lines = FileUtils.readLines(source, this.encoding);
 				logger.debug("find lines [{}]", lines.size());
 				/*
@@ -65,7 +63,6 @@ public class SfSender extends SfConnector implements Sender {
 					lines.add(sline);
 				}
 				*/
-				logger.debug("Split line to String[], using split");
 				for (String s : lines) {
 //					String es = new String(s.getBytes(encoding), DEFAULT_ENCODING);
 //					logger.debug("Source [{}]",s);

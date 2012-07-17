@@ -173,7 +173,7 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 		try {
 			target = this.domainClass.newInstance();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			this.getLogger().error("Can't create a new instance for class[{}]", this.domainClass);
 		} 
 		for (Column<?> col : columns) {
 			String s = source[col.getIndex()];
@@ -185,7 +185,9 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 						col.getWriteMethod().invoke(target, col.parse(s));
 					}
 				} else {
-					this.getLogger().debug("Fake ? "+col.getIndex()+col.getSfName());
+					if (!col.getFake()) {
+						this.getLogger().warn("Please check column[{}]-[{}]",col.getIndex(), col.getSfName());
+					}
 				}
 				
 				/*
@@ -200,10 +202,10 @@ public abstract class BaseParser<T extends SObject> implements Parser<T> {
 				}
 				*/
 			} catch (Exception e) {
-				e.printStackTrace();
+				this.getLogger().error("Parsing Source to SObject Failed.", e);
 			}
 		}
-		this.getLogger().debug("Set To Null Cols[{}]", ((T)target).getFieldsToNull());
+		//this.getLogger().debug("Set To Null Cols[{}]", ((T)target).getFieldsToNull());
 		this.postParse((T)target);
 		return (T)target;
 	}

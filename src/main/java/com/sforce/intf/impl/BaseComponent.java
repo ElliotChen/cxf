@@ -45,7 +45,7 @@ public class BaseComponent implements Component, InitializingBean {
 			logger.info("Sorry, [{}] not available!", this.name);
 			return;
 		}
-		logger.info("{} runs!",this.name);
+		logger.info("{} is Running!",this.name);
 		this.status = Status.Reading;
 		try {
 			logger.info("{} now is Reading!",this.name);
