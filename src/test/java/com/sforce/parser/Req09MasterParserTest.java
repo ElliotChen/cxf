@@ -25,7 +25,7 @@ public class Req09MasterParserTest {
 	public void testParse() {
 		try {
 //			List<String> lines = FileUtils.readLines(new File("/Users/elliot/gitrepo/cxf/src/test/resources/req09.txt"));
-			List<String> lines = FileUtils.readLines(new File("/Users/elliot/mqfile/test/req09_mxic_001.txt"));
+			List<String> lines = FileUtils.readLines(new File("/Users/elliot/mqfile/test/req09_mxic_light.txt"));
 //			List<String> lines = FileUtils.readLines(new File("/Users/elliot/gitrepo/cxf/src/test/resources/req09_mxic.txt"));
 			for (String s: lines) {
 				SfSender ss = new SfSender();

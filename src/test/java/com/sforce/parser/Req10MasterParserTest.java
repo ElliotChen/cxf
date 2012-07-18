@@ -19,7 +19,7 @@ public class Req10MasterParserTest {
 	@Test
 	public void testParse() {
 		try {
-			List<String> lines = FileUtils.readLines(new File("/Users/elliot/mqfile/test/req10_mxic_01.txt"));
+			List<String> lines = FileUtils.readLines(new File("/Users/elliot/mqfile/test/req10_mxic_003.txt"));
 			for (String s: lines) {
 				SfSender ss = new SfSender();
 				String[] split = ss.split(s, '\t');
