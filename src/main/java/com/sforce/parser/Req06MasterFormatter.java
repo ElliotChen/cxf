@@ -44,7 +44,8 @@ public class Req06MasterFormatter extends BaseParser<Opportunity> {
 		columns.add(new StringColumn(i++, "projectFailedReasonRemarkC", "Project_Failed_Reason_Remark__c"));
 		columns.add(new StringColumn(i++, "proposerCompanyNoC", "Proposer_Company_No__c"));
 		columns.add(new StringColumn(i++, "proposerNameC", "Proposer_Name__c"));
-		columns.add(new StringColumn(i++, "groupNameC", "Group_Name__c"));
+//		columns.add(new StringColumn(i++, "groupNameC", "Group_Name__c"));
+		columns.add(new StringColumn(i++, "groupNameC", "Account.Parent.AccountNumber")); //cheat12
 		
 		columns.add(new StringColumn(i++, "majorApplicationC", "Major_Application__r.Application_ID__c"));//cheat 1
 		columns.add(new StringColumn(i++, "realApplicationC", "Real_Application__c"));
@@ -171,6 +172,10 @@ public class Req06MasterFormatter extends BaseParser<Opportunity> {
 		//cheat 11
 		if (null != entity.getLastModifiedBy()) {
 			entity.setLastModifiedById(this.formateAsName(entity.getLastModifiedBy()));
+		}
+		//cheat 12
+		if (null != entity.getAccount() && null != entity.getAccount().getParent()) {
+			entity.setGroupNameC(entity.getAccount().getParent().getAccountNumber());
 		}
 	}
 	
