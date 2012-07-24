@@ -15,6 +15,7 @@ import com.sforce.domain.Job;
 import com.sforce.intf.Component;
 import com.sforce.service.JobManager;
 import com.sforce.util.ContextHolder;
+import com.sforce.util.ThreadLocalHolder;
 
 /**
  * Servlet implementation class ComponentServlet
@@ -40,6 +41,10 @@ public class ComponentServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if (null == ThreadLocalHolder.getUser()) {
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
+			return;
+		}
 		String action = request.getParameter("action");
 		String cpname = request.getParameter("cpname");
 		String jobId = request.getParameter("jobId");

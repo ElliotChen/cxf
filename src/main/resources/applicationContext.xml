@@ -68,6 +68,8 @@
 	<bean id="contextHolder" class="com.sforce.util.ContextHolder" />
 	
 	<!--  -->
+	<task:executor id="taskExecutor" pool-size="2"/>
+	<!-- 
 	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
 		<property name="corePoolSize" value="5" />
 		<property name="maxPoolSize" value="20" />
@@ -77,7 +79,8 @@
 			<bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
 		</property>
 	</bean>
-	<task:scheduler id="scheduler" pool-size="20" />
+	 -->
+	<task:scheduler id="scheduler" pool-size="8" />
 		
 	<!-- 	 -->
 	<task:scheduled-tasks scheduler="scheduler">
