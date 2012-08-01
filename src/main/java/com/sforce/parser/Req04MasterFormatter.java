@@ -15,7 +15,9 @@ import com.sforce.soap.enterprise.sobject.CompetitorPriceC;
 import com.sforce.to.SfSqlConfig;
 import com.sforce.util.DateUtils;
 /**
- *
+ * 2012/08/01
+ *原查詢條件 Status = Submit and Last Modified Date > Last Sync Date 改為 
+ *Status = Submit and (Last Modified Date > Last Sync Date or Related_Person__r.Notes_Sync_Date__c > Last Sync Date)
  */
 public class Req04MasterFormatter extends BaseParser<CompetitorPriceC> {
 	private static final Logger logger = LoggerFactory.getLogger(Req04MasterFormatter.class);
@@ -75,7 +77,8 @@ public class Req04MasterFormatter extends BaseParser<CompetitorPriceC> {
 		StringBuilder sb = new StringBuilder();
 		sb.append(" and Status__c = 'Submit' ");
 		if (null != config.getLasySyncDate()) {
-			sb.append(" and LastModifiedDate > "+DateUtils.formatSfDateTime(config.getLasySyncDate()));
+			String lastSyncDate = DateUtils.formatSfDateTime(config.getLasySyncDate());
+			sb.append(" and (LastModifiedDate > "+lastSyncDate+" or Related_Person__r.Notes_Sync_Date__c > "+lastSyncDate+")");
 		}
 		return sb.toString();
 	}

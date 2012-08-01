@@ -292,7 +292,7 @@
 			</list>
 		</property>
 		<property name="receivers" value="${mail.req10}"/>
-		<property name="encoding" value="BIG5" />
+		<property name="encoding" value="${encoding.notes}" />
 	</bean>
 	<bean id="req10MasterParser" class="com.sforce.parser.Req10MasterParser">
 		<property name="syncKey" value="Account_Key__c"/>
@@ -366,7 +366,7 @@
 		<property name="info" value="DI, SFDC -> BO, 自動, 每日6次(每4小時一次)" />
 	</bean>
 	<bean id="req06Receiver" class="com.sforce.intf.impl.Req06SfReceiver">
-		<property name="encoding" value="BIG5" />
+		<property name="encoding" value="${encoding.bo}" />
 	</bean>
 	<bean id="req06Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
 		<property name="queueName" value="${mq.req06}" />
@@ -397,7 +397,7 @@
 		<property name="info" value="Account, SFDC -> Notes, 自動, 即時" />
 	</bean>
 	<bean id="req11Receiver" class="com.sforce.intf.impl.Req11SfReceiver">
-		<property name="encoding" value="BIG5" />
+		<property name="encoding" value="${encoding.notes}" />
 	</bean>
 	<bean id="req11Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
 		<property name="queueName" value="${mq.req11}" />
@@ -443,7 +443,7 @@
 		<property name="info" value="Visit Report, SFDC -> BO, 自動, 每日6次(每4小時一次)" />
 	</bean>
 	<bean id="req15Receiver" class="com.sforce.intf.impl.Req15SfReceiver">
-		<property name="encoding" value="BIG5" />
+		<property name="encoding" value="${encoding.bo}" />
 	</bean>
 	<bean id="req15Sender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
 		<property name="queueName" value="${mq.req15}" />

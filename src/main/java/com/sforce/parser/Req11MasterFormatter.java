@@ -19,6 +19,9 @@ import com.sforce.util.DateUtils;
  * accountNumber	AccountNumber
  * parentIDC	Parent_ID__c
  * attributionC	Attribution__c
+ * 2012/08/01
+ * 原查詢條件 Notes_Sync_ Date > Last_Sync_Date 改為 
+ * Notes_Sync_ Date > Last_Sync_Date or Related_Person__r.Notes_Sync_Date__c > Last Sync Date
  * @author elliot
  *
  */
@@ -99,8 +102,8 @@ public class Req11MasterFormatter extends BaseParser<Account> {
 			cal.set(Calendar.MILLISECOND, 0);
 			lastDate = cal.getTime();
 		}
-		
-		sb.append(" and Notes_Sync_Date__c > "+DateUtils.formatSfDateTime(lastDate));
+		String lastSyncDate = DateUtils.formatSfDateTime(lastDate);
+		sb.append(" and (Notes_Sync_Date__c > "+ lastSyncDate+" or Related_Person__r.Notes_Sync_Date__c > "+lastSyncDate+")");
 		/*
 		if (null != config.getLasySyncDate()) {
 			sb.append(" and Notes_Sync_Date__c > "+DateUtils.formatSfDateTime(config.getLasySyncDate()));
