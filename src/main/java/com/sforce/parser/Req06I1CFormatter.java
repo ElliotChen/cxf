@@ -69,6 +69,8 @@ public class Req06I1CFormatter extends SubParser<DIRelatedAccountC, Opportunity>
 			columns.add(new FakeColumn(i++, "", ""));
 		}
 		this.tableName = "Opportunity.DI_Related_Account__r";
+		
+		//this.wcondition = "Target_Customer_ID__c <> null";
 	}
 
 	@Override

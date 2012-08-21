@@ -27,7 +27,7 @@ public class SforceServiceTest {
 		LoginResult login = null;
 		try {
 			logger.info("Test Begin:"+System.currentTimeMillis());
-			login = soap.login("fiti02@mxic.com.tw.uat", "t25146875", lsh);
+			login = soap.login("fiti02@mxic.com.tw.dev01", "t27571256", lsh);
 			String surl = login.getServerUrl();
 			System.out.println(surl);
 			sh = new SessionHeader();
@@ -174,8 +174,8 @@ public class SforceServiceTest {
 			System.out.println("	"+field.getName());
 		}
 		
-		dso = soap.describeSObject("OpportunityHistory", sh, null, null);
-		System.out.println("Table OpportunityHistory");
+		dso = soap.describeSObject("DI_Case_Status__c", sh, null, null);
+		System.out.println("Table DI_Case_Status__c");
 		for (Field field : dso.getFields()) {
 			System.out.println("	"+field.getName());
 		}
@@ -211,11 +211,21 @@ public class SforceServiceTest {
 			System.out.println(so);
 		}
 		*/
-		QueryResult query = soap.query("SELECT Name,Document_Status__c, (SELECT EPN_Name__c,Start_Date__c,Period_Type__c,Month_Qty__c,Currency__c,Quote_Price__c,SAM_Qty_Kea__c,SOM_Qty_Kea__c FROM Opportunity.Opportunity_Data__r)  FROM Opportunity WHERE Id <> null  and StageName <> 'Draft'", sh, null, null, null);
+		QueryResult query = soap.query("SELECT Name,Document_Status__c  FROM Opportunity WHERE Id <> null  and StageName <> 'Draft'", sh, null, null, null);
 		List<SObject> objects = query.getRecords();
 		for (SObject so : objects) {
 			logger.debug("{}",so);
 		}
+		/*
+		query = soap.query("SELECT StageName__c,StageDate__c FROM DI_Case_Status__c", sh, null, null, null);
+		objects = query.getRecords();
+		for (SObject so : objects) {
+			logger.debug("{}",so);
+		}
+		*/
+		
+		query = soap.query("SELECT Name, Id, (SELECT StageName__c,StageDate__c FROM Opportunity.DI_Case_Status__r) FROM Opportunity WHERE Id <> null  and Document_Status__c <> 'Draft' ", sh, null, null, null);
+		
 	}
 	
 	@Test
@@ -241,7 +251,7 @@ public class SforceServiceTest {
 			System.out.println("	"+field.getName());
 		}
 		
-		QueryResult query = soap.query("SELECT Id,Check_Result__c,Design_in_Site_ID__c FROM Product_Opportunity__c ", sh, null, null, null);
+		QueryResult query = soap.query("SELECT Id,Check_Result__c,Actual_Order_in_Party__c FROM Product_Opportunity__c ", sh, null, null, null);
 		List<SObject> objects = query.getRecords();
 		for (SObject so : objects) {
 			logger.debug("{}",so);

@@ -3,7 +3,7 @@ package com.sforce.intf.impl;
 import java.io.File;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,18 +16,12 @@ import com.sforce.parser.Req06I1DFormatter;
 import com.sforce.parser.Req06I1EFormatter;
 import com.sforce.parser.Req06I1FFormatter;
 import com.sforce.parser.Req06MasterFormatter;
-import com.sforce.soap.enterprise.InvalidFieldFault;
-import com.sforce.soap.enterprise.InvalidIdFault;
-import com.sforce.soap.enterprise.InvalidQueryLocatorFault;
-import com.sforce.soap.enterprise.InvalidSObjectFault;
-import com.sforce.soap.enterprise.MalformedQueryFault;
 import com.sforce.soap.enterprise.QueryResult;
-import com.sforce.soap.enterprise.UnexpectedErrorFault;
+import com.sforce.soap.enterprise.sobject.DICaseStatusC;
 import com.sforce.soap.enterprise.sobject.DIRelatedAccountC;
 import com.sforce.soap.enterprise.sobject.KeyMilestoneC;
 import com.sforce.soap.enterprise.sobject.Opportunity;
 import com.sforce.soap.enterprise.sobject.OpportunityDataC;
-import com.sforce.soap.enterprise.sobject.OpportunityHistory;
 import com.sforce.soap.enterprise.sobject.ProductOpportunityC;
 import com.sforce.soap.enterprise.sobject.SObject;
 import com.sforce.to.SfSqlConfig;
@@ -74,9 +68,9 @@ public class Req06SfReceiver extends SfReceiver {
 			this.write(target, source);
 			
 			//OpportunityHistories
-			if (null != master.getOpportunityHistories()) {
-				for (SObject dso : master.getOpportunityHistories().getRecords()) {
-					OpportunityHistory detail = (OpportunityHistory) dso;
+			if (null != master.getDICaseStatusR()) {
+				for (SObject dso : master.getDICaseStatusR().getRecords()) {
+					DICaseStatusC detail = (DICaseStatusC) dso;
 					i1aFormatter.preFormat(master, detail);
 					
 					source = i1aFormatter.format(detail);
@@ -88,18 +82,22 @@ public class Req06SfReceiver extends SfReceiver {
 			if (null != master.getDIRelatedAccountR()) {
 				for (SObject dso : master.getDIRelatedAccountR().getRecords()) {
 					DIRelatedAccountC detail = (DIRelatedAccountC) dso;
-					i1bFormatter.preFormat(master, detail);
+					if (StringUtils.isNotEmpty(detail.getTargetCustomerIDC())) {
+						i1bFormatter.preFormat(master, detail);
 					
-					source = i1bFormatter.format(detail);
-					this.write(target, source);
+						source = i1bFormatter.format(detail);
+						this.write(target, source);
+					}
 				}
 				
 				for (SObject dso : master.getDIRelatedAccountR().getRecords()) {
 					DIRelatedAccountC detail = (DIRelatedAccountC) dso;
-					i1cFormatter.preFormat(master, detail);
+					if (StringUtils.isEmpty(detail.getTargetCustomerIDC())) {
+						i1cFormatter.preFormat(master, detail);
 					
-					source = i1cFormatter.format(detail);
-					this.write(target, source);
+						source = i1cFormatter.format(detail);
+						this.write(target, source);
+					}
 				}
 			}
 			

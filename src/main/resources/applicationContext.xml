@@ -241,6 +241,7 @@
 			</list>
 		</property>
 		<property name="receivers" value="${mail.req08}"/>
+		<property name="update" value="true" />
 	</bean>
 	<bean id="req08MasterParser" class="com.sforce.parser.Req08MasterParser">
 		<property name="syncKey" value="Id"/>

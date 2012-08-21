@@ -16,6 +16,7 @@ import com.sforce.parser.Parser;
 import com.sforce.service.JobManager;
 import com.sforce.soap.enterprise.Error;
 import com.sforce.soap.enterprise.MruHeader;
+import com.sforce.soap.enterprise.SaveResult;
 import com.sforce.soap.enterprise.UpsertResult;
 import com.sforce.soap.enterprise.sobject.SObject;
 import com.sforce.to.InitConfig;
@@ -29,7 +30,7 @@ public class SfSender extends SfConnector implements Sender {
 	private List<Parser<?>> parsers;
 	private List<SObject> objs = null;
 	private String syncKey;
-	
+	private Boolean update = Boolean.FALSE;
 	@Override
 	public boolean send() {
 		this.connect(this.account, this.password);
@@ -38,6 +39,7 @@ public class SfSender extends SfConnector implements Sender {
 			logger.warn("Doesn't connecto to SalesForce, Please run connect first.");
 			return false;
 		}
+		logger.debug("Using update mode : {}", this.update);
 		/*
 		Req01MasterParser fp = new Req01MasterParser();
 		fp.init();
@@ -105,6 +107,7 @@ public class SfSender extends SfConnector implements Sender {
 					int loop = 0;
 					for (List<SObject> sos : lists) {
 						logger.debug("Begin Loop[{}] and Current Size[{}]", loop, sos.size());
+						if (!this.update) {
 						List<UpsertResult> result = soap.upsert(syncKey, sos , sh, null, null, null, null, null, null, null, null, null, null);
 						for (int rindex = 0; rindex < result.size(); rindex++) {
 							UpsertResult ur = result.get(rindex);
@@ -115,11 +118,31 @@ public class SfSender extends SfConnector implements Sender {
 									continue;
 								}
 								String line = lines.get(loop*pageSize+rindex);
-								errors.add("Upsert SObject Failed : Source should be ["+line+"]");
-								logger.error("[{}]-[{}] Upsert SObject Failed : Key[{}]", new Object[] {job.getComponent(), job.getMqId(), line});
+								errors.add("Upsert SObject Failed : Source could be ["+line+"]");
+								logger.error("[{}]-[{}] Upsert SObject Failed : Data[{}]", new Object[] {job.getComponent(), job.getMqId(), line});
 								for (Error err : ur.getErrors()) {
 									errors.add("Code["+err.getStatusCode()+"] - Message:"+err.getMessage());
 									logger.error("[{}]-[{}] Code [{}] - Message: {}",new Object[] {job.getComponent(), job.getMqId(),err.getStatusCode(), err.getMessage()});
+								}
+							}
+						}
+						} else {
+							List<SaveResult> result = soap.update(sos, sh, null, null, null, null, null, null, null, null, null, null);
+							for (int rindex = 0; rindex < result.size(); rindex++) {
+								SaveResult sr = result.get(rindex);
+								if (!sr.getSuccess()) {
+									int lineNumber = loop*pageSize+rindex;
+									if (lineNumber >= lines.size()) {
+										logger.error("Please check your loop count! max size [{}] - try to get [{}]", lines.size(), lineNumber);
+										continue;
+									}
+									String line = lines.get(loop*pageSize+rindex);
+									errors.add("Update SObject Failed : Source could be ["+line+"]");
+									logger.error("[{}]-[{}] Update SObject Failed : Key[{}]", new Object[] {job.getComponent(), job.getMqId(), sr.getId()});
+									for (Error err : sr.getErrors()) {
+										errors.add("Code["+err.getStatusCode()+"] - Message:"+err.getMessage());
+										logger.error("[{}]-[{}] Code [{}] - Message: {}",new Object[] {job.getComponent(), job.getMqId(),err.getStatusCode(), err.getMessage()});
+									}
 								}
 							}
 						}
@@ -208,4 +231,13 @@ public class SfSender extends SfConnector implements Sender {
 	public void setJobManager(JobManager jobManager) {
 		this.jobManager = jobManager;
 	}
+
+	public Boolean getUpdate() {
+		return update;
+	}
+
+	public void setUpdate(Boolean update) {
+		this.update = update;
+	}
+	
 }

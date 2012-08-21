@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.sforce.intf.impl.SfSender;
 import com.sforce.soap.enterprise.sobject.EPNProductBodyLinkC;
 import com.sforce.soap.enterprise.sobject.ExchangeRateC;
 import com.sforce.soap.enterprise.sobject.SObject;
@@ -26,10 +27,11 @@ public class Req08MasterParserTest {
 	@Test
 	public void testParse() {
 		try {
-			List<String> lines = FileUtils.readLines(new File("/Users/elliot/gitrepo/cxf/src/test/resources/req08.txt"));
+			List<String> lines = FileUtils.readLines(new File("/Users/elliot/mqfile/test/req08_mxic.txt"));
 			for (String s: lines) {
 				System.out.println(s);
-				String[] split = s.split("\\t");
+				SfSender ss = new SfSender();
+				String[] split = ss.split(s, '\t');
 				for (int i=0; i < split.length; i++) {
 					logger.debug("{} : [{}]", i+1, split[i]);
 				}

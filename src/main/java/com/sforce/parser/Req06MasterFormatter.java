@@ -70,8 +70,10 @@ public class Req06MasterFormatter extends BaseParser<Opportunity> {
 		columns.add(new StringColumn(i++, "ownerId", "Owner.FirstName,Owner.LastName"));//cheat 9 -0
 
 		columns.add(new StringColumn(i++, "tempRecordTypeC", "Owner.Region__c"));//cheat 9 -1
-		columns.add(new StringColumn(i++, "manufactureSiteAMC", "Owner.DI_Region__c"));//cheat 9 -2
-		columns.add(new StringColumn(i++, "manufactureSiteC", "Owner.DEPT__c"));//cheat 9 -3
+//		columns.add(new StringColumn(i++, "manufactureSiteAMC", "Owner.DI_Region__c"));//cheat 9 -2
+//		columns.add(new StringColumn(i++, "manufactureSiteC", "Owner.DEPT__c"));//cheat 9 -3
+		columns.add(new StringColumn(i++, "manufactureSiteTxtC", "Owner.DI_Region__c"));//cheat 9 -2
+		columns.add(new StringColumn(i++, "manufactureSiteTypeC", "Owner.DEPT__c"));//cheat 9 -3
 		columns.add(new DateColumn(i++, "createdDate", "CreatedDate"));
 		columns.add(new StringColumn(i++, "createdById", "CreatedBy.FirstName,CreatedBy.LastName"));//cheat 10
 		columns.add(new StringColumn(i++, "creatorDeptC", "Creator_Dept__c"));
@@ -162,8 +164,13 @@ public class Req06MasterFormatter extends BaseParser<Opportunity> {
 		if (null != entity.getOwner()) {
 			entity.setOwnerId(this.formateAsName(entity.getOwner()));
 			entity.setTempRecordTypeC(entity.getOwner().getRegionC());
+			
+			entity.setManufactureSiteTxtC(entity.getOwner().getDIRegionC());
+			entity.setManufactureSiteTypeC(entity.getOwner().getDEPTC());
+			/*
 			entity.setManufactureSiteAMC(entity.getOwner().getDIRegionC());
 			entity.setManufactureSiteC(entity.getOwner().getDEPTC());
+			*/
 		}
 		//cheat 10
 		if (null != entity.getCreatedBy()) {

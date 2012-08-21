@@ -7,10 +7,9 @@ import org.slf4j.LoggerFactory;
 
 import com.sforce.column.Column;
 import com.sforce.column.DateColumn;
-import com.sforce.column.DoubleColumn;
 import com.sforce.column.FakeColumn;
-import com.sforce.column.MonthColumn;
 import com.sforce.column.StringColumn;
+import com.sforce.soap.enterprise.sobject.DICaseStatusC;
 import com.sforce.soap.enterprise.sobject.Opportunity;
 import com.sforce.soap.enterprise.sobject.OpportunityHistory;
 import com.sforce.to.SfSqlConfig;
@@ -18,7 +17,7 @@ import com.sforce.to.SfSqlConfig;
  * @author elliot
  *
  */
-public class Req06I1AFormatter extends SubParser<OpportunityHistory, Opportunity> {
+public class Req06I1AFormatter extends SubParser<DICaseStatusC, Opportunity> {
 	private static final Logger logger = LoggerFactory.getLogger(Req06I1AFormatter.class);
 	
 	@Override
@@ -44,8 +43,8 @@ public class Req06I1AFormatter extends SubParser<OpportunityHistory, Opportunity
 				
 				
 		columns.add(new StringColumn(i++, "id", ""));
-		columns.add(new StringColumn(i++, "stageName", "StageName"));
-		columns.add(new DateColumn(i++, "createdDate", "CreatedDate"));
+		columns.add(new StringColumn(i++, "stageNameC", "StageName__c"));
+		columns.add(new DateColumn(i++, "stageDateC", "StageDate__c"));
 		
 		for (int index = 0; index < 2; index++) {
 			columns.add(new FakeColumn(i++, "", ""));
@@ -62,11 +61,11 @@ public class Req06I1AFormatter extends SubParser<OpportunityHistory, Opportunity
 		for (int index = 0; index < 10; index++) {
 			columns.add(new FakeColumn(i++, "", ""));
 		}
-		this.tableName = "Opportunity.OpportunityHistories";
+		this.tableName = "Opportunity.DI_Case_Status__r";
 	}
 
 	@Override
-	public void postParse(OpportunityHistory entity) {
+	public void postParse(DICaseStatusC entity) {
 	}
 
 	protected String buildSfCondition(SfSqlConfig config) {
@@ -74,13 +73,13 @@ public class Req06I1AFormatter extends SubParser<OpportunityHistory, Opportunity
 	}
 
 	@Override
-	public void preFormat(OpportunityHistory entity) {
+	public void preFormat(DICaseStatusC entity) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void preFormat(Opportunity master, OpportunityHistory entity) {
+	public void preFormat(Opportunity master, DICaseStatusC entity) {
 		entity.setId(master.getName());
 	}
 	
