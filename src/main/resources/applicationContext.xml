@@ -99,6 +99,7 @@
 		<task:scheduled ref="req13" cron="0 3/5 * * * *" method="run"/>
 		<task:scheduled ref="req14" cron="0 4/5 * * * *" method="run"/>
 		<task:scheduled ref="req15" cron="0 0 3/4 * * *" method="run"/>
+		<task:scheduled ref="jobManager" cron="0 0 1 * * *" method="cleanOldJobs"/>
 	</task:scheduled-tasks>
 	
 	
@@ -115,10 +116,10 @@
 		<property name="component" value="req01" />
 		<property name="queueName" value="EC" />
 	</bean>
-	-->
+	
 	<bean id="mockReceiver" class="com.sforce.mock.MockReceiver" />
 	<bean id="mockSender" class="com.sforce.mock.MockSender" />
-	<!-- 
+	 
 	<bean id="mockComponent" class="com.sforce.intf.impl.BaseComponent">
 		<property name="name" value="mock" />
 		<property name="debug" value="true" />
@@ -133,14 +134,15 @@
 		<property name="sender" ref="mqtestSender" />
 		<property name="info" value="MQ TEST" />
 	</bean>
-	 -->
+	
 	<bean id="mqtestReceiver" class="com.sforce.intf.impl.MqReceiver" parent="mqReceiver">
 		<property name="queueName" value="MXQAS.SFDC_TEST.QL" />
 	</bean>
 	<bean id="mqtestSender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
 		<property name="queueName" value="MXQAS.SFDC_TEST.QL" />
 	</bean>
-	
+	 -->
+	 
 	<!-- MQ To SFDC -->
 	<!--REQ01 Exchange Rate, SAP -> SFDC, 自動, 每日一次 -->
 	<bean id="req01" class="com.sforce.intf.impl.BaseComponent">

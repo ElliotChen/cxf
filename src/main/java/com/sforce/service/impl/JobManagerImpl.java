@@ -2,6 +2,8 @@ package com.sforce.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -14,7 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sforce.dao.JobDao;
 import com.sforce.domain.Job;
 import com.sforce.domain.JobState;
+import com.sforce.domain.support.Condition;
 import com.sforce.domain.support.LikeMode;
+import com.sforce.domain.support.OperationEnum;
+import com.sforce.domain.support.SimpleCondition;
 import com.sforce.service.JobManager;
 import com.sforce.service.TaskManager;
 
@@ -118,5 +123,19 @@ public class JobManagerImpl extends AbstractDomainService<JobDao, Job, String>
 	public void reset(Job job) {
 		job.setState(JobState.Created);
 		this.dao.update(job);
+	}
+	
+	@Transactional(readOnly=false)
+	public void cleanOldJobs() {
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MONTH, -3);
+		List<Condition> conditions = new ArrayList<Condition>();
+		conditions.add(new SimpleCondition("createdDate", cal.getTime(), OperationEnum.LE));
+		List<Job> jobs = this.dao.listByExample(new Job(), conditions, LikeMode.NONE, null, null);
+		logger.info("Finding [{}] Jobs to delete.", jobs.size());
+		for (Job job : jobs) {
+			logger.info("Delete Job [{}]", job);
+			this.dao.delete(job);
+		}
 	}
 }
