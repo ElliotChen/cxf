@@ -99,7 +99,7 @@
 		<task:scheduled ref="req13" cron="0 3/5 * * * *" method="run"/>
 		<task:scheduled ref="req14" cron="0 4/5 * * * *" method="run"/>
 		<task:scheduled ref="req15" cron="0 0 3/4 * * *" method="run"/>
-		<task:scheduled ref="jobManager" cron="0 0 1 * * *" method="cleanOldJobs"/>
+		<task:scheduled ref="jobManager" cron="0 3 1 * * *" method="cleanOldJobs"/>
 	</task:scheduled-tasks>
 	
 	
@@ -156,10 +156,11 @@
 		<property name="queueName" value="${mq.req01}" />
 		<property name="receivers" value="${mail.req01}"/>
 	</bean>
+	<!--
 	<bean id="req01mqSender" class="com.sforce.intf.impl.MqSender" parent="mqSender">
 		<property name="queueName" value="${mq.req01}" />
 		<property name="receivers" value="${mail.req01}"/>
-	</bean>
+	</bean>-->
 	<bean id="req01Sender" class="com.sforce.intf.impl.SfSender">
 		<property name="syncKey" value="Key_sync__c"/>
 		<property name="parsers">
